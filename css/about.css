@@ -1,0 +1,43 @@
+.about-main-container {
+  max-width: 800px;
+  margin: 40px auto;
+  padding: 20px;
+  font-family: "Poppins", sans-serif;
+  font-size: 1.1rem;
+  color: #333;
+  line-height: 1.6;
+  display: grid;
+  gap: 1rem;
+}
+
+.inline-heading {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: baseline;
+  margin-bottom: 20px;
+}
+
+.brand-name {
+  font-weight: 700;
+  margin-right: 8px;
+  color: gold;
+}
+
+.inline-text {
+  flex: 1;
+}
+
+.about-paragraph {
+  margin-bottom: 20px;
+}
+
+/* particles */
+#particles-js {
+  position: fixed;
+  width: 100%;
+  height: 100%;
+  background: #ffffff;
+  z-index: -1;
+  top: 0;
+  left: 0;
+}

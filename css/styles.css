@@ -144,7 +144,7 @@
     background: #fff;
     border-radius: 8px;
     border: 1px solid #ddd;
-    min-height: 300px;
+    min-height: 400px;
     margin: 20px 0;
     display: flex;
     justify-content: center;
@@ -260,7 +260,7 @@
   .combinations-list {
     margin-top: 15px;
     max-width: 300px;
-    gap: 20px; /* Space between boxes */
+    gap: 10px; /* Space between boxes */
     display: flex;
     flex-direction: column;
   }
@@ -312,16 +312,31 @@
     border: none;
     border-radius: 8px;
   }
+
+ .close-btn {
+  position: absolute;
+  top: 10px;
+  right: 20px;
+  font-size: 24px;
+  font-weight: bold;
+  cursor: pointer;
+  background-color: rgb(219, 214, 214);
+  padding: 8px 12px; 
+  border-radius: 50%; 
+  width: 40px; 
+  height: 40px; 
+  display: flex;
+  justify-content: center;
+  align-items: center; 
+  transition: background-color 0.3s, color 0.3s; 
+}
+
+.close-btn:hover {
+  background-color: red; 
+  color: white; 
+}
   
-  .close-btn {
-    position: absolute;
-    top: 10px;
-    right: 20px;
-    font-size: 24px;
-    font-weight: bold;
-    cursor: pointer;
-    background-color: #E8FFF1;
-  }
+  
 
   /* Animation for modal pop-up */
   @keyframes popIn {
@@ -387,4 +402,33 @@
   z-index: -1;
   top: 0;
   left: 0;
+}
+
+.combo-box{
+  font-weight: bold;
+}
+
+/* popup show button */
+.combo-box {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  background-color: #ffffff;
+  padding: 10px;
+  margin: 5px 0;
+  border: 1px solid #ccc;
+  border-radius: 5px;
+}
+
+.popup-sb {
+  background-color: #4CAF50;
+  color: white;
+  border: none;
+  padding: 6px 12px;
+  border-radius: 4px;
+  cursor: pointer;
+}
+
+.popup-sb:hover {
+  background-color: #45a049;
 }

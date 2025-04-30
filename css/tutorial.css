@@ -1,0 +1,132 @@
+body {
+    font-family: "Poppins", sans-serif;
+    background: #ffffff;
+    color: #333333;
+    margin: 0;
+    position: relative;
+    overflow-x: hidden;
+  }
+  
+  #particles-js {
+    position: fixed;
+    width: 100%;
+    height: 100%;
+    background: linear-gradient(135deg, #f5f6f5 0%, #e8ecef 100%);
+    z-index: -1;
+  }
+  
+  .mation {
+    color: #00412e;
+  }
+  
+  nav ul {
+    list-style: none;
+    display: flex;
+    gap: 30px;
+    margin: 0;
+    padding: 0;
+  }
+  
+  nav ul li a {
+    text-decoration: none;
+    color: #333333;
+    font-weight: 600;
+    transition: color 0.3s;
+  }
+  
+  nav ul li a:hover {
+    color: #00412e;
+  }
+  
+  main {
+    max-width: 900px;
+    margin: 50px auto;
+    padding: 0 20px;
+  }
+  
+  h1 {
+    text-align: center;
+    font-size: 36px;
+    color: #2e7d32;
+    margin-bottom: 40px;
+  }
+  
+  .dropdown {
+    margin-bottom: 20px;
+    border-radius: 8px;
+    overflow: hidden;
+    box-shadow: 0 4px 10px rgba(0, 0, 0, 0.05);
+  }
+  
+  .dropdown-header {
+    background: #e8f5e9;
+    color: #00412e;
+    padding: 15px 20px;
+    font-size: 20px;
+    font-weight: 600;
+    cursor: pointer;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    transition: background 0.3s;
+  }
+  
+  .dropdown-header:hover {
+    background: #c8e6c9;
+  }
+  
+  .dropdown-content {
+    background: #ffffff;
+    padding: 0 20px;
+    text-align: left;
+    max-height: 0;
+    overflow: hidden;
+    transition: max-height 0.3s ease-out, padding 0.3s ease-out;
+  }
+  
+  .dropdown-content.active {
+    padding: 20px;
+    max-height: 1000px;
+  }
+  
+  .dropdown-content p,
+  .dropdown-content ul {
+    font-size: 16px;
+    line-height: 1.6;
+    color: #333333;
+  }
+  
+  .dropdown-content ul {
+    padding-left: 20px;
+  }
+  
+  .dropdown-content strong {
+    color: #2e7d32;
+  }
+  
+  .dropdown-content code {
+    background: #e8f5e9;
+    padding: 2px 6px;
+    border-radius: 4px;
+    font-family: "Courier New", Courier, monospace;
+  }
+  
+  .arrow {
+    transition: transform 0.3s;
+  }
+  
+  .arrow.active {
+    transform: rotate(180deg);
+  }
+  
+  /* particles */
+  #particles-js {
+    position: fixed;
+    width: 100%;
+    height: 100%;
+    background: #ffffff;
+    z-index: -1;
+    top: 0;
+    left: 0;
+  }
+  

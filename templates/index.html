@@ -1,0 +1,68 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Eulermation</title>
+    <link rel="stylesheet" href="css/index.css" />
+    <link
+      href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;600;700&display=swap"
+      rel="stylesheet"
+    />
+  </head>
+  <body>
+    <div id="particles-js"></div>
+
+    <header>
+      <div class="logo">
+        <span class="euler">Σuler</span><span class="mation">mation</span>
+      </div>
+      <nav>
+        <ul>
+          <li><a href="index.html">Home</a></li>
+          <li><a href="tutorial.html">Tutorial</a></li>
+          <li><a href="about.html">About</a></li>
+        </ul>
+      </nav>
+    </header>
+
+    <main>
+      <h1>Welcome to Eulermation!</h1>
+      <p class="subtitle">
+        Discover, create, and visualize Euler circuits interactively.
+      </p>
+
+      <div class="main-card">
+        <div class="input-group">
+          <label for="vertices">Number of vertices:</label>
+          <input type="number" id="vertices" min="2" max="20" value="2" />
+        </div>
+
+        <div class="graph-placeholder">
+          <button class="generate-btn">Generate Graph</button>
+        </div>
+
+        <div class="controls">
+          <button class="download-btn">⬇ Download</button>
+          <button class="circuit-btn link-btn" id="openPopup">
+            Euler Circuit combinations
+          </button>
+        </div>
+      </div>
+
+      <p class="tagline">Explore the magic of Euler circuits with ease.</p>
+    </main>
+
+    <!-- Popup Modal -->
+    <div id="popupModal" class="modal">
+      <div class="modal-content">
+        <span class="close-btn">&times;</span>
+        <iframe src="popUp.html" frameborder="0"></iframe>
+      </div>
+    </div>
+
+    <script src="js/script.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/particles.js@2.0.0/particles.min.js"></script>
+    <script src="js/particles.js"></script>
+  </body>
+</html>

@@ -20,58 +20,126 @@ window.addEventListener("click", (event) => {
 });
 
 document.addEventListener("DOMContentLoaded", () => {
-  const generateBtn = document.querySelector(".generate-btn");
   const graphPlaceholder = document.querySelector(".graph-placeholder");
+  const vertexInput = document.getElementById("vertices");
 
-  generateBtn.addEventListener("click", () => {
-    // Clear previous content
-    graphPlaceholder.innerHTML = "";
+  const MIN_VERTICES = 3;
+  const MAX_VERTICES = 10;
 
-    // Create a loading spinner using JavaScript
-    const spinner = document.createElement("div");
-    spinner.style.border = "4px solid #f3f3f3"; // Light grey background
-    spinner.style.borderTop = "4px solid #3498db"; // Blue color for the spinning part
-    spinner.style.borderRadius = "50%";
-    spinner.style.width = "50px";
-    spinner.style.height = "50px";
-    spinner.style.animation = "spin 2s linear infinite";
-    spinner.style.margin = "0 auto"; // Center the spinner
-    graphPlaceholder.appendChild(spinner);
-
-    // Create the spinner animation using JavaScript
+  // Add keyframes for animations if not already present
+  if (!document.getElementById("customKeyframes")) {
     const keyframes = document.createElement("style");
+    keyframes.id = "customKeyframes";
     keyframes.innerHTML = `
-      @keyframes spin {
-        0% { transform: rotate(0deg); }
-        100% { transform: rotate(360deg); }
+      @keyframes rotateDots {
+        0% {
+          transform: rotate(0deg);
+        }
+        100% {
+          transform: rotate(360deg);
+        }
+      }
+
+      @keyframes fadeIn {
+        from { opacity: 0; }
+        to { opacity: 1; }
+      }
+
+      @keyframes shakeInput {
+        0% { transform: translateX(0); }
+        25% { transform: translateX(-4px); }
+        50% { transform: translateX(4px); }
+        75% { transform: translateX(-4px); }
+        100% { transform: translateX(0); }
+      }
+
+      @keyframes bounceIn {
+        0% { transform: scale(0.6); opacity: 0; }
+        60% { transform: scale(1.1); opacity: 1; }
+        80% { transform: scale(0.95); }
+        100% { transform: scale(1); }
       }
     `;
     document.head.appendChild(keyframes);
+  }
 
-    // Simulate a delay (loading effect) before displaying the video placeholder
-    setTimeout(() => {
-      // Clear the spinner after 3 seconds
-      graphPlaceholder.innerHTML = "";
+  const createLoadingAnimation = () => {
+    const container = document.createElement("div");
+    container.style.position = "relative";
+    container.style.width = "50px";
+    container.style.height = "50px";
+    container.style.display = "flex";
+    container.style.justifyContent = "center";
+    container.style.alignItems = "center";
+    container.style.transformOrigin = "center";
+    container.style.animation = "rotateDots 2.5s linear infinite";
 
-      // Create an empty video element
-      const video = document.createElement("video");
-      video.setAttribute("controls", "true");
-      video.setAttribute("width", "400");
-      video.setAttribute("height", "300");
+    const createDot = (angle) => {
+      const dot = document.createElement("div");
+      dot.style.position = "absolute";
+      dot.style.width = "6px";
+      dot.style.height = "6px";
+      dot.style.backgroundColor = "#00412E";
+      dot.style.borderRadius = "50%";
+      dot.style.transform = `rotate(${angle}deg) translateX(18px)`;
+      container.appendChild(dot);
+    };
 
-      // Add styled border and background
-      video.setAttribute(
-        "style",
-        "background: #000; border: 2px solid rgb(188, 194, 188); border-radius: 10px; padding: 4px;"
-      );
+    for (let i = 0; i < 8; i++) {
+      createDot(i * 45);
+    }
 
-      // Placeholder content for accessibility (won’t display)
-      video.innerHTML = "Video placeholder (no source yet)";
+    return container;
+  };
 
-      // Append the video to the placeholder
-      graphPlaceholder.appendChild(video);
-    }, 3000); // Wait for 3 seconds before displaying the video placeholder
-  });
+  const showVideoPlaceholder = () => {
+    graphPlaceholder.innerHTML = "";
+
+    const video = document.createElement("video");
+    video.setAttribute("controls", "true");
+    video.setAttribute("width", "400");
+    video.setAttribute("height", "300");
+    video.style.background = "#000";
+    video.style.border = "2px solid rgb(188, 194, 188)";
+    video.style.borderRadius = "10px";
+    video.style.padding = "4px";
+    video.style.animation = "fadeIn 0.5s ease-out";
+    video.innerHTML = "Video placeholder (no source yet)";
+
+    graphPlaceholder.appendChild(video);
+  };
+
+  const showErrorMessage = (text) => {
+    const errorMsg = document.createElement("p");
+    errorMsg.textContent = text;
+    errorMsg.style.color = "red";
+    errorMsg.style.textAlign = "center";
+    errorMsg.style.fontWeight = "600";
+    errorMsg.style.animation = "bounceIn 0.5s ease";
+
+    // Add shake animation to the input field
+    vertexInput.style.animation = "shakeInput 0.3s ease-out"; // Reduced duration
+
+    graphPlaceholder.appendChild(errorMsg);
+
+    // Reset the input animation after it ends
+    vertexInput.addEventListener("animationend", () => {
+      vertexInput.style.animation = "none";
+    });
+  };
+
+  const handleGenerate = () => {
+    const value = parseInt(vertexInput.value);
+    graphPlaceholder.innerHTML = "";
+
+    if (isNaN(value) || value < MIN_VERTICES || value > MAX_VERTICES) {
+      showErrorMessage(`Please enter a number between ${MIN_VERTICES} and ${MAX_VERTICES}.`);
+      return;
+    }
+
+    graphPlaceholder.appendChild(createLoadingAnimation());
+    setTimeout(showVideoPlaceholder, 3000); // Simulate loading time
+  };
+
+  vertexInput.addEventListener("input", handleGenerate); // Live error checking
 });
-
-

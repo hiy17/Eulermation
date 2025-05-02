@@ -222,12 +222,12 @@ h1 {
 
 .modal-content {
   background-color: #E8FFF1;
-  margin: 5% 13%;
+  margin: 3% 13%;
   padding: 20px;
   border-radius: 10px;
   width: 100%;
   max-width: 1000px;
-  height: 500px;
+  height: 565px;
   max-height: 100vh;
   overflow: hidden;
   position: fixed;
@@ -239,6 +239,7 @@ h1 {
 
 .pop-up {
   display: flex;
+  align-items: center;
   gap: 20px;
   padding: 20px;
   background-color: #E8FFF1;
@@ -283,18 +284,32 @@ h1 {
 }
 
 .column2 {
-  height: 350px;
+  height: 400px;
   background-color: #ffffff;
   outline: 2px solid #00412E; 
 }
 
 .animation-box {
+  position: relative; /* Add this */
   display: flex;
   justify-content: center; 
   align-items: center; 
   height: 100%; 
   background-color: #ffffff; 
   border-radius: 8px;
+}
+
+.max-btn {
+  position: absolute; /* Add this */
+  bottom: 0px;        /* Distance from bottom */
+  right: 10px;         /* Distance from right */
+  color: rgb(29, 88, 14);
+  border: none;
+  font-size: 24px;
+  background-color: transparent;
+  border-radius: 50%;
+  font-weight: 600;
+  cursor: pointer;
 }
 
 .download{
@@ -431,5 +446,39 @@ cursor: pointer;
 
 .popup-sb:hover {
 background-color: #45a049;
+}
+
+/* Animation Max Version */
+
+.modal-content-full {
+  position: fixed;
+  top: 55%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  width: 100vw;
+  height: 100vh;
+}
+
+.min-btn {
+  position: absolute; /* Add this */
+  top: 20px;       
+  right: 80px;       
+  font-size: 2rem;
+  font-weight: bold;
+  cursor: pointer;
+}
+
+#fullscreenModalContainer {
+  background-color: #E8FFF1;
+  padding: 0%;
+  margin: 0%;
+}
+
+#animation-full {
+  width: 90%;
+  height: 430px;
+  margin: 0%;
+  padding: 0%;
+  
 }
 

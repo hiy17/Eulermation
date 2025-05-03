@@ -4,8 +4,11 @@
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>Eulermation</title>
-    <link rel="stylesheet" href="/app/static/css/index.css" />
-    <link rel="stylesheet" href="/app/static/css/about.css" />
+    <!-- <link rel="stylesheet" href="/app/static/css/index.css" />
+    <link rel="stylesheet" href="/app/static/css/about.css" /> -->
+    <link rel="stylesheet" href="{{ url_for('static', filename='css/index.css') }}">
+    <link rel="stylesheet" href="{{ url_for('static', filename='css/about.css') }}">
+
     <link
       href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;600;700&display=swap"
       rel="stylesheet"
@@ -20,9 +23,12 @@
       </div>
       <nav>
         <ul>
-          <li><a href="index.html">Home</a></li>
+          <!-- <li><a href="index.html">Home</a></li>
           <li><a href="tutorial.html">Tutorial</a></li>
-          <li><a href="about.html">About</a></li>
+          <li><a href="about.html">About</a></li> -->
+          <li><a href="{{ url_for('index') }}">Home</a></li>
+          <li><a href="{{ url_for('tutorial') }}">Tutorial</a></li>
+          <li><a href="{{ url_for('about') }}">About</a></li>
         </ul>
       </nav>
     </header>
@@ -51,7 +57,10 @@
         </div>
       </section>
     </main>
+    <!-- <script src="https://cdn.jsdelivr.net/npm/particles.js@2.0.0/particles.min.js"></script>
+    <script src="/app/static/js/particles.js"></script> -->
     <script src="https://cdn.jsdelivr.net/npm/particles.js@2.0.0/particles.min.js"></script>
-    <script src="/app/static/js/particles.js"></script>
+    <script src="{{ url_for('static', filename='js/particles.js') }}"></script>
+
   </body>
 </html>

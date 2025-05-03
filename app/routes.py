@@ -1,47 +1,73 @@
+from flask import Flask, request, send_file, render_template, send_from_directory
 import subprocess
 import os
-from flask import Flask, request, send_file, render_template_string
 import shutil
 import glob
 
-app = Flask(__name__)
 BASE_DIR = os.path.dirname(os.path.abspath(__file__))
+TEMPLATE_DIR = os.path.join(BASE_DIR, '..', 'templates')
+STATIC_DIR = os.path.join(BASE_DIR, 'static')
+
+print(BASE_DIR)
+print(TEMPLATE_DIR)
+print(STATIC_DIR)
+
 EULER_VIDEO_PATH = os.path.join(BASE_DIR, "static", "videos", "euler_graphs", "videos", "generate_animation", "1080p60", "AnimatedEulerianGraph.mp4")
 
+app = Flask(__name__, template_folder=TEMPLATE_DIR, static_folder=STATIC_DIR)
+
+
+# @app.route('/')
+# def home():
+#     return render_template_string('''
+#     <html>
+#     <body>
+#         <h1>Manim On-Demand</h1>
+
+#         <label for="vertices">Number of Vertices (3–8):</label>
+#         <input type="number" id="vertices" name="vertices" min="3" max="8" value="3">
+#         <button onclick="generateAnimation()">Generate Animation</button>
+
+#         <br><br>
+#         <video id="video" width="400" height="400" controls autoplay loop>
+#             <source id="videoSource" src="" type="video/mp4">
+#             Your browser does not support the video tag.
+#         </video>
+
+#         <script>
+#             function generateAnimation() {
+#                 const numVertices = document.getElementById('vertices').value;
+#                 fetch('/render/eulerian_graph?vertices=' + numVertices)
+#                     .then(response => {
+#                         if (response.ok) {
+#                             console.log("Render complete, loading animation...");
+#                             document.getElementById('videoSource').src = '/animation?' + new Date().getTime();
+#                             document.getElementById('video').load();
+#                         }
+#                     });
+#             }
+#         </script>
+#     </body>
+#     </html>
+#     ''')
 
 @app.route('/')
 def home():
-    return render_template_string('''
-    <html>
-    <body>
-        <h1>Manim On-Demand</h1>
+    return render_template('index.html')  # <-- Use template file
 
-        <label for="vertices">Number of Vertices (3–8):</label>
-        <input type="number" id="vertices" name="vertices" min="3" max="8" value="3">
-        <button onclick="generateAnimation()">Generate Animation</button>
+@app.route('/')
+def index():
+    return render_template('index.html')
 
-        <br><br>
-        <video id="video" width="400" height="400" controls autoplay loop>
-            <source id="videoSource" src="" type="video/mp4">
-            Your browser does not support the video tag.
-        </video>
+@app.route('/tutorial')
+def tutorial():
+    return render_template('tutorial.html')
 
-        <script>
-            function generateAnimation() {
-                const numVertices = document.getElementById('vertices').value;
-                fetch('/render/eulerian_graph?vertices=' + numVertices)
-                    .then(response => {
-                        if (response.ok) {
-                            console.log("Render complete, loading animation...");
-                            document.getElementById('videoSource').src = '/animation?' + new Date().getTime();
-                            document.getElementById('video').load();
-                        }
-                    });
-            }
-        </script>
-    </body>
-    </html>
-    ''')
+@app.route('/about')
+def about():
+    return render_template('about.html')
+
+
 
 def build_manim_command(num_vertices):
     env = os.environ.copy()
@@ -88,7 +114,6 @@ def render_animation():
 
     return "Rendered", 200
 
-
 @app.route('/animation')
 def animation():
     if os.path.exists(EULER_VIDEO_PATH):
@@ -96,6 +121,8 @@ def animation():
     else:
         return "No video found", 404
 
-
 if __name__ == "__main__":
     app.run(port=5000, debug=True)
+
+
+

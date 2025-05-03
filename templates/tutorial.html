@@ -3,7 +3,7 @@
   <head>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>Eulermation - Tutorial</title>
+    <title>Eulermation</title>
     <link rel="stylesheet" href="/app/static/css/index.css" />
     <link rel="stylesheet" href="/app/static/css/tutorial.css" />
     <link
@@ -29,6 +29,76 @@
 
     <main>
       <h1>Eulerian Path & Circuit Tutorial</h1>
+
+      <div class="dropdown">
+        <div class="dropdown-header" onclick="toggleDropdown(this)">
+          Introduction to Graphs
+          <span class="arrow">▼</span>
+        </div>
+        <div class="dropdown-content">
+          <p></p>
+          <div class="dropdown">
+            <div class="dropdown-header" onclick="toggleDropdown(this)">
+              Graphs
+              <span class="arrow">▼</span>
+            </div>
+            <div class="dropdown-content">
+              <p>
+                <strong>Graph</strong> is a set of points called vertices and line 
+                segments or curves called edges that connect vertices.
+              </p>
+            </div>
+          </div>
+    
+          <div class="dropdown">
+            <div class="dropdown-header" onclick="toggleDropdown(this)">
+              Multiple Edges
+              <span class="arrow">▼</span>
+            </div>
+            <div class="dropdown-content">
+              <p>
+                If two or more edges connect the same vertices.
+              </p>
+            </div>
+          </div>
+    
+          <div class="dropdown">
+            <div class="dropdown-header" onclick="toggleDropdown(this)">
+              Connected Graphs
+              <span class="arrow">▼</span>
+            </div>
+            <div class="dropdown-content">
+              <p>
+                If any vertex can be reached from any other vertex.
+              </p>
+            </div>
+          </div>
+    
+          <div class="dropdown">
+            <div class="dropdown-header" onclick="toggleDropdown(this)">
+              Complete Graphs
+              <span class="arrow">▼</span>
+            </div>
+            <div class="dropdown-content">
+              <p>
+                Every possible edge is drawn between vertices (without any multiple edges)
+              </p>
+            </div>
+          </div>
+    
+          <div class="dropdown">
+            <div class="dropdown-header" onclick="toggleDropdown(this)">
+              Equivalent Graphs
+              <span class="arrow">▼</span>
+            </div>
+            <div class="dropdown-content">
+              <p>
+                ---
+              </p>
+            </div>
+          </div>
+        </div>
+      </div>
 
       <div class="dropdown">
         <div class="dropdown-header" onclick="toggleDropdown(this)">
@@ -223,7 +293,7 @@
           <p>
             This algorithm runs in O(V + E) time, where V is the number of
             vertices and E is the number of
-            edges.[](https://www.geeksforgeeks.org/eulerian-path-and-circuit/amp/)
+            edges. <a href="https://www.geeksforgeeks.org/eulerian-path-and-circuit/amp/"> Eulirian Path & Circuit</a>
           </p>
         </div>
       </div>
@@ -257,7 +327,7 @@
           </li>
           <p>
             This algorithm is highly efficient with O(E) time
-            complexity.[](https://www.geeksforgeeks.org/hierholzers-algorithm-directed-graph/)
+            complexity. <a href="https://www.geeksforgeeks.org/hierholzers-algorithm-directed-graph/">Hierholzer’s Algorithm Directed Graph</a>
           </p>
         </div>
       </div>
@@ -291,8 +361,8 @@
         <p>&copy; 2025 Eulermation. All rights reserved.</p>
       </footer>
     </main>
-
-    <script src="/app/static/js/tutorial.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/particles.js@2.0.0/particles.min.js"></script>
     <script src="/app/static/js/particles.js"></script>
+    <script src="/app/static/js/tutorial.js"></script>
   </body>
 </html>

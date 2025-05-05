@@ -14,7 +14,7 @@ class AnimatedEulerianGraph(Scene):
         vertex_color=YELLOW_C,
         edge_color=GREEN_A,
         label_color=BLACK,
-        layout_scale=2.5,
+        layout_scale=3,
         **kwargs
     ):
         super().__init__(**kwargs)
@@ -37,10 +37,10 @@ class AnimatedEulerianGraph(Scene):
             raise ValueError(f"Failed to parse EULERIAN_GRAPH: {e}")
 
     def construct(self):
-        config.pixel_width = 1200
+        config.pixel_width = 1300
         config.pixel_height = 1200
         config.frame_width = 10
-        config.frame_height = 10
+        config.frame_height = 9
 
         G_nx = self.eulerian_graph
         if G_nx is None or len(G_nx.nodes) == 0:

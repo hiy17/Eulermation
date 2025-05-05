@@ -48,8 +48,6 @@ def setup_euler_artifacts(num_vertices):
     return euler_graph, euler_circuits
 
 
-
-
 def build_euler_graph(eulerian_graph_json):
     env = os.environ.copy()
     env["EULERIAN_GRAPH"] = eulerian_graph_json  # Serialized JSON graph
@@ -102,8 +100,7 @@ def render_euler_graph_animation():
 
     return "Rendered", 200
 
-
-@app.route('/animation')
+@app.route('/euler_animation')
 def euler_animation():
     if os.path.exists(EULER_VIDEO_PATH):
         return send_file(EULER_VIDEO_PATH, mimetype='video/mp4')
@@ -112,6 +109,19 @@ def euler_animation():
 
 if __name__ == "__main__":
     app.run(port=5000, debug=True)
+
+
+
+
+
+
+
+
+
+
+
+
+
 
 
 

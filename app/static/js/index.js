@@ -153,7 +153,7 @@ document.addEventListener("DOMContentLoaded", () => {
           video.style.animation = "fadeIn 0.5s ease-out";
   
           const source = document.createElement("source");
-          source.src = `/animation?ts=${new Date().getTime()}`;
+          source.src = `/euler_animation?ts=${new Date().getTime()}`;
           source.type = "video/mp4";
           video.appendChild(source);
   
@@ -185,7 +185,7 @@ document.addEventListener("DOMContentLoaded", () => {
           return;
         }
   
-        fetch(`/animation?ts=${new Date().getTime()}`)
+        fetch(`/euler_animation?ts=${new Date().getTime()}`)
           .then((response) => {
             if (signal.aborted) {
               reject(new DOMException("Aborted", "AbortError"));

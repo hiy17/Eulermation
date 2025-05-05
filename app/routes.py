@@ -47,7 +47,6 @@ def setup_euler_artifacts(num_vertices):
     
     return euler_graph, euler_circuits
 
-
 def build_euler_graph(eulerian_graph_json):
     env = os.environ.copy()
     env["EULERIAN_GRAPH"] = eulerian_graph_json  # Serialized JSON graph
@@ -73,10 +72,11 @@ def render_euler_graph_animation():
         return "Invalid input", 400
 
     result = setup_euler_artifacts(num_vertices)
+
     if result is None:
         return "Failed to generate Eulerian graph", 500
 
-    euler_graph, _ = result  # Discard circuits
+    euler_graph, _ = result  
     euler_graph_json = json.dumps(nx.node_link_data(euler_graph))  # ✅ Serialize the graph
 
     output_dir = os.path.join(BASE_DIR, "static", "videos", "euler_graphs", "videos", "generate_animation", "1080p60")

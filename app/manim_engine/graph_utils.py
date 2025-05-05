@@ -91,7 +91,7 @@ import networkx as nx
 import random
 
 class EulerianGraphGenerator:
-    def __init__(self, num_vertices=6, max_attempts=100):
+    def __init__(self, num_vertices=4, max_attempts=100):
         self.num_vertices = num_vertices
         self.max_attempts = max_attempts
         self.current_eulerian_graph = None
@@ -123,21 +123,48 @@ class EulerianGraphGenerator:
 
                 self.current_eulerian_graph = G
                 print(f"Graph generated at attempt no. {attempt}")
-                return G
+                print("Creating euler circuits....")
+                euler_circuits, status = self.generate_euler_circuits(5)
+
+                if status:
+                    return G, euler_circuits
 
             except Exception as e:
                 continue
 
         raise Exception("Failed to generate a valid Eulerian graph after max attempts.")
-
+    
     def generate_euler_circuits(self, num_circuits=5):
+        status = True
         if self.current_eulerian_graph is None:
             print("No Eulerian graph generated.")
-            return []
+            status = False
+            return {}, status
 
-        circuits = []
-        for _ in range(num_circuits):
+        circuits = {}
+        for i in range(num_circuits):
             circuit = list(nx.eulerian_circuit(self.current_eulerian_graph))
-            circuits.append(circuit)
-        return circuits
+            # Store each circuit in the dictionary with a unique key
+            circuits[f"Circuit {i + 1}"] = circuit
+        return circuits, status
+
+    # def display_euler_circuits(self, num_circuits=1):
+    #     circuits = self.generate_euler_circuits(num_circuits)
+
+    #     if not circuits:
+    #         print("No Euler circuits generated.")
+    #         return
+
+    #     # Display the circuits as key-value pairs (Circuit -> list of edges)
+    #     for circuit_name, circuit in circuits.items():
+    #         print(f"\n{circuit_name}:")
+    #         for edge in circuit:
+    #             print(f"{edge[0]} -> {edge[1]}")
+
+
+
+# # Example Usage
+# euler_graph_gen = EulerianGraphGenerator()
+# # euler_graph_gen.generate_eulerian_graph()
+# euler_graph_gen.display_euler_circuits(num_circuits=1)
 

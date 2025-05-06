@@ -1,44 +1,295 @@
+/* Reset some default styles */
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
+
+body {
+  font-family: "Poppins", sans-serif;
+  line-height: 1.6;
+}
+
+/* General Layout */
+main {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  margin-top: 20px;
+}
+
 .about-main-container {
-    max-width: 800px;
-    margin: 40px auto;
-    padding: 20px;
-    font-family: "Poppins", sans-serif;
-    font-size: 1.1rem;
-    color: #333;
-    line-height: 1.6;
-    display: grid;
-    gap: 1rem;
+  max-width: 1200px;
+  margin: 40px auto;
+  padding: 20px;
+  font-size: 1.1rem;
+  color: #00412e;
+  line-height: 1.6;
+  display: flex;
+  flex-wrap: wrap;
+  gap: 2rem;
+}
+
+.about-paragraph {
+  flex: 1 1 300px;
+  margin-bottom: 20px;
+}
+
+/* particles */
+#particles-js {
+  position: fixed;
+  width: 100%;
+  height: 100%;
+  background: #ffffff;
+  z-index: -1;
+  top: 0;
+  left: 0;
+}
+
+.about-hero {
+  text-align: center;
+  margin-top: 60px;
+  color: #222;
+}
+
+.about-hero h1 {
+  font-size: 2.5rem;
+  margin-bottom: 10px;
+}
+
+.about-tagline {
+  font-size: 1.2rem;
+  font-weight: 400;
+  color: #666;
+}
+
+.mission-section {
+  max-width: 800px;
+  margin: 40px auto;
+  padding: 20px;
+  font-size: 1.05rem;
+  color: #00412e;
+  background-color: #f9f9f9;
+  border-left: 4px solid gold;
+  border-radius: 6px;
+  box-shadow: 0 0 10px rgba(0, 0, 0, 0.05);
+  opacity: 0;
+  transform: translateY(20px);
+  transition: all 0.6s ease-out;
+}
+
+.mission-section h2 {
+  margin-bottom: 10px;
+  color: #00412e;
+  font-weight: 600;
+}
+
+/* Fade-in animation */
+.about-paragraph,
+.mission-section,
+.team-section,
+.tech-section,
+.roadmap-section {
+  opacity: 0;
+  transform: translateY(20px);
+  transition: all 0.6s ease-out;
+}
+
+.fade-in {
+  opacity: 1;
+  transform: translateY(0);
+}
+
+.scale-in {
+  animation: scaleIn 1s ease-out forwards;
+}
+
+@keyframes scaleIn {
+  0% {
+    transform: scale(0.5);
+    opacity: 0;
   }
-  
-  .inline-heading {
-    display: flex;
-    flex-wrap: wrap;
-    align-items: baseline;
-    margin-bottom: 20px;
+  100% {
+    transform: scale(1);
+    opacity: 1;
   }
-  
-  .brand-name {
-    font-weight: 700;
-    margin-right: 8px;
-    color: gold;
+}
+
+.slide-up {
+  animation: slideUp 0.8s ease-out forwards;
+}
+
+@keyframes slideUp {
+  0% {
+    transform: translateY(20px);
+    opacity: 0;
   }
-  
-  .inline-text {
-    flex: 1;
+  100% {
+    transform: translateY(0);
+    opacity: 1;
   }
-  
-  .about-paragraph {
-    margin-bottom: 20px;
+}
+
+/* Enhanced design for team section */
+.team-section {
+  padding: 40px 0;
+  background-color: transparent; /* Transparent section background */
+  text-align: center;
+  border-radius: 20px;
+  width: 90%;
+  max-width: 1200px;
+  margin: 0 auto;
+}
+
+.team-section h2 {
+  font-size: 2rem;
+  color: #00412e;
+  margin-bottom: 10px;
+}
+
+.team-grid {
+  display: flex;
+  justify-content: space-evenly;
+  align-items: center;
+  gap: 20px;
+  flex-wrap: wrap;
+  width: 100%;
+}
+
+.team-member {
+  background-color: #dcf1e7; 
+  flex: 1 1 calc(25% - 20px);
+  text-align: center;
+  max-width: 250px;
+  margin: 10px;
+  transition: transform 0.3s ease-in-out, box-shadow 0.3s ease-in-out;
+  border-radius: 10px;
+  padding: 20px;
+}
+
+.team-member img {
+  width: 100px;
+  height: 100px;
+  object-fit: cover;
+  border-radius: 50%;
+  margin-bottom: 15px;
+  margin-top: 10px;
+}
+
+.team-member h3 {
+  font-size: 1rem;
+  color: #00412e;
+  margin-bottom: 5px;
+}
+
+.team-member p {
+  color: #f4c01d;
+  font-size: 0.7rem;
+}
+
+.team-member:hover {
+  transform: translateY(-10px);
+  box-shadow: 0 8px 16px rgba(0, 0, 0, 0.15);
+}
+
+/* Responsive Styles */
+@media (max-width: 1024px) {
+  .team-member {
+    flex: 1 1 calc(33.333% - 20px);
   }
-  
-  /* particles */
-  #particles-js {
-    position: fixed;
-    width: 100%;
-    height: 100%;
-    background: #ffffff;
-    z-index: -1;
-    top: 0;
-    left: 0;
+}
+
+@media (max-width: 768px) {
+  .team-member {
+    flex: 1 1 calc(50% - 20px);
   }
-  
+}
+
+@media (max-width: 480px) {
+  .team-member {
+    flex: 1 1 100%;
+    margin-bottom: 15px;
+  }
+
+  .about-hero h1 {
+    font-size: 1.8rem;
+  }
+
+  .about-tagline {
+    font-size: 0.9rem;
+  }
+}
+
+
+.tech-section, .roadmap-section {
+  max-width: 800px;
+  margin: 40px auto;
+  padding: 20px;
+  background-color: #f9f9f9;
+  border-radius: 8px;
+  box-shadow: 0 2px 10px rgba(0,0,0,0.05);
+  color: #00412e;
+}
+
+.tech-list, .roadmap-section ul {
+  padding-left: 1.2rem;
+  list-style-type: disc;
+  text-align: left;
+}
+/* About Main Container Styling */
+.about-main-container {
+  max-width: 1200px;
+  margin: 40px auto;
+  padding: 30px;
+  font-size: 1.1rem;
+  color: #00412e;
+  background-color: #f9f9f9; /* Added background color for visual separation */
+  border-radius: 8px;
+  box-shadow: 0 2px 10px rgba(0, 0, 0, 0.05);
+  line-height: 1.6;
+  display: flex;
+  flex-wrap: wrap;
+  gap: 2rem;
+}
+
+.about-paragraph {
+  flex: 1 1 300px;
+  margin-bottom: 20px;
+  font-weight: 400;
+}
+
+.brand-name {
+  font-weight: 600;
+  color: #00412e;
+}
+
+.site-footer {
+  color: #000000;
+  padding: 20px;
+  text-align: center;
+  font-size: 0.95rem;
+}
+
+.footer-content {
+  max-width: 1000px;
+  margin: 0 auto;
+}
+
+.social-links a {
+  margin: 0 8px;
+  font-size: 1.3rem;
+  transition: transform 0.3s ease, filter 0.3s ease;
+}
+
+.social-links a .fa-github {
+  color: #181717; /* GitHub black */
+}
+
+.social-links a .fa-linkedin {
+  color: #0A66C2; /* LinkedIn blue */
+}
+
+.social-links a:hover {
+  transform: scale(1.1);
+  filter: brightness(0.8); /* Darkens the icon */
+}

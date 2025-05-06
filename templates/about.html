@@ -4,63 +4,151 @@
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>Eulermation</title>
-    <!-- <link rel="stylesheet" href="/app/static/css/index.css" />
-    <link rel="stylesheet" href="/app/static/css/about.css" /> -->
-    <link rel="stylesheet" href="{{ url_for('static', filename='css/index.css') }}">
-    <link rel="stylesheet" href="{{ url_for('static', filename='css/about.css') }}">
 
+    <!-- Link to external stylesheets -->
+    <link rel="stylesheet" href="/app/static/css/index.css" />
+    <link rel="stylesheet" href="/app/static/css/about.css" />
+    
+    <!-- Google Fonts: Poppins font family -->
     <link
       href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;600;700&display=swap"
       rel="stylesheet"
     />
+    <link
+      rel="stylesheet"
+      href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css"
+    />
+
   </head>
   <body>
     <div id="particles-js"></div>
 
+    <!-- Header section with logo and navigation links -->
     <header>
       <div class="logo">
         <span class="euler">Σuler</span><span class="mation">mation</span>
       </div>
       <nav>
         <ul>
-          <!-- <li><a href="index.html">Home</a></li>
+          <li><a href="index.html">Home</a></li>
           <li><a href="tutorial.html">Tutorial</a></li>
-          <li><a href="about.html">About</a></li> -->
-          <li><a href="{{ url_for('index') }}">Home</a></li>
-          <li><a href="{{ url_for('tutorial') }}">Tutorial</a></li>
-          <li><a href="{{ url_for('about') }}">About</a></li>
+          <li><a href="about.html">About</a></li>
         </ul>
       </nav>
     </header>
 
     <main>
-      <h1>About Eulermation</h1>
+      <!-- About Hero Section -->
+      <section class="about-hero">
+        <h1>About <span class="brand-name">Eulermation</span></h1>
+        <p class="about-tagline">
+          Making Euler circuits interactive, visual, and fun to learn.
+        </p>
+      </section>
+
+      <!-- About Main Content Section -->
       <section class="about-main-container">
-        <div>
-          <span class="brand-name">Eulermation</span>
-          is a web application designed to help users understand and visualize
-          Euler circuits in graphs. We focus specifically on finding and
-          illustrating Euler circuits — paths that visit every edge exactly once
-          and return to the starting point.
+        <div class="about-paragraph">
+          <span class="brand-name">Eulermation</span> is a web application designed to help users understand and visualize Euler circuits in graphs. We focus specifically on finding and illustrating Euler circuits — paths that visit every edge exactly once and return to the starting point.
         </div>
-
-        <div>
-          With <span class="brand-name">Eulermation</span>, users can create
-          custom graphs (up to 10 vertices), input edge connections manually,
-          and watch the system find an Euler circuit, step-by-step.
+      
+        <div class="about-paragraph">
+          With <span class="brand-name">Eulermation</span>, users can create custom graphs (up to 10 vertices), input edge connections manually, and watch the system find an Euler circuit, step-by-step.
         </div>
-
-        <div>
-          Our goal is to make the abstract concept of Euler circuits clear,
-          interactive, and engaging for learners, educators, and anyone curious
-          about graph theory.
+      
+        <div class="about-paragraph">
+          Our goal is to make the abstract concept of Euler circuits clear, interactive, and engaging for learners, educators, and anyone curious about graph theory.
         </div>
       </section>
-    </main>
-    <!-- <script src="https://cdn.jsdelivr.net/npm/particles.js@2.0.0/particles.min.js"></script>
-    <script src="/app/static/js/particles.js"></script> -->
-    <script src="https://cdn.jsdelivr.net/npm/particles.js@2.0.0/particles.min.js"></script>
-    <script src="{{ url_for('static', filename='js/particles.js') }}"></script>
+      
 
+      <!-- Mission Section -->
+      <section class="mission-section">
+        <h2>Our Mission</h2>
+        <p>
+          We aim to bridge the gap between theory and application by making complex topics in graph theory accessible to everyone — one circuit at a time.
+        </p>
+      </section>
+
+      <!-- Meet the Team Section (Merged) -->
+      <section class="team-section">
+        <h2>Meet the Team</h2>
+        <div class="team-grid">
+          <div class="team-member">
+            <img src="https://lh3.googleusercontent.com/a/ACg8ocKEDLtloQrY9aIw4BxM-BfvA1J6wN6fFdo8gPgPYxo8uj6x3DA=s260-c-no" alt="Jude Tadeja">
+            <h3>Jude Tadeja</h3>
+            <p>Project Manager/Full Stack Developer</p>
+            <div class="social-links">
+              <a href="https://github.com/hiy17" target="_blank"><i class="fab fa-github"></i></a>
+              <a href="https://www.linkedin.com/in/jude-tadeja-408b9932a/" target="_blank"><i class="fab fa-linkedin"></i></a>
+            </div>
+          </div>
+
+          <div class="team-member">
+            <img src="https://lh3.googleusercontent.com/a-/ALV-UjWQWZxDo2Lg7VeyQo1n1HqhepW0Z5Eqo_XN5sgim8te1KlJedcuODBN6BW5HwkSAjU94JUj2prCpsOT9TTF_3sY4xz3jQ40OZZQLPYMaZk4lzJvcFmh6_uEhOsm06ATTzZYakmT7t6hxiF53Ay5SgCBxVoHH_CRQxmnhlen0YCsxF9K6ywcnZVySt8KW_pFRCe_gJAOnKPcAFEAM-ik5XOWuhRyHOj26CuXr1hKUTNN4eVNLOdqmMPqqHDW_fmCLnKz31i3kS9jvdNtCqCn3FppqboA6BnMdus0Ti8Iv5OS8piXdUH8DBaFj0VrmlfbPwHMLgO2n0ggHdWavNSgMfdWFllz55sqM6P_oXh6Ifxf2EHReJwsCY93YHJeCUrcv7y3CvsCppUxIE72Pn0oXIzhD9Oj413VYZC5RkTnaXc3Q1-tDZtFwvSYFycJO536nVP0C-ejtl73ZPnrf25mMSSrlGXg0WOtseSOo2itfyJk657C-uAtaOlZQPF1x5MXRVxwTAyRDsJdZlbzL_oUv3qYGN3IbIUiP5aObGssvNJSaN-8mkFhRb4P6a6GB3MdWXgNH0RgTB9JBjJ8AFf-5E7weNaF_i0vgwtF0tdbumWYqHS1BFWl0CLjjolJnw9Rkkv8p93c99ygCCCFQLE_btsGPKEhMuW3v3g9BooQI0YWQ7w7wWv0YzXcV9PohewSMXg-Ld65YiPE9T2Rj5AIaGW9Q4LSab-IBgDZHNR0zONWCUMKnIlYKOLI2sMS09YXENGL1yx6ScOlzpdcroChibXaGmoBwY91DaDN3OYo80JIqeqPSQOrJkgVTvMy0ElHNjWczmA5O5xCwpgp2AaesIBFfYTpZHvY0ajxCgEASGKJNgKR-tqWuiVqrEKacXl5shL9_4umgx68rX9WWsDWIP4TwmVwc8Yge40iRH3V-s4dvP5GvyV4yIER9rL9AuHITSalVa4x-WCKWEFJWpjcCfQeKE1ZvabulQ=s272-p-k-rw-no" alt="Ace Peñaflorida">
+            <h3>Ace Peñaflorida</h3>
+            <p>Backend Developer</p>
+            <div class="social-links">
+              <a href="https://github.com/AcePenaflorida" target="_blank"><i class="fab fa-github"></i></a>
+              <a href="https://www.linkedin.com/in/ace-pe%C3%B1aflorida-274217310/" target="_blank"><i class="fab fa-linkedin"></i></a>
+            </div>
+          </div>
+
+          <div class="team-member">
+            <img src="https://lh3.googleusercontent.com/a-/ALV-UjVBn4prkYjRLUptjVMeRqj8DNye86JEq1jCtwhI6HXXV2H_8yp3=s272-p-k-rw-no" alt="Elizabeth Lindo">
+            <h3>Elizabeth Lindo</h3>
+            <p>Frontend Developer</p>
+            <div class="social-links">
+              <a href="https://github.com/elizalindo" target="_blank"><i class="fab fa-github"></i></a>
+              <a href="https://www.linkedin.com/in/elizabeth-lindo-806a162a5/" target="_blank"><i class="fab fa-linkedin"></i></a>
+            </div>
+          </div>
+
+          <div class="team-member">
+            <img src="https://lh3.googleusercontent.com/a-/ALV-UjVXOsebJr6pbFLG55MqghXK0rEMVc6TthtA1S06VpJbizzdd-Ie=s272-p-k-rw-no" alt="Rain Lyrra Panganiban">
+            <h3>Rain Lyrra Panganiban</h3>
+            <p>Frontend Developer</p>
+            <div class="social-links">
+              <a href="https://github.com/rnlyra" target="_blank"><i class="fab fa-github"></i></a>
+              <a href="https://www.linkedin.com/in/rain-lyrra-panganiban-185725326/" target="_blank"><i class="fab fa-linkedin"></i></a>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      <!-- Technologies Section -->
+<section class="tech-section">
+  <h2>Technologies We Use</h2>
+  <p>We combine powerful tools and intuitive design to bring graph theory to life:</p>
+  <ul class="tech-list">
+    <li><strong>Python (Flask):</strong> Powers the backend and handles Euler logic</li>
+    <li><strong>HTML, CSS, JavaScript:</strong> Provides structure, style, and interactivity</li>
+    <li><strong>Manim:</strong> for generating mathematical animations of Euler circuits</li>
+    <li><strong>Custom algorithms:</strong> Enables accurate Euler circuit verification</li>
+  </ul>
+</section>
+
+<!-- Future Roadmap Section -->
+<section class="roadmap-section">
+  <h2>What's Next?</h2>
+  <p>We’re committed to evolving Eulermation to support even more learners and educators:</p>
+  <ul>
+    <li><strong>Directed graph support:</strong> Visualize and validate directed Euler paths</li>
+    <li><strong>Exportable animations:</strong> Download and share circuit visualizations</li>
+    <li><strong>Interactive tutorials:</strong> Practice with built-in quizzes and challenges</li>
+  </ul>
+</section>
+    </main>
+    <footer class="site-footer">
+      <div class="footer-content">
+        <p>&copy; 2025 Eulermation. All rights reserved.</p>
+      </div>
+    </footer>
+    
+
+    <!-- Particle.js and custom scripts -->
+    <script src="https://cdn.jsdelivr.net/npm/particles.js@2.0.0/particles.min.js"></script>
+    <script src="/app/static/js/particles.js"></script>
+    <script src="/app/static/js/about.js"></script>
   </body>
 </html>

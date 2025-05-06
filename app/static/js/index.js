@@ -2,6 +2,19 @@ const openBtn = document.getElementById("openPopup");
 const closeBtn = document.querySelector(".close-btn");
 const modal = document.getElementById("popupModal");
 
+
+function enableOpenBtn() {
+  openBtn.disabled = false;
+  openBtn.style.opacity = "1";
+  openBtn.style.cursor = "pointer";
+}
+
+function disableOpenBtn() {
+  openBtn.disabled = true;
+  openBtn.style.opacity = "0.5";
+  openBtn.style.cursor = "not-allowed";
+}
+
 // Open popup
 openBtn.addEventListener("click", () => {
   modal.style.display = "block";
@@ -109,6 +122,7 @@ document.addEventListener("DOMContentLoaded", () => {
     };
   
     const handleGenerate = () => {
+      disableOpenBtn(); 
       const value = parseInt(vertexInput.value);
       graphPlaceholder.innerHTML = "";
   
@@ -159,6 +173,7 @@ document.addEventListener("DOMContentLoaded", () => {
   
           graphPlaceholder.appendChild(video);
           video.load();
+          enableOpenBtn(); // <-- Re-enable button after video is ready
         })
         .catch((error) => {
           if (error.name !== "AbortError") {
@@ -166,6 +181,7 @@ document.addEventListener("DOMContentLoaded", () => {
             showErrorMessage("Error generating video. Try again.");
             console.error(error);
           }
+          enableOpenBtn(); // <-- Ensure re-enable on error too
         });
     };
   

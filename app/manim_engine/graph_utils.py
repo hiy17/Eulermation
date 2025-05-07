@@ -8,6 +8,7 @@ class EulerianGraphGenerator:
         self.num_vertices = num_vertices
         self.max_attempts = max_attempts
         self.current_eulerian_graph = None
+        self.euler_cicuits = None
         self.valid_degrees = [2, 4, 6]
 
     def generate_valid_degree_sequence(self):
@@ -35,19 +36,19 @@ class EulerianGraphGenerator:
                 G = nx.relabel_nodes(G, mapping)
 
                 self.current_eulerian_graph = G
+                self.euler_cicuits = self.generate_euler_circuits(5)
                 print(f"Graph generated at attempt no. {attempt}")
-                print("Creating euler circuits....")
-                euler_circuits, status = self.generate_euler_circuits(5)
+                print(f"Euler Circuits: {self.euler_cicuits}")
 
-                if status:
-                    return G, euler_circuits
+                # if status:
+                return G, self.euler_cicuits
 
             except Exception as e:
                 continue
 
         raise Exception("Failed to generate a valid Eulerian graph after max attempts.")
     
-    def generate_euler_circuits(self, num_circuits=5):
+    def generate_euler_circuits(self, num_circuits=1):
         status = True
         if self.current_eulerian_graph is None:
             print("No Eulerian graph generated.")
@@ -59,8 +60,43 @@ class EulerianGraphGenerator:
             circuit = list(nx.eulerian_circuit(self.current_eulerian_graph))
             # Store each circuit in the dictionary with a unique key
             circuits[f"Circuit {i + 1}"] = circuit
+
         return circuits, status
 
+    # def generate_euler_circuits(self, num_circuits=5):
+    #     status = True
+    #     if self.current_eulerian_graph is None:
+    #         print("No Eulerian graph generated.")
+    #         status = False
+    #         return [], status  # Return list for frontend compatibility
+
+    #     unique_circuits = set()
+    #     all_vertices = list(self.current_eulerian_graph.nodes)
+
+    #     for vertex in all_vertices:
+    #         for _ in range(num_circuits):
+    #             try:
+    #                 circuit = list(nx.eulerian_circuit(self.current_eulerian_graph, source=vertex))
+    #                 circuit_tuple = tuple(circuit)
+    #                 unique_circuits.add(circuit_tuple)
+    #             except nx.NetworkXError:
+    #                 continue
+
+    #     if not unique_circuits:
+    #         return ["Maximum generation attempted."], status
+
+    #     # Convert to readable string paths (like "0-1-2-0")
+    #     circuit_paths = []
+    #     for i, circuit in enumerate(unique_circuits):
+    #         if i >= num_circuits:
+    #             break
+    #         nodes = [str(circuit[0][0])] + [str(edge[1]) for edge in circuit]
+    #         path_str = "-".join(nodes)
+    #         circuit_paths.append(path_str)
+
+    #     return circuit_paths, status
+
+    
     # def display_euler_circuits(self, num_circuits=1):
     #     circuits = self.generate_euler_circuits(num_circuits)
 

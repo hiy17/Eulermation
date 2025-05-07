@@ -14,7 +14,44 @@
           margin: 0; /* Remove default margins */
         }
       </style>
-  <div class="pop-up">
+
+<div class="pop-up">
+  <div class="column1">
+    <h2>Euler Circuit Combinations</h2>
+    <div class="combinations-list">
+      <div class="combo-box">
+        1.<button class="popup-sb">▶ Show</button>
+        <div class="circuit-display"></div>
+      </div>
+      <div class="combo-box">
+        2.<button class="popup-sb">▶ Show</button>
+        <div class="circuit-display"></div>
+      </div> 
+      <div class="combo-box">
+        3.<button class="popup-sb">▶ Show</button>
+        <div class="circuit-display"></div>
+      </div> 
+      <div class="combo-box">
+        4.<button class="popup-sb">▶ Show</button>
+        <div class="circuit-display"></div>
+      </div> 
+      <div class="combo-box">
+        5.<button class="popup-sb">▶ Show</button>
+        <div class="circuit-display"></div>
+      </div>
+    </div>
+  </div>
+  <div class="column2">
+    <div class="animation-box">
+      <p>Euler Circuit Animation</p>
+    </div>
+    <div class="download">
+      <button class="download-btn">⬇ Download</button>
+    </div>
+  </div>
+</div>
+
+  <!-- <div class="pop-up">
     <div class="column1">
         <h2>Euler Circuit Combinations</h2>
         <div class="combinations-list">
@@ -28,21 +65,20 @@
     <div class="column2">
         <div class="animation-box">
             <p>Euler Circuit Animation</p>
-            <button class="max-btn" id="fullscreenButton">⛶</button>
         </div>
         <div class="download">
             <button class="download-btn">⬇ Download</button>
         </div>
     </div>
-  </div> 
+  </div>  -->
 
   <!-- Zoom Modal -->
-  <div id="fullscreenModalContainer" class="modal">
+  <!-- <div id="fullscreenModalContainer" class="modal">
     <div class="modal-content-full">
       <span class="min-btn">_</span>
       <iframe src="max.html" frameborder="0" style="width: 100%; height: 90vh;"></iframe>
     </div>
-  </div>
+  </div> -->
 
 <!--   <script src="/app/static/js/popup.js"></script> -->
   <script src="{{ url_for('static', filename='js/popup.js') }}"></script>

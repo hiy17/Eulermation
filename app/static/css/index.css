@@ -266,7 +266,7 @@ h1 {
   flex-direction: column;
 }
 
-.combo-box {
+/* .combo-box {
   background: white;
   border-radius: 6px;
   padding: 12px 15px;
@@ -274,9 +274,32 @@ h1 {
   font-size: 0.95rem;
   color: #333;
   box-shadow: 0px 5px 5px rgba(0, 0, 0, 0.3);
-  min-height: 40px; /* Ensures empty boxes are visible */
-  border: 1px solid #e0e0e0; /* Light border */
+  min-height: 40px;
+  border: 1px solid #e0e0e0; 
+} */
+
+.combo-box {
+  display: flex;
+  flex-direction: column;
+  margin-bottom: 10px;
 }
+
+.popup-sb {
+  margin-bottom: 5px;
+}
+
+.circuit-display {
+  margin-top: 5px;
+  font-size: 0.9rem;
+  color: #333;
+  max-width: 100%;
+  word-wrap: break-word; /* Ensures long circuits wrap within the div */
+  white-space: normal;   /* Allows for wrapping */
+  overflow-wrap: break-word;
+  display: block;
+  flex-grow: 1; /* Ensures the div can expand to fit content */
+}
+
 
 .combo-box:first-child {
   color: #074e3b; /* Dark green text, like your design */

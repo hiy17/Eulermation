@@ -1,4 +1,4 @@
-from flask import Flask, request, send_file, render_template, send_from_directory
+from flask import Flask, jsonify, request, send_file, render_template, send_from_directory
 import subprocess
 import os
 import shutil
@@ -10,6 +10,7 @@ import json
 import networkx as nx
 
 BASE_DIR = os.path.dirname(os.path.abspath(__file__))
+# BASE_DIR = os.path.abspath(os.path.join(os.path.dirname(__file__), '..', '..'))
 TEMPLATE_DIR = os.path.join(BASE_DIR, '..', 'templates')
 STATIC_DIR = os.path.join(BASE_DIR, 'static')
 EULER_VIDEO_PATH = os.path.join(BASE_DIR, "static", "videos", "euler_graphs", "videos", "generate_animation", "1080p60", "AnimatedEulerianGraph.mp4")
@@ -38,18 +39,28 @@ def about():
     return render_template('about.html')
 
 
+
+
+
+
 def setup_euler_artifacts(num_vertices):
     generator = EulerianGraphGenerator(num_vertices)
-    euler_graph, euler_circuits = generator.generate_eulerian_graph()
     
-    if euler_graph is None:
+    # Unpack correctly
+    euler_graph, (euler_circuits, success) = generator.generate_eulerian_graph()
+
+    if euler_graph is None or not success:
         return
-    
+
     return euler_graph, euler_circuits
 
-def build_euler_graph(eulerian_graph_json):
+
+def build_euler_graph(eulerian_graph_json, euler_circuits):
     env = os.environ.copy()
     env["EULERIAN_GRAPH"] = eulerian_graph_json  # Serialized JSON graph
+
+    store_euler_circuits(euler_circuits)  
+    
 
     return {
         "command": [
@@ -62,6 +73,32 @@ def build_euler_graph(eulerian_graph_json):
         "env": env
     }
 
+
+
+euler_circuits_cache = {}
+def store_euler_circuits(euler_circuits):
+    global euler_circuits_cache
+    assert isinstance(euler_circuits, dict), f"Expected dict, got {type(euler_circuits)}"
+    euler_circuits_cache = euler_circuits
+
+
+
+@app.route('/access/euler_circuits')
+def return_euler_circuits():
+    formatted_circuits = []
+    print(euler_circuits_cache)
+
+    for label, circuit in euler_circuits_cache.items():  # Now valid
+        if not circuit:
+            continue
+
+        path = ' → '.join([edge[0] for edge in circuit] + [circuit[-1][1]])
+        formatted_circuits.append(path)
+
+    print(f'Formatted Circuits: {formatted_circuits}')
+    return jsonify(formatted_circuits)
+
+
 @app.route('/render/eulerian_graph')
 def render_euler_graph_animation():
     try:
@@ -71,12 +108,12 @@ def render_euler_graph_animation():
     except ValueError:
         return "Invalid input", 400
 
-    result = setup_euler_artifacts(num_vertices)
+    euler_graph, euler_circuits = setup_euler_artifacts(num_vertices)
 
-    if result is None:
-        return "Failed to generate Eulerian graph", 500
+    # if result is None:
+    #     return "Failed to generate Eulerian graph", 500
 
-    euler_graph, _ = result  
+    # euler_graph, euler_circuits = result  
     euler_graph_json = json.dumps(nx.node_link_data(euler_graph))  # ✅ Serialize the graph
 
     output_dir = os.path.join(BASE_DIR, "static", "videos", "euler_graphs", "videos", "generate_animation", "1080p60")
@@ -91,13 +128,14 @@ def render_euler_graph_animation():
         shutil.rmtree(partials_dir)
         os.makedirs(partials_dir)
 
-    result = build_euler_graph(euler_graph_json)
+    result = build_euler_graph(euler_graph_json, euler_circuits)
     try:
         subprocess.run(result["command"], check=True, env=result["env"])
     except subprocess.CalledProcessError as e:
         print(f"Error running Manim: {e}")
         return f"Manim failed: {e}", 500
 
+    # return_euler_circuits(euler_circuits)
     return "Rendered", 200
 
 @app.route('/euler_animation')
@@ -106,6 +144,9 @@ def euler_animation():
         return send_file(EULER_VIDEO_PATH, mimetype='video/mp4')
     else:
         return "No video found", 404
+
+
+
 
 if __name__ == "__main__":
     app.run(port=5000, debug=True)

@@ -2,12 +2,13 @@
 from manim import *
 import networkx as nx
 import random
+import string
 
 class EulerianGraphGenerator:
     def __init__(self, num_vertices=4, max_attempts=100):
         self.num_vertices = num_vertices
         self.max_attempts = max_attempts
-        self.current_eulerian_graph = None
+        self.eulerian_graph = None
         self.valid_degrees = [2, 4, 6]
 
     def generate_valid_degree_sequence(self):
@@ -34,10 +35,10 @@ class EulerianGraphGenerator:
                 mapping = {n: chr(65 + i) for i, n in enumerate(G.nodes)}
                 G = nx.relabel_nodes(G, mapping)
 
-                self.current_eulerian_graph = G
+                self.eulerian_graph = G
                 print(f"Graph generated at attempt no. {attempt}")
                 print("Creating euler circuits....")
-                euler_circuits, status = self.generate_euler_circuits(5)
+                euler_circuits, status = self.generate_euler_circuits(1)
 
                 if status:
                     return G, euler_circuits
@@ -47,19 +48,167 @@ class EulerianGraphGenerator:
 
         raise Exception("Failed to generate a valid Eulerian graph after max attempts.")
     
-    def generate_euler_circuits(self, num_circuits=5):
+    # def generate_euler_circuits(self, num_circuits=1):
+    #     status = True
+    #     if self.eulerian_graph is None:
+    #         print("No Eulerian graph generated.")
+    #         status = False
+    #         return {}, status
+
+    #     circuits = {}
+    #     for i in range(num_circuits):
+    #         circuit = list(nx.eulerian_circuit(self.eulerian_graph))
+    #         # Store each circuit in the dictionary with a unique key
+    #         circuits[f"Circuit {i + 1}"] = circuit
+
+    #     return circuits, status
+
+    def generate_euler_circuits(self, num_circuits=1):
         status = True
-        if self.current_eulerian_graph is None:
+        if self.eulerian_graph is None:
             print("No Eulerian graph generated.")
             status = False
             return {}, status
 
         circuits = {}
+        nodes = list(self.eulerian_graph.nodes)
         for i in range(num_circuits):
-            circuit = list(nx.eulerian_circuit(self.current_eulerian_graph))
-            # Store each circuit in the dictionary with a unique key
+            start_node = random.choice(nodes)
+            circuit = list(nx.eulerian_circuit(self.eulerian_graph, source=start_node))
             circuits[f"Circuit {i + 1}"] = circuit
+
         return circuits, status
+
+
+# class EulerCircuitAnimator(EulerianGraphGenerator, Scene):
+#     def __init__(
+#         self,
+#         speed=0.5,
+#         background_color=GREY,
+#         vertex_color=GREEN,
+#         edge_color=GREEN_A,
+#         trail_color=RED,
+#         label_color=BLACK,
+#         layout_scale=2,
+        
+#         **kwargs
+#     ):
+#         super().__init__(**kwargs)
+#         self.speed = speed
+#         self.background_color = background_color
+#         self.vertex_color = vertex_color
+#         self.edge_color = edge_color
+#         self.trail_color = trail_color
+#         self.label_color = label_color
+#         self.layout_scale = layout_scale
+#         EulerianGraphGenerator.__init__(self, **kwargs)
+#         Scene.__init__(self, **kwargs)
+#         # self.num_vertices = int(os.getenv("NUM_VERTICES", "4"))
+#         # self.eulerian_graph = None
+#         # self.euler_circuits = None
+
+#     def construct(self):
+#         # Manim frame setup
+#         config.pixel_width = 1200
+#         config.pixel_height = 1200
+#         config.frame_width = 10
+#         config.frame_height = 10
+
+#         num_vertices = 5  # for example
+#         generator = EulerianGraphGenerator(num_vertices)
+#         graph, circuit_generated = generator.generate_eulerian_graph()
+
+#         self.eulerian_graph = graph
+#         self.euler_circuits = circuit_generated
+
+    
+#         if self.eulerian_graph is None or self.euler_circuits is None:
+#             print("No Eulerian graph or circuits found!")
+#             return
+
+#         G_nx = self.eulerian_graph
+#         circuit = self.euler_circuits
+
+#         circuit = list(nx.eulerian_circuit(G_nx))
+#         vertices = list(G_nx.nodes)
+#         layout = nx.circular_layout(G_nx)
+#         positions = {v: layout[v] * self.layout_scale for v in vertices}
+#         manim_positions = {v: [pos[0], pos[1], 0] for v, pos in positions.items()}
+#         name_map = {v: string.ascii_uppercase[i] for i, v in enumerate(vertices)}
+
+#         # Vertices
+#         vertex_mobjects = {
+#             v: Dot(point=manim_positions[v], radius=0.3, color=self.vertex_color).set_z_index(2)
+#             for v in vertices
+#         }
+
+#         # Labels
+#         labels = {
+#             v: Text(name_map[v], color=self.label_color).scale(0.5).move_to(manim_positions[v]).set_z_index(3)
+#             for v in vertices
+#         }
+
+#         # Edges (initially green)
+#         edge_objects = {}
+#         for u, v in G_nx.edges:
+#             line = Line(manim_positions[u], manim_positions[v], color=self.edge_color).set_z_index(1)
+#             edge_objects[(u, v)] = line
+#             edge_objects[(v, u)] = line
+
+#         self.camera.background_color = self.background_color
+
+#         # Display graph
+#         self.play(*[Create(dot) for dot in vertex_mobjects.values()], run_time=self.speed)
+#         self.play(*[Write(label) for label in labels.values()], run_time=self.speed)
+#         self.play(*[Create(line) for line in set(edge_objects.values())], run_time=self.speed)
+
+#         self.wait(self.speed)
+
+#         # Add Euler circuit text below graph
+#         circuit_names = [name_map[u] for u, _ in circuit] + [name_map[circuit[0][0]]]  # include full cycle
+#         circuit_str = " → ".join(circuit_names)
+#         circuit_text = Text(f"Euler Circuit: {circuit_str}", font_size=24, color=WHITE)
+#         circuit_text.next_to(ORIGIN, DOWN * 3)  # slightly below the graph
+#         self.play(FadeIn(circuit_text))
+
+#         # Animate the Euler circuit step by step
+#         for u, v in circuit:
+#             start = manim_positions[u]
+#             end = manim_positions[v]
+
+#             # Animation: red edge grows from u to v
+#             trail = Line(start, end, color=self.trail_color, stroke_width=6).set_z_index(2)
+#             self.play(GrowFromPoint(trail, point=start), run_time=self.speed)
+#             self.add(trail)
+
+#             self.wait(self.speed * 0.2)
+
+#         self.wait(2)
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+# num_vertices = 5  # for example
+# generator = EulerianGraphGenerator(num_vertices)
+
+
+
+
+
+
+
 
     # def display_euler_circuits(self, num_circuits=1):
     #     circuits = self.generate_euler_circuits(num_circuits)

@@ -1,0 +1,326 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>About Us - Eulermation</title>
+    <style>
+        /* Base styles */
+        :root {
+            --primary: #4a8a4a;
+            --primary-light: #f5f9f5;
+            --yellow: #f0c000;
+            --green: #4a8a4a;
+            --dark: #333;
+            --light: #f5f9f5;
+            --white: #fff;
+            --error: #e74c3c;
+            --gray: #6c757d;
+            --light-green: #e8f5e8;
+        }
+
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+        }
+
+        body {
+            background-color: var(--primary-light);
+            color: var(--dark);
+            line-height: 1.6;
+        }
+
+        /* Header and Navigation */
+        header {
+            background-color: var(--white);
+            box-shadow: 0 1px 3px rgba(0, 0, 0, 0.1);
+        }
+
+        nav {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 1rem 2rem;
+            max-width: 1200px;
+            margin: 0 auto;
+        }
+
+        .logo {
+            font-size: 1.8rem;
+            font-weight: bold;
+        }
+
+        .logo-euler {
+            color: var(--yellow);
+        }
+
+        .logo-mation {
+            color: var(--green);
+        }
+
+        .nav-links {
+            display: flex;
+            gap: 2rem;
+        }
+
+        .nav-links a {
+            color: var(--dark);
+            text-decoration: none;
+            font-weight: 500;
+            padding-bottom: 0.25rem;
+        }
+
+        .nav-links a.active {
+            color: var(--primary);
+            border-bottom: 2px solid var(--primary);
+        }
+
+        .get-started-btn {
+            background-color: var(--primary);
+            color: var(--white);
+            border: none;
+            padding: 0.6rem 1.2rem;
+            border-radius: 4px;
+            font-weight: 600;
+            cursor: pointer;
+        }
+
+        /* Main content */
+        main {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 2rem;
+        }
+
+        .about-hero {
+            text-align: center;
+            margin: 2rem 0 3rem;
+        }
+
+        .about-hero h1 {
+            font-size: 2.5rem;
+            color: var(--primary);
+            margin-bottom: 1rem;
+        }
+
+        .about-hero p {
+            font-size: 1.2rem;
+            color: var(--gray);
+        }
+
+        /* About Card */
+        .about-card {
+            background-color: var(--white);
+            border-radius: 8px;
+            box-shadow: 0 4px 20px rgba(0, 0, 0, 0.08);
+            padding: 2rem;
+            margin-bottom: 2rem;
+        }
+
+        .about-card h2 {
+            margin-bottom: 1.5rem;
+            font-size: 1.8rem;
+            color: var(--dark);
+        }
+
+        .about-card p {
+            margin-bottom: 1.5rem;
+            line-height: 1.7;
+        }
+
+        /* Mission Section */
+        .mission-section {
+            background-color: var(--light-green);
+            border-radius: 8px;
+            padding: 2rem;
+            margin-top: 1.5rem;
+        }
+
+        .mission-section h3 {
+            color: var(--primary);
+            margin-bottom: 1rem;
+            font-size: 1.5rem;
+        }
+
+        /* Team Section */
+        .team-section {
+            margin-top: 4rem;
+            text-align: center;
+        }
+
+        .team-section h2 {
+            font-size: 2rem;
+            color: var(--primary);
+            margin-bottom: 2rem;
+        }
+
+        .team-grid {
+            display: grid;
+            grid-template-columns: repeat(4, 1fr);
+            gap: 1.5rem;
+        }
+
+        .team-member {
+            background-color: var(--light-green);
+            border-radius: 8px;
+            padding: 2rem 1rem;
+            text-align: center;
+        }
+
+        .team-photo {
+            width: 120px;
+            height: 120px;
+            border-radius: 50%;
+            background-color: #e0e0e0;
+            margin: 0 auto 1rem;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            border: 4px solid white;
+        }
+
+        .team-name {
+            font-size: 1.2rem;
+            font-weight: 600;
+            margin-bottom: 0.5rem;
+        }
+
+        .team-title {
+            color: var(--yellow);
+            font-weight: 500;
+            margin-bottom: 1rem;
+        }
+
+        .team-social {
+            display: flex;
+            justify-content: center;
+            gap: 1rem;
+            margin-top: 1rem;
+        }
+
+        .social-icon {
+            width: 24px;
+            height: 24px;
+            cursor: pointer;
+        }
+
+        /* Responsive styles */
+        @media (max-width: 1024px) {
+            .team-grid {
+                grid-template-columns: repeat(2, 1fr);
+            }
+        }
+
+        @media (max-width: 768px) {
+            .team-grid {
+                grid-template-columns: 1fr;
+            }
+        }
+    </style>
+</head>
+<body>
+    <header>
+        <nav>
+            <div class="logo">
+                <span class="logo-euler">Euler</span><span class="logo-mation">mation</span>
+            </div>
+            <div class="nav-links">
+                <a href="index.html">Demo</a>
+                <a href="tutorial.html">Tutorial</a>
+                <a href="about.html" class="active">About Us</a>
+            </div>
+            <button class="get-started-btn">Get Started</button>
+        </nav>
+    </header>
+
+    <main>
+        <section class="about-hero">
+            <h1>About Eulermation</h1>
+            <p>Making Euler circuits interactive, visual, and fun to learn.</p>
+        </section>
+
+        <section class="about-card">
+            <p>Eulermation is a web application designed to help users understand and visualize Euler circuits in graphs. We focus specifically on finding and illustrating Euler circuits — paths that visit every edge exactly once and return to the starting point.</p>
+            
+            <p>With Eulermation, users can create custom graphs (up to 10 vertices), input edge connections manually, and watch the system find an Euler circuit, step-by-step.</p>
+            
+            <p>Our goal is to make the abstract concept of Euler circuits clear, interactive, and engaging for learners, educators, and anyone curious about graph theory.</p>
+            
+            <div class="mission-section">
+                <h3>Our Mission</h3>
+                <p>We aim to bridge the gap between theory and application by making complex topics in graph theory accessible to everyone — one circuit at a time.</p>
+            </div>
+        </section>
+
+        <section class="team-section">
+            <h2>Meet the Team</h2>
+            
+            <div class="team-grid">
+                <div class="team-member">
+                    <div class="team-photo"></div>
+                    <div class="team-name">Jude Tadeja</div>
+                    <div class="team-title">Project Manager/Full Stack Developer</div>
+                    <div class="team-social">
+                        <svg class="social-icon" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+                            <path d="M12 0C5.374 0 0 5.373 0 12C0 17.302 3.438 21.8 8.207 23.387C8.806 23.498 9 23.126 9 22.81V20.576C5.662 21.302 4.967 19.16 4.967 19.16C4.421 17.773 3.634 17.404 3.634 17.404C2.545 16.659 3.717 16.675 3.717 16.675C4.922 16.759 5.556 17.912 5.556 17.912C6.626 19.746 8.363 19.216 9.048 18.909C9.155 18.134 9.466 17.604 9.81 17.305C7.145 17 4.343 15.971 4.343 11.374C4.343 10.063 4.812 8.993 5.579 8.153C5.455 7.85 5.044 6.629 5.696 4.977C5.696 4.977 6.704 4.655 8.997 6.207C9.954 5.941 10.98 5.808 12 5.803C13.02 5.808 14.047 5.941 15.006 6.207C17.297 4.655 18.303 4.977 18.303 4.977C18.956 6.63 18.545 7.851 18.421 8.153C19.191 8.993 19.656 10.064 19.656 11.374C19.656 15.983 16.849 16.998 14.177 17.295C14.607 17.667 15 18.397 15 19.517V22.81C15 23.129 15.192 23.504 15.801 23.386C20.566 21.797 24 17.3 24 12C24 5.373 18.627 0 12 0Z" fill="#333333"/>
+                        </svg>
+                        <svg class="social-icon" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+                            <path d="M20.447 20.452H16.893V14.883C16.893 13.555 16.866 11.846 15.041 11.846C13.188 11.846 12.905 13.291 12.905 14.785V20.452H9.351V9H12.765V10.561H12.811C13.288 9.661 14.448 8.711 16.181 8.711C19.782 8.711 20.448 11.081 20.448 14.166V20.452H20.447ZM5.337 7.433C4.193 7.433 3.274 6.507 3.274 5.368C3.274 4.23 4.194 3.305 5.337 3.305C6.477 3.305 7.401 4.23 7.401 5.368C7.401 6.507 6.476 7.433 5.337 7.433ZM7.119 20.452H3.555V9H7.119V20.452ZM22.225 0H1.771C0.792 0 0 0.774 0 1.729V22.271C0 23.227 0.792 24 1.771 24H22.222C23.2 24 24 23.227 24 22.271V1.729C24 0.774 23.2 0 22.222 0H22.225Z" fill="#0077B5"/>
+                        </svg>
+                    </div>
+                </div>
+                
+                <div class="team-member">
+                    <div class="team-photo"></div>
+                    <div class="team-name">Ace Peñaflorida</div>
+                    <div class="team-title">Backend Developer</div>
+                    <div class="team-social">
+                        <svg class="social-icon" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+                            <path d="M12 0C5.374 0 0 5.373 0 12C0 17.302 3.438 21.8 8.207 23.387C8.806 23.498 9 23.126 9 22.81V20.576C5.662 21.302 4.967 19.16 4.967 19.16C4.421 17.773 3.634 17.404 3.634 17.404C2.545 16.659 3.717 16.675 3.717 16.675C4.922 16.759 5.556 17.912 5.556 17.912C6.626 19.746 8.363 19.216 9.048 18.909C9.155 18.134 9.466 17.604 9.81 17.305C7.145 17 4.343 15.971 4.343 11.374C4.343 10.063 4.812 8.993 5.579 8.153C5.455 7.85 5.044 6.629 5.696 4.977C5.696 4.977 6.704 4.655 8.997 6.207C9.954 5.941 10.98 5.808 12 5.803C13.02 5.808 14.047 5.941 15.006 6.207C17.297 4.655 18.303 4.977 18.303 4.977C18.956 6.63 18.545 7.851 18.421 8.153C19.191 8.993 19.656 10.064 19.656 11.374C19.656 15.983 16.849 16.998 14.177 17.295C14.607 17.667 15 18.397 15 19.517V22.81C15 23.129 15.192 23.504 15.801 23.386C20.566 21.797 24 17.3 24 12C24 5.373 18.627 0 12 0Z" fill="#333333"/>
+                        </svg>
+                        <svg class="social-icon" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+                            <path d="M20.447 20.452H16.893V14.883C16.893 13.555 16.866 11.846 15.041 11.846C13.188 11.846 12.905 13.291 12.905 14.785V20.452H9.351V9H12.765V10.561H12.811C13.288 9.661 14.448 8.711 16.181 8.711C19.782 8.711 20.448 11.081 20.448 14.166V20.452H20.447ZM5.337 7.433C4.193 7.433 3.274 6.507 3.274 5.368C3.274 4.23 4.194 3.305 5.337 3.305C6.477 3.305 7.401 4.23 7.401 5.368C7.401 6.507 6.476 7.433 5.337 7.433ZM7.119 20.452H3.555V9H7.119V20.452ZM22.225 0H1.771C0.792 0 0 0.774 0 1.729V22.271C0 23.227 0.792 24 1.771 24H22.222C23.2 24 24 23.227 24 22.271V1.729C24 0.774 23.2 0 22.222 0H22.225Z" fill="#0077B5"/>
+                        </svg>
+                    </div>
+                </div>
+                
+                <div class="team-member">
+                    <div class="team-photo"></div>
+                    <div class="team-name">Elizabeth Lindo</div>
+                    <div class="team-title">Frontend Developer</div>
+                    <div class="team-social">
+                        <svg class="social-icon" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+                            <path d="M12 0C5.374 0 0 5.373 0 12C0 17.302 3.438 21.8 8.207 23.387C8.806 23.498 9 23.126 9 22.81V20.576C5.662 21.302 4.967 19.16 4.967 19.16C4.421 17.773 3.634 17.404 3.634 17.404C2.545 16.659 3.717 16.675 3.717 16.675C4.922 16.759 5.556 17.912 5.556 17.912C6.626 19.746 8.363 19.216 9.048 18.909C9.155 18.134 9.466 17.604 9.81 17.305C7.145 17 4.343 15.971 4.343 11.374C4.343 10.063 4.812 8.993 5.579 8.153C5.455 7.85 5.044 6.629 5.696 4.977C5.696 4.977 6.704 4.655 8.997 6.207C9.954 5.941 10.98 5.808 12 5.803C13.02 5.808 14.047 5.941 15.006 6.207C17.297 4.655 18.303 4.977 18.303 4.977C18.956 6.63 18.545 7.851 18.421 8.153C19.191 8.993 19.656 10.064 19.656 11.374C19.656 15.983 16.849 16.998 14.177 17.295C14.607 17.667 15 18.397 15 19.517V22.81C15 23.129 15.192 23.504 15.801 23.386C20.566 21.797 24 17.3 24 12C24 5.373 18.627 0 12 0Z" fill="#333333"/>
+                        </svg>
+                        <svg class="social-icon" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+                            <path d="M20.447 20.452H16.893V14.883C16.893 13.555 16.866 11.846 15.041 11.846C13.188 11.846 12.905 13.291 12.905 14.785V20.452H9.351V9H12.765V10.561H12.811C13.288 9.661 14.448 8.711 16.181 8.711C19.782 8.711 20.448 11.081 20.448 14.166V20.452H20.447ZM5.337 7.433C4.193 7.433 3.274 6.507 3.274 5.368C3.274 4.23 4.194 3.305 5.337 3.305C6.477 3.305 7.401 4.23 7.401 5.368C7.401 6.507 6.476 7.433 5.337 7.433ZM7.119 20.452H3.555V9H7.119V20.452ZM22.225 0H1.771C0.792 0 0 0.774 0 1.729V22.271C0 23.227 0.792 24 1.771 24H22.222C23.2 24 24 23.227 24 22.271V1.729C24 0.774 23.2 0 22.222 0H22.225Z" fill="#0077B5"/>
+                        </svg>
+                    </div>
+                </div>
+                
+                <div class="team-member">
+                    <div class="team-photo"></div>
+                    <div class="team-name">Rain Lyrra Panganiban</div>
+                    <div class="team-title">Frontend Developer</div>
+                    <div class="team-social">
+                        <svg class="social-icon" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+                            <path d="M12 0C5.374 0 0 5.373 0 12C0 17.302 3.438 21.8 8.207 23.387C8.806 23.498 9 23.126 9 22.81V20.576C5.662 21.302 4.967 19.16 4.967 19.16C4.421 17.773 3.634 17.404 3.634 17.404C2.545 16.659 3.717 16.675 3.717 16.675C4.922 16.759 5.556 17.912 5.556 17.912C6.626 19.746 8.363 19.216 9.048 18.909C9.155 18.134 9.466 17.604 9.81 17.305C7.145 17 4.343 15.971 4.343 11.374C4.343 10.063 4.812 8.993 5.579 8.153C5.455 7.85 5.044 6.629 5.696 4.977C5.696 4.977 6.704 4.655 8.997 6.207C9.954 5.941 10.98 5.808 12 5.803C13.02 5.808 14.047 5.941 15.006 6.207C17.297 4.655 18.303 4.977 18.303 4.977C18.956 6.63 18.545 7.851 18.421 8.153C19.191 8.993 19.656 10.064 19.656 11.374C19.656 15.983 16.849 16.998 14.177 17.295C14.607 17.667 15 18.397 15 19.517V22.81C15 23.129 15.192 23.504 15.801 23.386C20.566 21.797 24 17.3 24 12C24 5.373 18.627 0 12 0Z" fill="#333333"/>
+                        </svg>
+                        <svg class="social-icon" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+                            <path d="M20.447 20.452H16.893V14.883C16.893 13.555 16.866 11.846 15.041 11.846C13.188 11.846 12.905 13.291 12.905 14.785V20.452H9.351V9H12.765V10.561H12.811C13.288 9.661 14.448 8.711 16.181 8.711C19.782 8.711 20.448 11.081 20.448 14.166V20.452H20.447ZM5.337 7.433C4.193 7.433 3.274 6.507 3.274 5.368C3.274 4.23 4.194 3.305 5.337 3.305C6.477 3.305 7.401 4.23 7.401 5.368C7.401 6.507 6.476 7.433 5.337 7.433ZM7.119 20.452H3.555V9H7.119V20.452ZM22.225 0H1.771C0.792 0 0 0.774 0 1.729V22.271C0 23.227 0.792 24 1.771 24H22.222C23.2 24 24 23.227 24 22.271V1.729C24 0.774 23.2 0 22.222 0H22.225Z" fill="#0077B5"/>
+                        </svg>
+                    </div>
+                </div>
+            </div>
+        </section>
+    </main>
+
+    <script>
+        document.addEventListener('DOMContentLoaded', function() {
+            // Any JavaScript functionality can be added here
+        });
+    </script>
+</body>
+</html>

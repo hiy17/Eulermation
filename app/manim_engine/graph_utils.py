@@ -5,7 +5,7 @@ import random
 import string
 
 class EulerianGraphGenerator:
-    def __init__(self, num_vertices=4, max_attempts=100):
+    def __init__(self, num_vertices=4, max_attempts=1000):
         self.num_vertices = num_vertices
         self.max_attempts = max_attempts
         self.eulerian_graph = None

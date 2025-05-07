@@ -320,213 +320,213 @@
                 }, 1500);
             });
             
-            exampleBtn.addEventListener('click', function() {
-                // Show loading state
-                graphPlaceholder.innerHTML = '<div class="loading"><div class="spinner"></div><p>Loading example...</p></div>';
-                animationContainer.innerHTML = '<div class="loading"><div class="spinner"></div><p>Loading animation...</p></div>';
+            // exampleBtn.addEventListener('click', function() {
+            //     // Show loading state
+            //     graphPlaceholder.innerHTML = '<div class="loading"><div class="spinner"></div><p>Loading example...</p></div>';
+            //     animationContainer.innerHTML = '<div class="loading"><div class="spinner"></div><p>Loading animation...</p></div>';
                 
-                // Load example (simulated)
-                setTimeout(() => {
-                    showRealLifeExample();
-                }, 1500);
-            });
+            //     // Load example (simulated)
+            //     setTimeout(() => {
+            //         showRealLifeExample();
+            //     }, 1500);
+            // });
             
-            downloadBtn.addEventListener('click', function() {
-                // In a real implementation, this would download the actual animation
-                alert('In a real implementation, this would download the animation as an MP4 file.');
-            });
+            // downloadBtn.addEventListener('click', function() {
+            //     // In a real implementation, this would download the actual animation
+            //     alert('In a real implementation, this would download the animation as an MP4 file.');
+            // });
             
-            // Function to generate an Euler circuit
-            function generateEulerCircuit(numVertices) {
-                // Create a graph with vertices and edges
-                const graph = createGraph(numVertices);
+            // // Function to generate an Euler circuit
+            // function generateEulerCircuit(numVertices) {
+            //     // Create a graph with vertices and edges
+            //     const graph = createGraph(numVertices);
                 
-                // Render the graph
-                renderGraph(graph);
+            //     // Render the graph
+            //     renderGraph(graph);
                 
-                // Render the animation
-                renderAnimation(graph);
-            }
+            //     // Render the animation
+            //     renderAnimation(graph);
+            // }
             
             // Function to create a graph with an Euler circuit
-            function createGraph(numVertices) {
-                const vertices = [];
-                const edges = [];
+            // function createGraph(numVertices) {
+            //     const vertices = [];
+            //     const edges = [];
                 
-                // Create vertices in a circle
-                const radius = 80;
-                const centerX = 150;
-                const centerY = 100;
+            //     // Create vertices in a circle
+            //     const radius = 80;
+            //     const centerX = 150;
+            //     const centerY = 100;
                 
-                for (let i = 0; i < numVertices; i++) {
-                    const angle = (i / numVertices) * 2 * Math.PI;
-                    const x = centerX + radius * Math.cos(angle);
-                    const y = centerY + radius * Math.sin(angle);
+            //     for (let i = 0; i < numVertices; i++) {
+            //         const angle = (i / numVertices) * 2 * Math.PI;
+            //         const x = centerX + radius * Math.cos(angle);
+            //         const y = centerY + radius * Math.sin(angle);
                     
-                    vertices.push({ id: i, x, y });
-                }
+            //         vertices.push({ id: i, x, y });
+            //     }
                 
-                // Create edges to form a cycle
-                for (let i = 0; i < numVertices; i++) {
-                    edges.push({
-                        from: i,
-                        to: (i + 1) % numVertices
-                    });
-                }
+            //     // Create edges to form a cycle
+            //     for (let i = 0; i < numVertices; i++) {
+            //         edges.push({
+            //             from: i,
+            //             to: (i + 1) % numVertices
+            //         });
+            //     }
                 
-                // Add additional edges to make it more interesting
-                // while maintaining even degree for all vertices
-                for (let i = 0; i < numVertices; i += 2) {
-                    if (i + 2 < numVertices) {
-                        edges.push({
-                            from: i,
-                            to: (i + 2) % numVertices
-                        });
-                    }
-                }
+            //     // Add additional edges to make it more interesting
+            //     // while maintaining even degree for all vertices
+            //     for (let i = 0; i < numVertices; i += 2) {
+            //         if (i + 2 < numVertices) {
+            //             edges.push({
+            //                 from: i,
+            //                 to: (i + 2) % numVertices
+            //             });
+            //         }
+            //     }
                 
-                return { vertices, edges };
-            }
+            //     return { vertices, edges };
+            // }
             
-            // Function to render the graph
-            function renderGraph(graph) {
-                let svg = `
-                    <svg width="100%" height="100%" viewBox="0 0 300 200">
-                        <!-- Edges -->
-                `;
+            // // Function to render the graph
+            // function renderGraph(graph) {
+            //     let svg = `
+            //         <svg width="100%" height="100%" viewBox="0 0 300 200">
+            //             <!-- Edges -->
+            //     `;
                 
-                // Draw edges
-                graph.edges.forEach(edge => {
-                    const from = graph.vertices[edge.from];
-                    const to = graph.vertices[edge.to];
+            //     // Draw edges
+            //     graph.edges.forEach(edge => {
+            //         const from = graph.vertices[edge.from];
+            //         const to = graph.vertices[edge.to];
                     
-                    svg += `<line x1="${from.x}" y1="${from.y}" x2="${to.x}" y2="${to.y}" 
-                                 stroke="#4a8a4a" stroke-width="2" />`;
-                });
+            //         svg += `<line x1="${from.x}" y1="${from.y}" x2="${to.x}" y2="${to.y}" 
+            //                      stroke="#4a8a4a" stroke-width="2" />`;
+            //     });
                 
-                // Draw vertices
-                graph.vertices.forEach(vertex => {
-                    svg += `
-                        <circle cx="${vertex.x}" cy="${vertex.y}" r="12" fill="#4a8a4a" />
-                        <text x="${vertex.x}" y="${vertex.y}" text-anchor="middle" 
-                              dy=".3em" fill="white" font-size="10">${vertex.id + 1}</text>
-                    `;
-                });
+            //     // Draw vertices
+            //     graph.vertices.forEach(vertex => {
+            //         svg += `
+            //             <circle cx="${vertex.x}" cy="${vertex.y}" r="12" fill="#4a8a4a" />
+            //             <text x="${vertex.x}" y="${vertex.y}" text-anchor="middle" 
+            //                   dy=".3em" fill="white" font-size="10">${vertex.id + 1}</text>
+            //         `;
+            //     });
                 
-                svg += '</svg>';
+            //     svg += '</svg>';
                 
-                graphPlaceholder.innerHTML = svg;
-            }
+            //     graphPlaceholder.innerHTML = svg;
+            // }
             
-            // Function to render the animation
-            function renderAnimation(graph) {
-                // In a real implementation, this would be a video or canvas animation
-                // For this demo, we'll create a simple SVG animation
+            // // Function to render the animation
+            // function renderAnimation(graph) {
+            //     // In a real implementation, this would be a video or canvas animation
+            //     // For this demo, we'll create a simple SVG animation
                 
-                let svg = `
-                    <svg width="100%" height="100%" viewBox="0 0 300 200">
-                        <!-- Edges -->
-                `;
+            //     let svg = `
+            //         <svg width="100%" height="100%" viewBox="0 0 300 200">
+            //             <!-- Edges -->
+            //     `;
                 
-                // Draw edges
-                graph.edges.forEach(edge => {
-                    const from = graph.vertices[edge.from];
-                    const to = graph.vertices[edge.to];
+            //     // Draw edges
+            //     graph.edges.forEach(edge => {
+            //         const from = graph.vertices[edge.from];
+            //         const to = graph.vertices[edge.to];
                     
-                    svg += `<line x1="${from.x}" y1="${from.y}" x2="${to.x}" y2="${to.y}" 
-                                 stroke="#4a8a4a" stroke-width="2" />`;
-                });
+            //         svg += `<line x1="${from.x}" y1="${from.y}" x2="${to.x}" y2="${to.y}" 
+            //                      stroke="#4a8a4a" stroke-width="2" />`;
+            //     });
                 
-                // Draw vertices
-                graph.vertices.forEach(vertex => {
-                    svg += `
-                        <circle cx="${vertex.x}" cy="${vertex.y}" r="12" fill="#4a8a4a" />
-                        <text x="${vertex.x}" y="${vertex.y}" text-anchor="middle" 
-                              dy=".3em" fill="white" font-size="10">${vertex.id + 1}</text>
-                    `;
-                });
+            //     // Draw vertices
+            //     graph.vertices.forEach(vertex => {
+            //         svg += `
+            //             <circle cx="${vertex.x}" cy="${vertex.y}" r="12" fill="#4a8a4a" />
+            //             <text x="${vertex.x}" y="${vertex.y}" text-anchor="middle" 
+            //                   dy=".3em" fill="white" font-size="10">${vertex.id + 1}</text>
+            //         `;
+            //     });
                 
-                // Add animated traversal dot
-                svg += `
-                    <circle id="traversal-dot" cx="${graph.vertices[0].x}" cy="${graph.vertices[0].y}" r="6" fill="#e74c3c">
-                        <animate id="animate-motion" attributeName="cx" attributeType="XML" dur="5s" repeatCount="indefinite" />
-                        <animate id="animate-motion-y" attributeName="cy" attributeType="XML" dur="5s" repeatCount="indefinite" />
-                    </circle>
-                `;
+            //     // Add animated traversal dot
+            //     svg += `
+            //         <circle id="traversal-dot" cx="${graph.vertices[0].x}" cy="${graph.vertices[0].y}" r="6" fill="#e74c3c">
+            //             <animate id="animate-motion" attributeName="cx" attributeType="XML" dur="5s" repeatCount="indefinite" />
+            //             <animate id="animate-motion-y" attributeName="cy" attributeType="XML" dur="5s" repeatCount="indefinite" />
+            //         </circle>
+            //     `;
                 
-                svg += '</svg>';
+            //     svg += '</svg>';
                 
-                animationContainer.innerHTML = svg;
+            //     animationContainer.innerHTML = svg;
                 
-                // Set up the animation path
-                const animateX = document.getElementById('animate-motion');
-                const animateY = document.getElementById('animate-motion-y');
+            //     // Set up the animation path
+            //     const animateX = document.getElementById('animate-motion');
+            //     const animateY = document.getElementById('animate-motion-y');
                 
-                if (animateX && animateY) {
-                    // Create a simple path through all vertices
-                    let xValues = '';
-                    let yValues = '';
+            //     if (animateX && animateY) {
+            //         // Create a simple path through all vertices
+            //         let xValues = '';
+            //         let yValues = '';
                     
-                    // Start with the first vertex
-                    const eulerPath = findEulerPath(graph);
+            //         // Start with the first vertex
+            //         const eulerPath = findEulerPath(graph);
                     
-                    eulerPath.forEach((vertexId, index) => {
-                        const vertex = graph.vertices[vertexId];
-                        xValues += `${vertex.x}; `;
-                        yValues += `${vertex.y}; `;
-                    });
+            //         eulerPath.forEach((vertexId, index) => {
+            //             const vertex = graph.vertices[vertexId];
+            //             xValues += `${vertex.x}; `;
+            //             yValues += `${vertex.y}; `;
+            //         });
                     
-                    // Add the first vertex again to complete the circuit
-                    xValues += graph.vertices[eulerPath[0]].x;
-                    yValues += graph.vertices[eulerPath[0]].y;
+            //         // Add the first vertex again to complete the circuit
+            //         xValues += graph.vertices[eulerPath[0]].x;
+            //         yValues += graph.vertices[eulerPath[0]].y;
                     
-                    animateX.setAttribute('values', xValues);
-                    animateY.setAttribute('values', yValues);
-                }
-            }
+            //         animateX.setAttribute('values', xValues);
+            //         animateY.setAttribute('values', yValues);
+            //     }
+            // }
             
-            // Function to find a simple Euler path (simplified for demo)
-            function findEulerPath(graph) {
-                // For this demo, we'll just return a simple cycle
-                // In a real implementation, this would use Hierholzer's algorithm
-                const path = [];
-                for (let i = 0; i < graph.vertices.length; i++) {
-                    path.push(i);
-                }
-                return path;
-            }
+            // // Function to find a simple Euler path (simplified for demo)
+            // function findEulerPath(graph) {
+            //     // For this demo, we'll just return a simple cycle
+            //     // In a real implementation, this would use Hierholzer's algorithm
+            //     const path = [];
+            //     for (let i = 0; i < graph.vertices.length; i++) {
+            //         path.push(i);
+            //     }
+            //     return path;
+            // }
             
-            // Function to show a real-life example
-            function showRealLifeExample() {
-                // Create a predefined example graph
-                const graph = {
-                    vertices: [
-                        { id: 0, x: 150, y: 50 },
-                        { id: 1, x: 250, y: 100 },
-                        { id: 2, x: 250, y: 150 },
-                        { id: 3, x: 150, y: 200 },
-                        { id: 4, x: 50, y: 150 },
-                        { id: 5, x: 50, y: 100 }
-                    ],
-                    edges: [
-                        { from: 0, to: 1 },
-                        { from: 1, to: 2 },
-                        { from: 2, to: 3 },
-                        { from: 3, to: 4 },
-                        { from: 4, to: 5 },
-                        { from: 5, to: 0 },
-                        { from: 0, to: 3 },
-                        { from: 1, to: 4 },
-                        { from: 2, to: 5 }
-                    ]
-                };
+            // // Function to show a real-life example
+            // function showRealLifeExample() {
+            //     // Create a predefined example graph
+            //     const graph = {
+            //         vertices: [
+            //             { id: 0, x: 150, y: 50 },
+            //             { id: 1, x: 250, y: 100 },
+            //             { id: 2, x: 250, y: 150 },
+            //             { id: 3, x: 150, y: 200 },
+            //             { id: 4, x: 50, y: 150 },
+            //             { id: 5, x: 50, y: 100 }
+            //         ],
+            //         edges: [
+            //             { from: 0, to: 1 },
+            //             { from: 1, to: 2 },
+            //             { from: 2, to: 3 },
+            //             { from: 3, to: 4 },
+            //             { from: 4, to: 5 },
+            //             { from: 5, to: 0 },
+            //             { from: 0, to: 3 },
+            //             { from: 1, to: 4 },
+            //             { from: 2, to: 5 }
+            //         ]
+            //     };
                 
-                // Render the graph
-                renderGraph(graph);
+            //     // Render the graph
+            //     renderGraph(graph);
                 
-                // Render the animation
-                renderAnimation(graph);
-            }
+            //     // Render the animation
+            //     renderAnimation(graph);
+            // }
             
             // Add CSS for loading spinner
             const style = document.createElement('style');

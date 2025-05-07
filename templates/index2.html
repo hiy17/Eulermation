@@ -488,15 +488,13 @@
 
         <section class="real-life-example" id="real-life-example" style="display: none;">
             <h2>Real-Life Application Example</h2>
-            
             <div class="example-content">
                 <div class="example-image">
                     <img src="placeholder.svg" alt="Mail Delivery Route" id="example-image">
                 </div>
-                
                 <div class="example-description">
-                    <h3>Mail Delivery Route</h3>
-                    <p>A mail carrier needs to traverse every street in a neighborhood exactly once to deliver mail efficiently, returning to the post office.</p>
+                    <h3 id="title-example-description">Mail Delivery Route</h3>
+                    <p id="example-desc">A mail carrier needs to traverse every street in a neighborhood exactly once to deliver mail efficiently, returning to the post office.</p>
                     <button id="show-another-btn" class="show-another-btn">
                         <span class="icon">🔄</span>
                         Show Another Example
@@ -504,6 +502,7 @@
                 </div>
             </div>
         </section>
+        
     </main>
 
     <script>
@@ -516,24 +515,73 @@
             const graphPlaceholder = document.getElementById('graph-placeholder');
             const animationContainer = document.getElementById('animation-container');
             const playButton = document.getElementById('play-button');
-            const realLifeExample = document.getElementById('real-life-example');
-            const showAnotherBtn = document.getElementById('show-another-btn');
+            
             const circuitInfo = document.getElementById('circuit-info');
             const circuitPath = document.getElementById('circuit-path');
             const progressBar = document.getElementById('progress-bar');
             
-            // exampleBtn.disabled = true;
-            // exampleBtn.style.cursor = "not-allowed";
-            // realLifeExample.backgroundColor
 
+            exampleBtn.disabled = true;
+exampleBtn.style.cursor = "not-allowed";
 
-            exampleBtn.addEventListener('click', () => {
-                realLifeExample.style.display = 'block';
-                realLifeExample.scrollIntoView({ behavior: 'smooth' }); // Optional: smooth scroll to the section
-            });
+const realLifeSection = document.getElementById('real-life-example');
+const showAnotherBtn = document.getElementById('show-another-btn');
+const exampleImage = document.getElementById('example-image');
+const exampleDescriptionTitle = document.getElementById('title-example-description');
+const exampleDescription = document.getElementById('example-desc');
 
-    
-            errorMessage.style.display = 'none';
+let exampleData = []; // Will hold [category, story] pairs
+let currentIndex = 0;
+
+exampleBtn.addEventListener('click', () => {
+    fetch('/real_life_examples')
+        .then(response => response.json())
+        .then(data => {
+            if (data.real_life_examples) {
+                exampleData = Object.entries(data.real_life_examples);
+                currentIndex = 0;
+                showExample(currentIndex);
+                realLifeSection.style.display = 'block';
+                realLifeSection.scrollIntoView({ behavior: 'smooth' });
+            }
+        })
+        .catch(error => {
+            console.error('Error fetching real-life examples:', error);
+            exampleDescriptionTitle.textContent = 'Error';
+            exampleDescription.textContent = 'Failed to load real-life examples.';
+        });
+});
+
+showAnotherBtn.addEventListener('click', () => {
+    if (!exampleData.length) return;
+    currentIndex = (currentIndex + 1); // Loop back to 0
+    showExample(currentIndex);
+});
+
+function showExample(index) {
+    const [category, story] = exampleData[index];
+    exampleDescriptionTitle.textContent = category;
+    exampleDescription.textContent = story;
+
+    // Optional: update image
+    const imageMap = {
+        "Transportation": "transport.svg",
+        "Package Delivery": "delivery.svg",
+        "Tourism": "tourism.svg",
+        "Household Chores": "chores.svg",
+        "Work Tasks": "work.svg",
+        "School Schedule": "school.svg",
+        "Shopping": "shopping.svg",
+        "Social Visits": "social.svg",
+        "Sports": "sports.svg",
+        "Nature": "nature.svg"
+    };
+
+    const imageSrc = imageMap[category] || "placeholder.svg";
+    exampleImage.src = imageSrc;
+    exampleImage.alt = `${category} illustration`;
+}
+
             
             generateBtn.addEventListener('click', function () {
                 const value = parseInt(verticesInput.value);
@@ -622,10 +670,10 @@
                         generateBtn.style.backgroundColor = "#4a8a4a";
                         generateBtn.innerHTML = 'Generate';
                         generateBtn.style.cursor = "pointer";
-                        // exampleBtn.disabled = false;
-                        // exampleBtn.style.cursor = "pointer";
                     });
 
+                exampleBtn.disabled = false;
+                exampleBtn.style.cursor = "pointer";
                 // fetch(`/render/eulerian_graph?vertices=${value}`, {
                 //     signal: window.currentAbortController.signal,
                 // })

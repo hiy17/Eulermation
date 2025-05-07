@@ -1,4 +1,4 @@
-from flask import Flask, jsonify, request, send_file, render_template, send_from_directory
+from flask import Flask, jsonify, request, send_file, render_template, send_from_directory, session
 import subprocess
 import os
 import shutil
@@ -6,6 +6,7 @@ import glob
 import sys
 sys.path.append(os.path.abspath(os.path.join(os.path.dirname(__file__), "..", "..")))
 from app.manim_engine.graph_utils import EulerianGraphGenerator
+from app.api.gemini_api import generate_euler_examples
 import json
 import networkx as nx
 
@@ -24,8 +25,8 @@ EULER_IMAGE_PATH = os.path.join(
 )
 
 
-
 app = Flask(__name__, template_folder=TEMPLATE_DIR, static_folder=STATIC_DIR)
+app.secret_key = 'your-secure-secret-key'
 
 @app.route('/')
 def index():
@@ -53,12 +54,38 @@ def index2():
 
 def setup_euler_artifacts(num_vertices):
     generator = EulerianGraphGenerator(num_vertices)
-    euler_graph, euler_circuits = generator.generate_eulerian_graph()
+    euler_graph, euler_circuit = generator.generate_eulerian_graph()
     
     if euler_graph is None:
         return
     
-    return euler_graph, euler_circuits
+    parse_euler_circuits = format_circuit(euler_circuit)
+    real_life_examples = generate_real_life_examples(parse_euler_circuits)
+    session['real_life_examples'] = real_life_examples
+
+    return euler_graph, euler_circuit
+
+
+def generate_real_life_examples(euler_circuit):
+    """
+    Wrapper around the Gemini prompt generator to fetch examples in JSON format.
+    """
+    return generate_euler_examples(euler_circuit)
+
+
+@app.route('/real_life_examples')
+def generate_examples():
+    examples = session.get('real_life_examples')
+
+    try:
+        examples_json = json.loads(examples)
+    except Exception as e:
+        return jsonify({"error": "Failed to parse real-life examples", "details": str(e)}), 500
+
+    return jsonify({
+        "real_life_examples": examples_json
+    })
+
 
 
 def build_euler_graph(eulerian_graph_json, euler_circuit_json):
@@ -183,8 +210,6 @@ def render_euler_graph_animation():
         "euler_circuit": string_euler_format
     })
 
-
-
 @app.route('/euler_animation')
 def euler_animation():
     if os.path.exists(EULER_VIDEO_PATH):
@@ -199,7 +224,6 @@ def euler_image():
 
     else:
         return "No image found", 404
-
 
 
 if __name__ == "__main__":

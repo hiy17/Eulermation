@@ -3,6 +3,10 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link
+    rel="stylesheet"
+    href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css"
+  />
     <title>About Us - Eulermation</title>
     <style>
         /* Base styles */
@@ -34,8 +38,18 @@
 
         /* Header and Navigation */
         header {
-            background-color: var(--white);
-            box-shadow: 0 1px 3px rgba(0, 0, 0, 0.1);
+            position: fixed;
+            top: 0;
+            width: 100%;
+            z-index: 1000;
+            background-color: rgba(255, 255, 255, 0.8);
+            backdrop-filter: blur(8px);
+            transition: background-color 0.3s ease, box-shadow 0.3s ease;
+        }
+
+        header.scrolled {
+            background-color: rgba(255, 255, 255, 0.95);
+            box-shadow: 0 2px 6px rgba(0, 0, 0, 0.1);
         }
 
         nav {
@@ -45,11 +59,13 @@
             padding: 1rem 2rem;
             max-width: 1200px;
             margin: 0 auto;
+            flex-wrap: wrap;
         }
 
         .logo {
-            font-size: 1.8rem;
+            font-size: 1.4rem;
             font-weight: bold;
+            margin-right: 50px;
         }
 
         .logo-euler {
@@ -65,16 +81,24 @@
             gap: 2rem;
         }
 
+
+        @media (max-width: 768px) {
+            .nav-links {
+                flex-direction: row;
+                width: 100%;
+                gap: 1rem;
+                margin-top: 1rem;
+            }
+
+            .nav-links a {
+                padding: 0.5rem 0;
+            }
+        }
+
         .nav-links a {
             color: var(--dark);
             text-decoration: none;
             font-weight: 500;
-            padding-bottom: 0.25rem;
-        }
-
-        .nav-links a.active {
-            color: var(--primary);
-            border-bottom: 2px solid var(--primary);
         }
 
         .get-started-btn {
@@ -83,8 +107,9 @@
             border: none;
             padding: 0.6rem 1.2rem;
             border-radius: 4px;
-            font-weight: 600;
+            font-weight: 500;
             cursor: pointer;
+            margin-left: auto;
         }
 
         /* Main content */
@@ -103,6 +128,7 @@
             font-size: 2.5rem;
             color: var(--primary);
             margin-bottom: 1rem;
+            margin-top: 50px;
         }
 
         .about-hero p {
@@ -218,13 +244,140 @@
                 grid-template-columns: 1fr;
             }
         }
+
+        /* Enhanced design for team section */
+.team-section {
+  padding: 40px 0;
+  background-color: transparent; /* Transparent section background */
+  text-align: center;
+  border-radius: 20px;
+  width: 90%;
+  max-width: 1200px;
+  margin: 0 auto;
+}
+
+.team-section h2 {
+  font-size: 2rem;
+  color: #4a8a4a;
+  margin-bottom: 10px;
+}
+
+.team-grid {
+  display: flex;
+  justify-content: space-evenly;
+  align-items: center;
+  gap: 20px;
+  flex-wrap: wrap;
+  width: 100%;
+}
+
+.team-member {
+  background-color: #edf5f1; 
+  flex: 1 1 calc(25% - 20px);
+  text-align: center;
+  max-width: 250px;
+  margin: 10px;
+  transition: transform 0.3s ease-in-out, box-shadow 0.3s ease-in-out;
+  border-radius: 10px;
+  padding: 20px;
+}
+
+.team-member img {
+  width: 100px;
+  height: 100px;
+  object-fit: cover;
+  border-radius: 50%;
+  margin-bottom: 15px;
+  margin-top: 10px;
+}
+
+.team-member h3 {
+  font-size: 1rem;
+  color: #00412e;
+  margin-bottom: 5px;
+}
+
+.team-member p {
+  color: #f4c01d;
+  font-size: 0.7rem;
+  font-weight: bold;
+}
+
+.team-member:hover {
+  transform: translateY(-10px);
+  box-shadow: 0 8px 16px rgba(0, 0, 0, 0.15);
+}
+
+/* Responsive Styles */
+@media (max-width: 1024px) {
+  .team-member {
+    flex: 1 1 calc(33.333% - 20px);
+  }
+}
+
+@media (max-width: 768px) {
+  .team-member {
+    flex: 1 1 calc(50% - 20px);
+  }
+}
+
+@media (max-width: 480px) {
+  .team-member {
+    flex: 1 1 100%;
+    margin-bottom: 15px;
+  }
+
+  .about-hero h1 {
+    font-size: 1.8rem;
+  }
+
+  .about-tagline {
+    font-size: 0.9rem;
+  }
+}
+
+
+.tech-section, .roadmap-section {
+  max-width: 800px;
+  margin: 40px auto;
+  padding: 20px;
+  background-color: #f9f9f9;
+  border-radius: 8px;
+  box-shadow: 0 2px 10px rgba(0,0,0,0.05);
+  color: #00412e;
+}
+
+.tech-list, .roadmap-section ul {
+  padding-left: 1.2rem;
+  list-style-type: disc;
+  text-align: left;
+}
+.social-links a {
+  margin: 0 8px;
+  font-size: 1.3rem;
+  transition: transform 0.3s ease, filter 0.3s ease;
+}
+
+.social-links a .fa-github {
+  color: #181717; /* GitHub black */
+}
+
+.social-links a .fa-linkedin {
+  color: #0A66C2; /* LinkedIn blue */
+}
+
+.social-links a:hover {
+  transform: scale(1.1);
+  filter: brightness(0.8); /* Darkens the icon */
+}
+
     </style>
 </head>
 <body>
     <header>
         <nav>
             <div class="logo">
-                <span class="logo-euler">Euler</span><span class="logo-mation">mation</span>
+                <span class="logo-euler">Σuler</span><span class="logo-mation">mation</span>
             </div>
             <div class="nav-links">
                 <a href="index2.html">Demo</a>
@@ -254,7 +407,7 @@
             </div>
         </section>
 
-        <section class="team-section">
+        <!-- <section class="team-section">
             <h2>Meet the Team</h2>
             
             <div class="team-grid">
@@ -314,13 +467,67 @@
                     </div>
                 </div>
             </div>
-        </section>
+        </section> -->
+        <section class="team-section">
+            <h2>Meet the Team</h2>
+            <div class="team-grid">
+              <div class="team-member">
+                <img src="https://lh3.googleusercontent.com/a/ACg8ocKEDLtloQrY9aIw4BxM-BfvA1J6wN6fFdo8gPgPYxo8uj6x3DA=s260-c-no" alt="Jude Tadeja">
+                <h3>Jude Tadeja</h3>
+                <p>Project Manager/Full Stack Developer</p>
+                <div class="social-links">
+                  <a href="https://github.com/hiy17" target="_blank"><i class="fab fa-github"></i></a>
+                  <a href="https://www.linkedin.com/in/jude-tadeja-408b9932a/" target="_blank"><i class="fab fa-linkedin"></i></a>
+                </div>
+              </div>
+    
+              <div class="team-member">
+                <img src="https://lh3.googleusercontent.com/a-/ALV-UjWQWZxDo2Lg7VeyQo1n1HqhepW0Z5Eqo_XN5sgim8te1KlJedcuODBN6BW5HwkSAjU94JUj2prCpsOT9TTF_3sY4xz3jQ40OZZQLPYMaZk4lzJvcFmh6_uEhOsm06ATTzZYakmT7t6hxiF53Ay5SgCBxVoHH_CRQxmnhlen0YCsxF9K6ywcnZVySt8KW_pFRCe_gJAOnKPcAFEAM-ik5XOWuhRyHOj26CuXr1hKUTNN4eVNLOdqmMPqqHDW_fmCLnKz31i3kS9jvdNtCqCn3FppqboA6BnMdus0Ti8Iv5OS8piXdUH8DBaFj0VrmlfbPwHMLgO2n0ggHdWavNSgMfdWFllz55sqM6P_oXh6Ifxf2EHReJwsCY93YHJeCUrcv7y3CvsCppUxIE72Pn0oXIzhD9Oj413VYZC5RkTnaXc3Q1-tDZtFwvSYFycJO536nVP0C-ejtl73ZPnrf25mMSSrlGXg0WOtseSOo2itfyJk657C-uAtaOlZQPF1x5MXRVxwTAyRDsJdZlbzL_oUv3qYGN3IbIUiP5aObGssvNJSaN-8mkFhRb4P6a6GB3MdWXgNH0RgTB9JBjJ8AFf-5E7weNaF_i0vgwtF0tdbumWYqHS1BFWl0CLjjolJnw9Rkkv8p93c99ygCCCFQLE_btsGPKEhMuW3v3g9BooQI0YWQ7w7wWv0YzXcV9PohewSMXg-Ld65YiPE9T2Rj5AIaGW9Q4LSab-IBgDZHNR0zONWCUMKnIlYKOLI2sMS09YXENGL1yx6ScOlzpdcroChibXaGmoBwY91DaDN3OYo80JIqeqPSQOrJkgVTvMy0ElHNjWczmA5O5xCwpgp2AaesIBFfYTpZHvY0ajxCgEASGKJNgKR-tqWuiVqrEKacXl5shL9_4umgx68rX9WWsDWIP4TwmVwc8Yge40iRH3V-s4dvP5GvyV4yIER9rL9AuHITSalVa4x-WCKWEFJWpjcCfQeKE1ZvabulQ=s272-p-k-rw-no" alt="Ace Peñaflorida">
+                <h3>Ace Peñaflorida</h3>
+                <p>Backend Developer</p>
+                <div class="social-links">
+                  <a href="https://github.com/AcePenaflorida" target="_blank"><i class="fab fa-github"></i></a>
+                  <a href="https://www.linkedin.com/in/ace-pe%C3%B1aflorida-274217310/" target="_blank"><i class="fab fa-linkedin"></i></a>
+                </div>
+              </div>
+    
+              <div class="team-member">
+                <img src="https://lh3.googleusercontent.com/a-/ALV-UjVBn4prkYjRLUptjVMeRqj8DNye86JEq1jCtwhI6HXXV2H_8yp3=s272-p-k-rw-no" alt="Elizabeth Lindo">
+                <h3>Elizabeth Lindo</h3>
+                <p>Frontend Developer</p>
+                <div class="social-links">
+                  <a href="https://github.com/elizalindo" target="_blank"><i class="fab fa-github"></i></a>
+                  <a href="https://www.linkedin.com/in/elizabeth-lindo-806a162a5/" target="_blank"><i class="fab fa-linkedin"></i></a>
+                </div>
+              </div>
+    
+              <div class="team-member">
+                <img src="https://lh3.googleusercontent.com/a-/ALV-UjVXOsebJr6pbFLG55MqghXK0rEMVc6TthtA1S06VpJbizzdd-Ie=s272-p-k-rw-no" alt="Rain Lyrra Panganiban">
+                <h3>Rain Lyrra Panganiban</h3>
+                <p>Frontend Developer</p>
+                <div class="social-links">
+                  <a href="https://github.com/rnlyra" target="_blank"><i class="fab fa-github"></i></a>
+                  <a href="https://www.linkedin.com/in/rain-lyrra-panganiban-185725326/" target="_blank"><i class="fab fa-linkedin"></i></a>
+                </div>
+              </div>
+            </div>
+          </section>
+    
     </main>
 
     <script>
         document.addEventListener('DOMContentLoaded', function() {
             // Any JavaScript functionality can be added here
         });
+
+        window.addEventListener('scroll', function () {
+        const header = document.querySelector('header');
+        if (window.scrollY > 10) {
+            header.classList.add('scrolled');
+        } else {
+            header.classList.remove('scrolled');
+        }
+    });
     </script>
 </body>
 </html>

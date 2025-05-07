@@ -35,8 +35,18 @@
 
         /* Header and Navigation */
         header {
-            background-color: var(--white);
-            box-shadow: 0 1px 3px rgba(0, 0, 0, 0.1);
+            position: fixed;
+            top: 0;
+            width: 100%;
+            z-index: 1000;
+            background-color: rgba(255, 255, 255, 0.8);
+            backdrop-filter: blur(8px);
+            transition: background-color 0.3s ease, box-shadow 0.3s ease;
+        }
+
+        header.scrolled {
+            background-color: rgba(255, 255, 255, 0.95);
+            box-shadow: 0 2px 6px rgba(0, 0, 0, 0.1);
         }
 
         nav {
@@ -46,11 +56,13 @@
             padding: 1rem 2rem;
             max-width: 1200px;
             margin: 0 auto;
+            flex-wrap: wrap;
         }
 
         .logo {
-            font-size: 1.8rem;
+            font-size: 1.4rem;
             font-weight: bold;
+            margin-right: 50px;
         }
 
         .logo-euler {
@@ -66,16 +78,24 @@
             gap: 2rem;
         }
 
+
+        @media (max-width: 768px) {
+            .nav-links {
+                flex-direction: row;
+                width: 100%;
+                gap: 1rem;
+                margin-top: 1rem;
+            }
+
+            .nav-links a {
+                padding: 0.5rem 0;
+            }
+        }
+
         .nav-links a {
             color: var(--dark);
             text-decoration: none;
             font-weight: 500;
-            padding-bottom: 0.25rem;
-        }
-
-        .nav-links a.active {
-            color: var(--primary);
-            border-bottom: 2px solid var(--primary);
         }
 
         .get-started-btn {
@@ -84,8 +104,9 @@
             border: none;
             padding: 0.6rem 1.2rem;
             border-radius: 4px;
-            font-weight: 600;
+            font-weight: 500;
             cursor: pointer;
+            margin-left: auto;
         }
 
         /* Main content */
@@ -104,6 +125,7 @@
             font-size: 2.5rem;
             color: var(--primary);
             margin-bottom: 1rem;
+            margin-top: 50px;
         }
 
         .tutorial-hero p {
@@ -127,7 +149,7 @@
             padding: 1rem;
             background: none;
             border: none;
-            font-size: 1rem;
+            font-size: 0.8rem;
             font-weight: 500;
             cursor: pointer;
             position: relative;
@@ -275,7 +297,7 @@
     <header>
         <nav>
             <div class="logo">
-                <span class="logo-euler">Euler</span><span class="logo-mation">mation</span>
+                <span class="logo-euler">Σuler</span><span class="logo-mation">mation</span>
             </div>
             <div class="nav-links">
                 <a href="index2.html">Demo</a>
@@ -293,12 +315,12 @@
         </section>
 
         <section class="tutorial-tabs">
-            <button class="tab-btn" data-tab="basics">Basics</button>
-            <button class="tab-btn active" data-tab="identifying">Identifying Euler Circuits</button>
+            <button class="tab-btn active" data-tab="basics">Basics</button>
+            <button class="tab-btn" data-tab="identifying">Identifying Euler Circuits</button>
             <button class="tab-btn" data-tab="creating">Creating Euler Circuits</button>
         </section>
 
-        <section class="tab-content" id="basics">
+        <section class="tab-content active" id="basics">
             <div class="tutorial-card">
                 <h2>Understanding Euler Circuits</h2>
                 
@@ -353,7 +375,7 @@
             </div>
         </section>
 
-        <section class="tab-content active" id="identifying">
+        <section class="tab-content" id="identifying">
             <div class="tutorial-card">
                 <h2>How to Identify Euler Circuits</h2>
                 
@@ -469,6 +491,15 @@
                 });
             });
         });
+
+        window.addEventListener('scroll', function () {
+        const header = document.querySelector('header');
+        if (window.scrollY > 10) {
+            header.classList.add('scrolled');
+        } else {
+            header.classList.remove('scrolled');
+        }
+    });
     </script>
 </body>
 </html>

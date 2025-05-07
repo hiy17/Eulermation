@@ -1,0 +1,560 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Eulermation - Interactive Euler Circuit Learning</title>
+    <style>
+        /* Base styles */
+        :root {
+            --primary: #4a8a4a;
+            --primary-light: #f5f9f5;
+            --yellow: #f0c000;
+            --green: #4a8a4a;
+            --dark: #333;
+            --light: #f5f9f5;
+            --white: #fff;
+            --error: #e74c3c;
+            --gray: #6c757d;
+        }
+
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+        }
+
+        body {
+            background-color: var(--primary-light);
+            color: var(--dark);
+            line-height: 1.6;
+        }
+
+        /* Header and Navigation */
+        header {
+            background-color: var(--white);
+            box-shadow: 0 1px 3px rgba(0, 0, 0, 0.1);
+        }
+
+        nav {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 1rem 2rem;
+            max-width: 1200px;
+            margin: 0 auto;
+        }
+
+        .logo {
+            font-size: 1.8rem;
+            font-weight: bold;
+        }
+
+        .logo-euler {
+            color: var(--yellow);
+        }
+
+        .logo-mation {
+            color: var(--green);
+        }
+
+        .nav-links {
+            display: flex;
+            gap: 2rem;
+        }
+
+        .nav-links a {
+            color: var(--dark);
+            text-decoration: none;
+            font-weight: 500;
+        }
+
+        .get-started-btn {
+            background-color: var(--primary);
+            color: var(--white);
+            border: none;
+            padding: 0.6rem 1.2rem;
+            border-radius: 4px;
+            font-weight: 600;
+            cursor: pointer;
+        }
+
+        /* Main content */
+        main {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 2rem;
+        }
+
+        .hero {
+            text-align: center;
+            margin: 3rem 0;
+        }
+
+        .hero h1 {
+            font-size: 2.5rem;
+            color: var(--primary);
+            margin-bottom: 1rem;
+        }
+
+        .hero p {
+            font-size: 1.2rem;
+            color: var(--gray);
+        }
+
+        /* Generator Card */
+        .generator-card {
+            background-color: var(--white);
+            border-radius: 8px;
+            box-shadow: 0 4px 20px rgba(0, 0, 0, 0.08);
+            padding: 2rem;
+            margin: 2rem 0;
+        }
+
+        .generator-card h2 {
+            margin-bottom: 1.5rem;
+            font-size: 1.5rem;
+        }
+
+        .generator-content {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 1.5rem;
+            margin-bottom: 1.5rem;
+        }
+
+        .input-group {
+            margin-bottom: 1rem;
+        }
+
+        .input-group label {
+            display: block;
+            margin-bottom: 0.5rem;
+            font-weight: 500;
+        }
+
+        .input-with-button {
+            display: flex;
+        }
+
+        .input-with-button input {
+            flex: 1;
+            padding: 0.6rem;
+            border: 1px solid #ddd;
+            border-radius: 4px 0 0 4px;
+            font-size: 1rem;
+        }
+
+        .input-with-button button {
+            background-color: var(--primary);
+            color: white;
+            border: none;
+            padding: 0.6rem 1rem;
+            border-radius: 0 4px 4px 0;
+            cursor: pointer;
+        }
+
+        .error-message {
+            color: var(--error);
+            font-size: 0.9rem;
+            margin-top: 0.5rem;
+        }
+
+        .graph-placeholder {
+            border: 1px solid #ddd;
+            border-radius: 4px;
+            height: 200px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: var(--gray);
+            text-align: center;
+            padding: 1rem;
+        }
+
+        .animation-container {
+            background-color: #000;
+            color: white;
+            border-radius: 4px;
+            height: 260px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            text-align: center;
+        }
+
+        .generator-actions {
+            display: flex;
+            justify-content: space-between;
+            margin-top: 1rem;
+        }
+
+        .example-btn, .download-btn {
+            display: flex;
+            align-items: center;
+            padding: 0.6rem 1rem;
+            border-radius: 4px;
+            cursor: pointer;
+            font-weight: 500;
+        }
+
+        .example-btn {
+            background-color: var(--white);
+            color: var(--gray);
+            border: 1px solid #ddd;
+        }
+
+        .download-btn {
+            background-color: var(--primary);
+            color: var(--white);
+            border: none;
+        }
+
+        .icon {
+            margin-right: 0.5rem;
+        }
+
+        /* Responsive styles */
+        @media (max-width: 768px) {
+            .generator-content {
+                grid-template-columns: 1fr;
+            }
+            
+            .generator-actions {
+                flex-direction: column;
+                gap: 1rem;
+            }
+        }
+    </style>
+</head>
+<body>
+    <header>
+        <nav>
+            <div class="logo">
+                <span class="logo-euler">Euler</span><span class="logo-mation">mation</span>
+            </div>
+            <div class="nav-links">
+                <a href="index.html">Demo</a>
+                <a href="tutorial.html">Tutorial</a>
+                <a href="about.html">About Us</a>
+            </div>
+            <button class="get-started-btn">Get Started</button>
+        </nav>
+    </header>
+
+    <main>
+        <section class="hero">
+            <h1>Welcome to Eulermation!</h1>
+            <p>Discover, create, and visualize Euler circuits interactively.</p>
+        </section>
+
+        <section class="generator-card">
+            <h2>Euler Circuit Generator</h2>
+            
+            <div class="generator-content">
+                <div>
+                    <div class="input-group">
+                        <label for="vertices">Number of vertices (3-8):</label>
+                        <div class="input-with-button">
+                            <input type="number" id="vertices" min="3" max="8">
+                            <button id="generate-btn">Generate</button>
+                        </div>
+                        <p id="error-message" class="error-message">Please enter a number between 3 and 8.</p>
+                    </div>
+                    
+                    <div class="graph-placeholder" id="graph-placeholder">
+                        <p>Enter the number of vertices and click Generate</p>
+                    </div>
+                </div>
+                
+                <div class="animation-container" id="animation-container">
+                    <p>Generate a graph to see the animation</p>
+                </div>
+            </div>
+            
+            <div class="generator-actions">
+                <button id="example-btn" class="example-btn">
+                    <span class="icon">💡</span>
+                    Show Real-Life Example
+                </button>
+                <button id="download-btn" class="download-btn">
+                    <span class="icon">⬇️</span>
+                    Download Animation
+                </button>
+            </div>
+        </section>
+    </main>
+
+    <script>
+        document.addEventListener('DOMContentLoaded', function() {
+            const verticesInput = document.getElementById('vertices');
+            const generateBtn = document.getElementById('generate-btn');
+            const exampleBtn = document.getElementById('example-btn');
+            const downloadBtn = document.getElementById('download-btn');
+            const errorMessage = document.getElementById('error-message');
+            const graphPlaceholder = document.getElementById('graph-placeholder');
+            const animationContainer = document.getElementById('animation-container');
+            
+            // Initially hide the error message
+            errorMessage.style.display = 'none';
+            
+            generateBtn.addEventListener('click', function() {
+                const vertices = parseInt(verticesInput.value);
+                
+                // Validate input
+                if (isNaN(vertices) || vertices < 3 || vertices > 8) {
+                    errorMessage.style.display = 'block';
+                    return;
+                }
+                
+                errorMessage.style.display = 'none';
+                
+                // Show loading state
+                graphPlaceholder.innerHTML = '<div class="loading"><div class="spinner"></div><p>Generating graph...</p></div>';
+                animationContainer.innerHTML = '<div class="loading"><div class="spinner"></div><p>Creating animation...</p></div>';
+                
+                // Generate Euler circuit (simulated)
+                setTimeout(() => {
+                    generateEulerCircuit(vertices);
+                }, 1500);
+            });
+            
+            exampleBtn.addEventListener('click', function() {
+                // Show loading state
+                graphPlaceholder.innerHTML = '<div class="loading"><div class="spinner"></div><p>Loading example...</p></div>';
+                animationContainer.innerHTML = '<div class="loading"><div class="spinner"></div><p>Loading animation...</p></div>';
+                
+                // Load example (simulated)
+                setTimeout(() => {
+                    showRealLifeExample();
+                }, 1500);
+            });
+            
+            downloadBtn.addEventListener('click', function() {
+                // In a real implementation, this would download the actual animation
+                alert('In a real implementation, this would download the animation as an MP4 file.');
+            });
+            
+            // Function to generate an Euler circuit
+            function generateEulerCircuit(numVertices) {
+                // Create a graph with vertices and edges
+                const graph = createGraph(numVertices);
+                
+                // Render the graph
+                renderGraph(graph);
+                
+                // Render the animation
+                renderAnimation(graph);
+            }
+            
+            // Function to create a graph with an Euler circuit
+            function createGraph(numVertices) {
+                const vertices = [];
+                const edges = [];
+                
+                // Create vertices in a circle
+                const radius = 80;
+                const centerX = 150;
+                const centerY = 100;
+                
+                for (let i = 0; i < numVertices; i++) {
+                    const angle = (i / numVertices) * 2 * Math.PI;
+                    const x = centerX + radius * Math.cos(angle);
+                    const y = centerY + radius * Math.sin(angle);
+                    
+                    vertices.push({ id: i, x, y });
+                }
+                
+                // Create edges to form a cycle
+                for (let i = 0; i < numVertices; i++) {
+                    edges.push({
+                        from: i,
+                        to: (i + 1) % numVertices
+                    });
+                }
+                
+                // Add additional edges to make it more interesting
+                // while maintaining even degree for all vertices
+                for (let i = 0; i < numVertices; i += 2) {
+                    if (i + 2 < numVertices) {
+                        edges.push({
+                            from: i,
+                            to: (i + 2) % numVertices
+                        });
+                    }
+                }
+                
+                return { vertices, edges };
+            }
+            
+            // Function to render the graph
+            function renderGraph(graph) {
+                let svg = `
+                    <svg width="100%" height="100%" viewBox="0 0 300 200">
+                        <!-- Edges -->
+                `;
+                
+                // Draw edges
+                graph.edges.forEach(edge => {
+                    const from = graph.vertices[edge.from];
+                    const to = graph.vertices[edge.to];
+                    
+                    svg += `<line x1="${from.x}" y1="${from.y}" x2="${to.x}" y2="${to.y}" 
+                                 stroke="#4a8a4a" stroke-width="2" />`;
+                });
+                
+                // Draw vertices
+                graph.vertices.forEach(vertex => {
+                    svg += `
+                        <circle cx="${vertex.x}" cy="${vertex.y}" r="12" fill="#4a8a4a" />
+                        <text x="${vertex.x}" y="${vertex.y}" text-anchor="middle" 
+                              dy=".3em" fill="white" font-size="10">${vertex.id + 1}</text>
+                    `;
+                });
+                
+                svg += '</svg>';
+                
+                graphPlaceholder.innerHTML = svg;
+            }
+            
+            // Function to render the animation
+            function renderAnimation(graph) {
+                // In a real implementation, this would be a video or canvas animation
+                // For this demo, we'll create a simple SVG animation
+                
+                let svg = `
+                    <svg width="100%" height="100%" viewBox="0 0 300 200">
+                        <!-- Edges -->
+                `;
+                
+                // Draw edges
+                graph.edges.forEach(edge => {
+                    const from = graph.vertices[edge.from];
+                    const to = graph.vertices[edge.to];
+                    
+                    svg += `<line x1="${from.x}" y1="${from.y}" x2="${to.x}" y2="${to.y}" 
+                                 stroke="#4a8a4a" stroke-width="2" />`;
+                });
+                
+                // Draw vertices
+                graph.vertices.forEach(vertex => {
+                    svg += `
+                        <circle cx="${vertex.x}" cy="${vertex.y}" r="12" fill="#4a8a4a" />
+                        <text x="${vertex.x}" y="${vertex.y}" text-anchor="middle" 
+                              dy=".3em" fill="white" font-size="10">${vertex.id + 1}</text>
+                    `;
+                });
+                
+                // Add animated traversal dot
+                svg += `
+                    <circle id="traversal-dot" cx="${graph.vertices[0].x}" cy="${graph.vertices[0].y}" r="6" fill="#e74c3c">
+                        <animate id="animate-motion" attributeName="cx" attributeType="XML" dur="5s" repeatCount="indefinite" />
+                        <animate id="animate-motion-y" attributeName="cy" attributeType="XML" dur="5s" repeatCount="indefinite" />
+                    </circle>
+                `;
+                
+                svg += '</svg>';
+                
+                animationContainer.innerHTML = svg;
+                
+                // Set up the animation path
+                const animateX = document.getElementById('animate-motion');
+                const animateY = document.getElementById('animate-motion-y');
+                
+                if (animateX && animateY) {
+                    // Create a simple path through all vertices
+                    let xValues = '';
+                    let yValues = '';
+                    
+                    // Start with the first vertex
+                    const eulerPath = findEulerPath(graph);
+                    
+                    eulerPath.forEach((vertexId, index) => {
+                        const vertex = graph.vertices[vertexId];
+                        xValues += `${vertex.x}; `;
+                        yValues += `${vertex.y}; `;
+                    });
+                    
+                    // Add the first vertex again to complete the circuit
+                    xValues += graph.vertices[eulerPath[0]].x;
+                    yValues += graph.vertices[eulerPath[0]].y;
+                    
+                    animateX.setAttribute('values', xValues);
+                    animateY.setAttribute('values', yValues);
+                }
+            }
+            
+            // Function to find a simple Euler path (simplified for demo)
+            function findEulerPath(graph) {
+                // For this demo, we'll just return a simple cycle
+                // In a real implementation, this would use Hierholzer's algorithm
+                const path = [];
+                for (let i = 0; i < graph.vertices.length; i++) {
+                    path.push(i);
+                }
+                return path;
+            }
+            
+            // Function to show a real-life example
+            function showRealLifeExample() {
+                // Create a predefined example graph
+                const graph = {
+                    vertices: [
+                        { id: 0, x: 150, y: 50 },
+                        { id: 1, x: 250, y: 100 },
+                        { id: 2, x: 250, y: 150 },
+                        { id: 3, x: 150, y: 200 },
+                        { id: 4, x: 50, y: 150 },
+                        { id: 5, x: 50, y: 100 }
+                    ],
+                    edges: [
+                        { from: 0, to: 1 },
+                        { from: 1, to: 2 },
+                        { from: 2, to: 3 },
+                        { from: 3, to: 4 },
+                        { from: 4, to: 5 },
+                        { from: 5, to: 0 },
+                        { from: 0, to: 3 },
+                        { from: 1, to: 4 },
+                        { from: 2, to: 5 }
+                    ]
+                };
+                
+                // Render the graph
+                renderGraph(graph);
+                
+                // Render the animation
+                renderAnimation(graph);
+            }
+            
+            // Add CSS for loading spinner
+            const style = document.createElement('style');
+            style.textContent = `
+                .loading {
+                    display: flex;
+                    flex-direction: column;
+                    align-items: center;
+                    justify-content: center;
+                    height: 100%;
+                }
+                
+                .spinner {
+                    width: 30px;
+                    height: 30px;
+                    border: 3px solid rgba(74, 138, 74, 0.3);
+                    border-radius: 50%;
+                    border-top-color: #4a8a4a;
+                    animation: spin 1s ease-in-out infinite;
+                    margin-bottom: 1rem;
+                }
+                
+                @keyframes spin {
+                    to { transform: rotate(360deg); }
+                }
+            `;
+            document.head.appendChild(style);
+        });
+    </script>
+</body>
+</html>

@@ -36,6 +36,7 @@ def generate_euler_examples(euler_circuit):
 
         Given the Euler circuit: {euler_circuit}
 
+        Make SURE that you will create an example for each categories.
         Generate exactly 10 meaningful real-world examples that follow the path of this Euler circuit, one for each of the following categories:
         {', '.join(categories)}.
         
@@ -48,6 +49,7 @@ def generate_euler_examples(euler_circuit):
 
         Only include categories that fit the circuit logically. Skip those that don't fit meaningfully.
         Make sure each example includes the specific path in parentheses at the end.
+        
 
         
 

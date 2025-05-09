@@ -11,7 +11,7 @@
   --gray: #6c757d;
   --light-green: #e8f5e8;
   --light-yellow: #fff8e0;
-  --background-color: #ffffff;
+  --background-color: #f5f9f5;
   --text-color: #000000;
   --transition: all 0.3s ease;
   --border-radius: 8px;
@@ -67,6 +67,7 @@ header {
   backdrop-filter: blur(8px);
   -webkit-backdrop-filter: blur(8px);
   transition: var(--transition);
+   background-color: rgba(255, 255, 255, 0.8);
 }
 
 /* Dark mode header */

@@ -2,17 +2,8 @@ document.addEventListener('DOMContentLoaded', function() {
     // Any JavaScript functionality can be added here
      // Set default light theme
      document.documentElement.setAttribute('data-theme', 'light');
-});
 
-window.addEventListener('scroll', function () {
-const header = document.querySelector('header');
-if (window.scrollY > 10) {
-    header.classList.add('scrolled');
-} else {
-    header.classList.remove('scrolled');
-}
-
-const themeToggle = document.getElementById('theme-toggle');
+     const themeToggle = document.getElementById('theme-toggle');
     const body = document.body;
 
     // Function to toggle between light and dark theme
@@ -41,4 +32,13 @@ const themeToggle = document.getElementById('theme-toggle');
         document.documentElement.setAttribute('data-theme', 'dark');
         themeToggle.textContent = '🌙';
     }
+});
+
+window.addEventListener('scroll', function () {
+const header = document.querySelector('header');
+if (window.scrollY > 10) {
+    header.classList.add('scrolled');
+} else {
+    header.classList.remove('scrolled');
+}
 });

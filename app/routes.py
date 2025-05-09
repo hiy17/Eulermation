@@ -24,7 +24,6 @@ EULER_IMAGE_PATH = os.path.join(
     "euler_circuit.png"  # use .png instead of .svg
 )
 
-
 app = Flask(__name__, template_folder=TEMPLATE_DIR, static_folder=STATIC_DIR)
 app.secret_key = 'your-secure-secret-key'
 
@@ -55,38 +54,28 @@ def index2():
 def setup_euler_artifacts(num_vertices):
     generator = EulerianGraphGenerator(num_vertices)
     euler_graph, euler_circuit = generator.generate_eulerian_graph()
-    
+    parse_euler_circuits = format_circuit(euler_circuit)
+
     if euler_graph is None:
         return
     
-    parse_euler_circuits = format_circuit(euler_circuit)
-    real_life_examples = generate_real_life_examples(parse_euler_circuits)
-    print(real_life_examples)
-    session['real_life_examples'] = real_life_examples
-
+    session['parse_euler_circuits'] = parse_euler_circuits
+    
     return euler_graph, euler_circuit
-
-
-def generate_real_life_examples(euler_circuit):
-    """
-    Wrapper around the Gemini prompt generator to fetch examples in JSON format.
-    """
-    return generate_euler_examples(euler_circuit)
-
 
 @app.route('/real_life_examples')
 def generate_examples():
-    examples = session.get('real_life_examples')
+    euler_circuit = session.get('parse_euler_circuits')
+    real_life_examples = generate_euler_examples(euler_circuit)
 
     try:
-        examples_json = json.loads(examples)
+        examples_json = json.loads(real_life_examples)
     except Exception as e:
         return jsonify({"error": "Failed to parse real-life examples", "details": str(e)}), 500
 
     return jsonify({
         "real_life_examples": examples_json
     })
-
 
 
 def build_euler_graph(eulerian_graph_json, euler_circuit_json):
@@ -171,13 +160,21 @@ def render_euler_graph_animation():
         os.makedirs(partials_dir)
 
     result = build_euler_graph(euler_graph_json, euler_circuit_json)
+    generate_euler_circuit_image(result)
     try:
         subprocess.run(result["command"], check=True, env=result["env"])
     except subprocess.CalledProcessError as e:
         print(f"Error running Manim: {e}")
         return f"Manim failed: {e}", 500
 
-    # SVG Generation (still frame, saved as PNG)
+
+    return jsonify({
+        "message": "Rendered",
+        "euler_circuit": string_euler_format
+    })
+
+
+def generate_euler_circuit_image(result):
     svg_output_dir = os.path.join(
         BASE_DIR, "static", "videos", "euler_circuits", "images", "generate_animation"
     )
@@ -206,10 +203,7 @@ def render_euler_graph_animation():
         print(f"Error generating PNG: {e}")
         return f"Manim failed to generate PNG: {e}", 500
 
-    return jsonify({
-        "message": "Rendered",
-        "euler_circuit": string_euler_format
-    })
+
 
 @app.route('/euler_animation')
 def euler_animation():
@@ -225,11 +219,6 @@ def euler_image():
 
     else:
         return "No image found", 404
-
-
-if __name__ == "__main__":
-    app.run(port=5000, debug=True)
-
 
 
 

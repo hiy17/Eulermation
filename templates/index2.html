@@ -1,64 +1,85 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="en" data-theme="light">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link href="https://fonts.googleapis.com/css2?family=Poppins&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css">
     <title>Eulermation - Interactive Euler Circuit Learning</title>
     <style>
-        /* Base styles */
+        /* Base styles with light/dark theme variables */
         :root {
+            /* Light theme (default) */
             --primary: #4a8a4a;
+            --primary-dark: #3a6a3a;
             --primary-light: #f5f9f5;
-            --yellow: #f0c000;
-            --green: #4a8a4a;
-            --dark: #333;
-            --light: #f5f9f5;
-            --white: #fff;
+            --accent: #f0c000;
+            --accent-hover: #e0b000;
+            --background: #f5f9f5;
+            --card-bg: #ffffff;
+            --text: #333333;
+            --text-secondary: #6c757d;
+            --border: #dddddd;
+            --shadow: rgba(0, 0, 0, 0.08);
+            --shadow-hover: rgba(0, 0, 0, 0.12);
+            --header-bg: rgba(255, 255, 255, 0.8);
+            --header-scrolled: rgba(255, 255, 255, 0.95);
             --error: #e74c3c;
-            --gray: #6c757d;
+            --border-radius: 8px;
+            --box-shadow: 0 8px 30px var(--shadow);
+            --transition: all 0.3s ease;
+            --button-glow: 0 0 0 rgba(74, 138, 74, 0);
+        }
+
+        /* Dark theme */
+        html[data-theme='dark'] {
+            --primary: #5a9a5a;
+            --primary-dark: #4a8a4a;
+            --primary-light: #2a3a2a;
+            --accent: #f0c000;
+            --accent-hover: #ffcf20;
+            --background: #1a1a1a;
+            --card-bg: #2a2a2a;
+            --text: #e0e0e0;
+            --text-secondary: #aaaaaa;
+            --border: #444444;
+            --shadow: rgba(0, 0, 0, 0.3);
+            --shadow-hover: rgba(0, 0, 0, 0.4);
+            --header-bg: rgba(26, 26, 26, 0.8);
+            --header-scrolled: rgba(26, 26, 26, 0.95);
+            --error: #e74c3c;
+            --button-glow: 0 0 15px rgba(90, 154, 90, 0.5);
         }
 
         * {
             margin: 0;
             padding: 0;
             box-sizing: border-box;
-            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            font-family: 'Poppins', sans-serif;
         }
 
         body {
-            background-color: var(--primary-light);
-            color: var(--dark);
+            background-color: var(--background);
+            color: var(--text);
             line-height: 1.6;
+            transition: background-color 0.3s ease, color 0.3s ease;
         }
 
         /* Header and Navigation */
-        /* header {
-            background-color: var(--white);
-            box-shadow: 0 1px 3px rgba(0, 0, 0, 0.1);
-        }
-
-        nav {
-            display: flex;
-            justify-content: space-between;
-            align-items: center;
-            padding: 1rem 2rem;
-            max-width: 1200px;
-            margin: 0 auto;
-        } */
-
         header {
             position: fixed;
             top: 0;
             width: 100%;
             z-index: 1000;
-            background-color: rgba(255, 255, 255, 0.8);
+            background-color: var(--header-bg);
             backdrop-filter: blur(8px);
-            transition: background-color 0.3s ease, box-shadow 0.3s ease;
+            -webkit-backdrop-filter: blur(8px);
+            transition: var(--transition);
         }
 
         header.scrolled {
-            background-color: rgba(255, 255, 255, 0.95);
-            box-shadow: 0 2px 6px rgba(0, 0, 0, 0.1);
+            background-color: var(--header-scrolled);
+            box-shadow: 0 2px 15px var(--shadow);
         }
 
         nav {
@@ -72,17 +93,19 @@
         }
 
         .logo {
-            font-size: 1.4rem;
+            font-size: 1.8rem;
             font-weight: bold;
-            margin-right: 50px;
+            display: flex;
+            align-items: center;
         }
 
         .logo-euler {
-            color: var(--yellow);
+            color: var(--accent);
+            margin-right: 2px;
         }
 
         .logo-mation {
-            color: var(--green);
+            color: var(--primary);
         }
 
         .nav-links {
@@ -90,167 +113,373 @@
             gap: 2rem;
         }
 
-
-        @media (max-width: 768px) {
-            .nav-links {
-                flex-direction: row;
-                width: 100%;
-                gap: 1rem;
-                margin-top: 1rem;
-            }
-
-            .nav-links a {
-                padding: 0.5rem 0;
-            }
-        }
-
         .nav-links a {
-            color: var(--dark);
+            color: var(--text);
             text-decoration: none;
             font-weight: 500;
+            position: relative;
+            padding: 0.5rem 0;
+            transition: var(--transition);
+        }
+        
+
+        .nav-links a:hover {
+            color: var(--accent);
+        }
+
+        .nav-links a::after {
+            content: '';
+            position: absolute;
+            width: 0;
+            height: 2px;
+            bottom: 0;
+            left: 0;
+            background-color: var(--accent);
+            transition: var(--transition);
+        }
+
+        .nav-links a:hover::after {
+            width: 100%;
+        }
+
+        /* Theme toggle removed */
+        .theme-toggle {
+            background-color: transparent;
+            border: none;
+            font-size: 1.5rem;
+            cursor: pointer;
+            color: var(--text);
+            transition: color 0.3s ease;
+        }
+
+        .theme-toggle:hover {
+            color: var(--accent);
         }
 
         .get-started-btn {
             background-color: var(--primary);
-            color: var(--white);
+            color: white;
             border: none;
-            padding: 0.6rem 1.2rem;
-            border-radius: 4px;
+            padding: 0.7rem 1.4rem;
+            border-radius: var(--border-radius);
             font-weight: 500;
             cursor: pointer;
-            margin-left: auto;
+            transition: var(--transition);
+            box-shadow: 0 4px 10px rgba(74, 138, 74, 0.2);
+            position: relative;
+            overflow: hidden;
+        }
+
+        .get-started-btn::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: -100%;
+            width: 100%;
+            height: 100%;
+            background: linear-gradient(
+                90deg,
+                transparent,
+                rgba(255, 255, 255, 0.2),
+                transparent
+            );
+            transition: 0.5s;
+        }
+
+        .get-started-btn:hover {
+            background-color: var(--primary-dark);
+            transform: translateY(-2px);
+            box-shadow: 0 6px 15px rgba(74, 138, 74, 0.3), var(--button-glow);
+        }
+
+        .get-started-btn:hover::before {
+            left: 100%;
+        }
+
+        .get-started-btn:active {
+            transform: translateY(0);
         }
 
         /* Main content */
         main {
             max-width: 1200px;
             margin: 0 auto;
-            padding: 1.2rem;
+            padding: 2rem;
+            padding-top: 6rem;
         }
 
         .hero {
             text-align: center;
-            margin: 0rem 0;
+            /* margin: 2rem 0 4rem; */
         }
 
         .hero h1 {
-            font-size: 2.5rem;
+            font-size: 2rem;
             color: var(--primary);
-            margin: .4rem;
-            margin-top: 60px;
+            margin-bottom: .5rem;
+            font-weight: 700;
         }
 
         .hero p {
             font-size: 1.2rem;
-            color: var(--gray);
+            color: var(--text-secondary);
+            max-width: 700px;
+            margin: 0 auto;
         }
 
         /* Generator Card */
         .generator-card {
-            background-color: var(--white);
-            border-radius: 8px;
-            box-shadow: 0 4px 20px rgba(0, 0, 0, 0.08);
-            padding: 2rem;
+            background-color: var(--card-bg);
+            border-radius: var(--border-radius);
+            box-shadow: var(--box-shadow);
+            padding: 2.5rem;
             margin: 2rem 0;
+            transition: var(--transition);
+        }
+
+        .generator-card:hover {
+            box-shadow: 0 12px 40px var(--shadow-hover);
         }
 
         .generator-card h2 {
             margin-bottom: 1.5rem;
-            font-size: 1.5rem;
+            font-size: 1.8rem;
+            color: var(--primary);
+            position: relative;
+            display: inline-block;
+        }
+
+        .generator-card h2::after {
+            content: '';
+            position: absolute;
+            width: 50%;
+            height: 3px;
+            bottom: -8px;
+            left: 0;
+            background-color: var(--accent);
+            border-radius: 2px;
         }
 
         .generator-content {
             display: grid;
             grid-template-columns: 1fr 1fr;
-            gap: 1.5rem;
-            margin-bottom: 1.5rem;
+            gap: 2rem;
+            margin-bottom: 2rem;
         }
 
         .input-group {
-            margin-bottom: 1rem;
+            margin-bottom: 1.5rem;
         }
 
         .input-group label {
             display: block;
-            margin-bottom: 0.5rem;
+            margin-bottom: 0.8rem;
             font-weight: 500;
+            color: var(--text);
         }
 
         .input-with-button {
             display: flex;
+            box-shadow: 0 4px 10px var(--shadow);
+            border-radius: var(--border-radius);
+            overflow: hidden;
         }
 
         .input-with-button input {
             flex: 1;
-            padding: 0.6rem;
-            border: 1px solid #ddd;
-            border-radius: 4px 0 0 4px;
+            padding: 0.8rem 1rem;
+            border: 1px solid var(--border);
+            border-right: none;
+            border-radius: var(--border-radius) 0 0 var(--border-radius);
             font-size: 1rem;
+            transition: var(--transition);
+            background-color: var(--card-bg);
+            color: var(--text);
+        }
+
+        .input-with-button input:focus {
+            outline: none;
+            border-color: var(--primary-light);
+            box-shadow: 0 0 0 3px rgba(74, 138, 74, 0.2);
         }
 
         .input-with-button button {
             background-color: var(--primary);
             color: white;
             border: none;
-            padding: 0.6rem 1rem;
-            border-radius: 0 4px 4px 0;
+            padding: 0.8rem 1.5rem;
+            border-radius: 0 var(--border-radius) var(--border-radius) 0;
             cursor: pointer;
+            font-weight: 500;
+            transition: var(--transition);
+            position: relative;
+            overflow: hidden;
+        }
+
+        .input-with-button button::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: -100%;
+            width: 100%;
+            height: 100%;
+            background: linear-gradient(
+                90deg,
+                transparent,
+                rgba(255, 255, 255, 0.2),
+                transparent
+            );
+            transition: 0.5s;
+        }
+
+        .input-with-button button:hover {
+            background-color: var(--primary-dark);
+        }
+
+        .input-with-button button:hover::before {
+            left: 100%;
         }
 
         .error-message {
             color: var(--error);
             font-size: 0.9rem;
-            margin-top: 0.5rem;
+            margin-top: 0.8rem;
+            display: flex;
+            align-items: center;
+        }
+
+        .error-message::before {
+            content: '⚠️';
+            margin-right: 0.5rem;
         }
 
         .graph-placeholder {
-            border: 1px solid #ddd;
-            border-radius: 4px;
-            height: 200px;
+            border: 1px solid var(--border);
+            border-radius: var(--border-radius);
+            height: 220px;
             display: flex;
             align-items: center;
             justify-content: center;
-            color: var(--gray);
+            color: var(--text-secondary);
             text-align: center;
             padding: 1rem;
-            max-width: 100%;
+            background-color: var(--background);
+            transition: var(--transition);
             overflow: hidden;
-            display: flex;
-            justify-content: center;
-            align-items: center;
         }
 
-        .graphPlaceholder img {
-        max-width: 100%;
-        height: auto;
-        display: block;
+        .graph-placeholder img {
+            max-width: 100%;
+            height: auto;
+            display: block;
+            border-radius: var(--border-radius);
+            transition: transform 0.3s ease;
         }
 
+        .graph-placeholder img:hover {
+            transform: scale(1.02);
+        }
 
         .circuit-info {
-            margin-top: 1rem;
-            padding: 0.8rem;
-            background-color: var(--light);
-            border-radius: 4px;
-            font-size: 0.9rem;
-            color: var(--dark);
+            margin-top: 1.5rem;
+            padding: 1.2rem;
+            background-color: rgba(240, 192, 0, 0.1);
+            border-left: 4px solid var(--accent);
+            border-radius: 0 var(--border-radius) var(--border-radius) 0;
+            font-size: 0.95rem;
+            color: var(--text);
+            transition: var(--transition);
+            transform: translateY(20px);
+            opacity: 0;
+            animation: slideUp 0.5s ease forwards;
+        }
+
+        @keyframes slideUp {
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
         }
 
         .circuit-path {
-            font-weight: 500;
+            font-weight: 600;
             color: var(--primary);
-            margin-top: 0.5rem;
+            margin-top: 0.8rem;
+            font-size: 1.1rem;
+            letter-spacing: 0.5px;
+            display: flex;
+            flex-wrap: wrap;
+            gap: 0.3rem;
+            line-height: 1.8;
+        }
+
+        .path-node {
+            display: inline-block;
+            padding: 0.2rem 0.5rem;
+            background-color: rgba(74, 138, 74, 0.2);
+            border-radius: 4px;
+            color: var(--primary);
+            font-weight: 700;
+            box-shadow: 0 2px 4px var(--shadow);
+            opacity: 0;
+            transform: translateY(10px);
+        }
+
+        .path-arrow {
+            display: inline-flex;
+            align-items: center;
+            color: var(--accent);
+            font-weight: 400;
+            opacity: 0;
+            transform: translateX(5px);
+        }
+
+        @keyframes fadeInNode {
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+
+        @keyframes fadeInArrow {
+            to {
+                opacity: 1;
+                transform: translateX(0);
+            }
+        }
+
+        .highlight-pulse {
+            animation: pulse 2s infinite;
+        }
+
+        @keyframes pulse {
+            0% {
+                box-shadow: 0 0 0 0 rgba(240, 192, 0, 0.4);
+            }
+            70% {
+                box-shadow: 0 0 0 10px rgba(240, 192, 0, 0);
+            }
+            100% {
+                box-shadow: 0 0 0 0 rgba(240, 192, 0, 0);
+            }
         }
 
         .animation-container {
             background-color: #000;
             color: white;
-            border-radius: 4px;
-            height: 260px;
+            border-radius: var(--border-radius);
+            height: 300px;
             display: flex;
             flex-direction: column;
             position: relative;
             overflow: hidden;
+            box-shadow: 0 8px 20px var(--shadow);
+            transition: var(--transition);
+        }
+
+        .animation-container:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 12px 30px var(--shadow-hover);
         }
 
         .video-placeholder {
@@ -261,10 +490,21 @@
             position: relative;
         }
 
+        .video-placeholder video {
+            max-width: 100%;
+            max-height: 100%;
+            border-radius: var(--border-radius);
+            transition: transform 0.3s ease;
+        }
+
+        .video-placeholder video:hover {
+            transform: scale(1.02);
+        }
+
         .play-button {
-            width: 60px;
-            height: 60px;
-            background-color: rgba(255, 255, 255, 0.2);
+            width: 70px;
+            height: 70px;
+            background-color: rgba(74, 138, 74, 0.7);
             border-radius: 50%;
             display: flex;
             align-items: center;
@@ -272,136 +512,317 @@
             cursor: pointer;
             position: absolute;
             z-index: 2;
+            transition: var(--transition);
+            box-shadow: 0 4px 15px rgba(0, 0, 0, 0.3);
+        }
+
+        .play-button:hover {
+            background-color: var(--primary);
+            transform: scale(1.1);
         }
 
         .play-button::after {
             content: '';
             width: 0;
             height: 0;
-            border-top: 12px solid transparent;
-            border-bottom: 12px solid transparent;
-            border-left: 20px solid white;
+            border-top: 15px solid transparent;
+            border-bottom: 15px solid transparent;
+            border-left: 25px solid white;
             margin-left: 5px;
         }
 
         .video-controls {
-            height: 40px;
+            height: 50px;
             background-color: rgba(0, 0, 0, 0.7);
             display: flex;
             align-items: center;
-            padding: 0 1rem;
+            padding: 0 1.5rem;
+            border-radius: 0 0 var(--border-radius) var(--border-radius);
         }
 
         .progress-bar {
             flex: 1;
-            height: 4px;
+            height: 6px;
             background-color: #444;
-            border-radius: 2px;
+            border-radius: 3px;
             margin: 0 1rem;
             position: relative;
+            overflow: hidden;
         }
 
         .progress {
             position: absolute;
             height: 100%;
             width: 0%;
-            background-color: var(--primary);
-            border-radius: 2px;
+            background-color: var(--accent);
+            border-radius: 3px;
+            transition: width 0.1s linear;
         }
 
         .time-display {
-            font-size: 0.8rem;
+            font-size: 0.9rem;
             color: #ccc;
+            font-weight: 500;
         }
 
         .generator-actions {
             display: flex;
             justify-content: flex-end;
-            margin-top: 1rem;
+            margin-top: 1.5rem;
             gap: 1rem;
         }
 
         .example-btn, .download-btn {
             display: flex;
             align-items: center;
-            padding: 0.6rem 1rem;
-            border-radius: 4px;
+            padding: 0.8rem 1.5rem;
+            border-radius: var(--border-radius);
             cursor: pointer;
             font-weight: 500;
+            transition: var(--transition);
+            position: relative;
+            overflow: hidden;
+        }
+
+        .example-btn::before, .download-btn::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: -100%;
+            width: 100%;
+            height: 100%;
+            background: linear-gradient(
+                90deg,
+                transparent,
+                rgba(255, 255, 255, 0.2),
+                transparent
+            );
+            transition: 0.5s;
+        }
+
+        .example-btn:hover::before, .download-btn:hover::before {
+            left: 100%;
         }
 
         .example-btn {
-            background-color: var(--white);
-            color: var(--gray);
-            border: 1px solid #ddd;
+            background-color: var(--card-bg);
+            color: var(--text-secondary);
+            border: 1px solid var(--border);
+            box-shadow: 0 4px 10px var(--shadow);
+        }
+
+        .example-btn:hover {
+            background-color: var(--background);
+            border-color: var(--border);
+            transform: translateY(-2px);
+            box-shadow: 0 6px 15px var(--shadow-hover);
         }
 
         .download-btn {
             background-color: var(--primary);
-            color: var(--white);
+            color: white;
             border: none;
+            box-shadow: 0 4px 10px rgba(74, 138, 74, 0.2);
+        }
+
+        .download-btn:hover {
+            background-color: var(--primary-dark);
+            transform: translateY(-2px);
+            box-shadow: 0 6px 15px rgba(74, 138, 74, 0.3), var(--button-glow);
         }
 
         .icon {
-            margin-right: 0.5rem;
+            margin-right: 0.8rem;
+            font-size: 1.2rem;
+            transition: transform 0.3s ease;
+        }
+
+        .example-btn:hover .icon, .download-btn:hover .icon {
+            transform: scale(1.2);
         }
 
         /* Real-Life Example Section */
         .real-life-example {
-            background-color: var(--white);
-            border-radius: 8px;
-            box-shadow: 0 4px 20px rgba(0, 0, 0, 0.08);
-            padding: 2rem;
-            margin: 2rem 0;
+            background-color: var(--card-bg);
+            border-radius: var(--border-radius);
+            box-shadow: var(--box-shadow);
+            padding: 2.5rem;
+            margin: 3rem 0;
+            transition: var(--transition);
+            animation: fadeIn 0.5s ease-out;
+        }
+
+        @keyframes fadeIn {
+            from {
+                opacity: 0;
+                transform: translateY(20px);
+            }
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+
+        .real-life-example:hover {
+            box-shadow: 0 12px 40px var(--shadow-hover);
         }
 
         .real-life-example h2 {
-            margin-bottom: 1.5rem;
-            font-size: 1.5rem;
+            margin-bottom: 2rem;
+            font-size: 1.8rem;
+            color: var(--primary);
+            position: relative;
+            display: inline-block;
+        }
+
+        .real-life-example h2::after {
+            content: '';
+            position: absolute;
+            width: 50%;
+            height: 3px;
+            bottom: -8px;
+            left: 0;
+            background-color: var(--accent);
+            border-radius: 2px;
         }
 
         .example-content {
             display: grid;
             grid-template-columns: 1fr 1fr;
-            gap: 1.5rem;
+            gap: 2.5rem;
+            align-items: center;
         }
 
         .example-image {
-            background-color: #f5f5f5;
-            border-radius: 4px;
-            height: 200px;
+            background-color: var(--background);
+            border-radius: var(--border-radius);
+            height: 250px;
             display: flex;
             align-items: center;
             justify-content: center;
+            overflow: hidden;
+            box-shadow: 0 8px 20px var(--shadow);
+            transition: var(--transition);
+        }
+
+        .example-image:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 12px 30px var(--shadow-hover);
         }
 
         .example-image img {
             max-width: 100%;
             max-height: 100%;
+            object-fit: cover;
+            border-radius: var(--border-radius);
+            transition: transform 0.3s ease;
+        }
+
+        .example-image img:hover {
+            transform: scale(1.05);
         }
 
         .example-description h3 {
             margin-bottom: 1rem;
-            color: var(--primary);
+            color: var(--accent);
+            font-size: 1.5rem;
         }
 
         .example-description p {
-            margin-bottom: 1.5rem;
+            margin-bottom: 1.8rem;
+            line-height: 1.8;
+            color: var(--text-secondary);
         }
 
         .show-another-btn {
             display: inline-flex;
             align-items: center;
-            padding: 0.6rem 1rem;
-            border-radius: 4px;
+            border-radius: var(--border-radius);
             cursor: pointer;
             font-weight: 500;
-            background-color: var(--white);
-            color: var(--gray);
-            border: 1px solid #ddd;
+            background-color: var(--card-bg);
+            color: var(--text-secondary);
+            border: 1px solid var(--border);
+            transition: var(--transition);
+            box-shadow: 0 4px 10px var(--shadow);
+            position: relative;
+            overflow: hidden;
+            gap: 0.5rem;
+            padding: 0.6em 1.2em;
+            font-size: 0.7rem;
+            transition: background-color 0.3s;
+        }
+
+        .show-another-btn::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: -100%;
+            width: 100%;
+            height: 100%;
+            background: linear-gradient(
+                90deg,
+                transparent,
+                rgba(255, 255, 255, 0.2),
+                transparent
+            );
+            transition: 0.5s;
+        }
+
+        .show-another-btn:hover {
+            background-color: var(--background);
+            border-color: var(--border);
+            transform: translateY(-2px);
+            box-shadow: 0 6px 15px var(--shadow-hover);
+        }
+
+        .show-another-btn:hover::before {
+            left: 100%;
+        }
+
+        .show-another-btn:hover .icon {
+            transform: rotate(180deg);
+        }
+
+        /* Loading animation */
+        .loading {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            height: 100%;
+        }
+
+        .spinner {
+            width: 40px;
+            height: 40px;
+            border: 3px solid rgba(74, 138, 74, 0.2);
+            border-radius: 50%;
+            border-top-color: var(--primary);
+            animation: spin 1s ease-in-out infinite;
+            margin-bottom: 1.2rem;
+        }
+
+        @keyframes spin {
+            to { transform: rotate(360deg); }
+        }
+
+        /* Glassmorphism for cards in dark mode */
+        html[data-theme='dark'] .generator-card,
+        html[data-theme='dark'] .real-life-example {
+            background-color: rgba(42, 42, 42, 0.8);
+            backdrop-filter: blur(10px);
+            -webkit-backdrop-filter: blur(10px);
+            border: 1px solid rgba(255, 255, 255, 0.1);
         }
 
         /* Responsive styles */
+        @media (max-width: 992px) {
+            .hero h1 {
+                font-size: 2.5rem;
+            }
+        }
+
         @media (max-width: 768px) {
             .generator-content, .example-content {
                 grid-template-columns: 1fr;
@@ -411,7 +832,50 @@
                 flex-direction: column;
                 gap: 1rem;
             }
+
+            .hero h1 {
+                font-size: 2rem;
+            }
+
+            .nav-links {
+                margin-top: 1rem;
+                width: 100%;
+                justify-content: space-evenly;
+            }
+
+            .get-started-btn {
+                margin-top: 1rem;
+                width: 100%;
+            }
+
+            nav {
+                flex-direction: column;
+                align-items: flex-start;
+            }
+
+            /* Theme toggle removed */
         }
+
+        @media (max-width: 480px) {
+            .hero h1 {
+                font-size: 1.8rem;
+            }
+
+            .hero p {
+                font-size: 1rem;
+            }
+
+            .generator-card, .real-life-example {
+                padding: 1.5rem;
+            }
+        }
+        .generator-actions .icon {
+    margin-right: 8px;
+    font-size: 1.1em;
+    vertical-align: middle;
+}
+
+
     </style>
 </head>
 <body>
@@ -423,9 +887,9 @@
             <div class="nav-links">
                 <a href="index2.html">Demo</a>
                 <a href="tutorial2.html">Tutorial</a>
-                <a href="about2.html">About Us</a>
+                <a href="about2.html">About</a>
             </div>
-            <button class="get-started-btn">Get Started</button>
+            <button id="theme-toggle" class="theme-toggle" aria-label="Toggle dark mode">☀️</button>
         </nav>
     </header>
 
@@ -476,14 +940,15 @@
             
             <div class="generator-actions">
                 <button id="example-btn" class="example-btn">
-                    <span class="icon">💡</span>
+                    <i class="fas fa-lightbulb icon"></i>
                     Show Real-Life Example
                 </button>
                 <button id="download-btn" class="download-btn">
-                    <span class="icon">⬇️</span>
+                    <i class="fas fa-download icon"></i>
                     Download Animation
                 </button>
             </div>
+            
         </section>
 
         <section class="real-life-example" id="real-life-example" style="display: none;">
@@ -502,11 +967,10 @@
                 </div>
             </div>
         </section>
-        
     </main>
 
     <script>
-        document.addEventListener('DOMContentLoaded', function () {
+        document.addEventListener('DOMContentLoaded', function() {
             const verticesInput = document.getElementById('vertices');
             const generateBtn = document.getElementById('generate-btn');
             const exampleBtn = document.getElementById('example-btn');
@@ -520,70 +984,109 @@
             const circuitPath = document.getElementById('circuit-path');
             const progressBar = document.getElementById('progress-bar');
             
-
-            exampleBtn.disabled = true;
-exampleBtn.style.cursor = "not-allowed";
-
-const realLifeSection = document.getElementById('real-life-example');
-const showAnotherBtn = document.getElementById('show-another-btn');
-const exampleImage = document.getElementById('example-image');
-const exampleDescriptionTitle = document.getElementById('title-example-description');
-const exampleDescription = document.getElementById('example-desc');
-
-let exampleData = []; // Will hold [category, story] pairs
-let currentIndex = 0;
-
-exampleBtn.addEventListener('click', () => {
-    fetch('/real_life_examples')
-        .then(response => response.json())
-        .then(data => {
-            if (data.real_life_examples) {
-                exampleData = Object.entries(data.real_life_examples);
-                currentIndex = 0;
-                showExample(currentIndex);
-                realLifeSection.style.display = 'block';
-                realLifeSection.scrollIntoView({ behavior: 'smooth' });
-            }
-        })
-        .catch(error => {
-            console.error('Error fetching real-life examples:', error);
-            exampleDescriptionTitle.textContent = 'Error';
-            exampleDescription.textContent = 'Failed to load real-life examples.';
-        });
-});
-
-showAnotherBtn.addEventListener('click', () => {
-    if (!exampleData.length) return;
-    currentIndex = (currentIndex + 1); // Loop back to 0
-    showExample(currentIndex);
-});
-
-function showExample(index) {
-    const [category, story] = exampleData[index];
-    exampleDescriptionTitle.textContent = category;
-    exampleDescription.textContent = story;
-
-    // Optional: update image
-    const imageMap = {
-        "Transportation": "transport.svg",
-        "Package Delivery": "delivery.svg",
-        "Tourism": "tourism.svg",
-        "Household Chores": "chores.svg",
-        "Work Tasks": "work.svg",
-        "School Schedule": "school.svg",
-        "Shopping": "shopping.svg",
-        "Social Visits": "social.svg",
-        "Sports": "sports.svg",
-        "Nature": "nature.svg"
-    };
-
-    const imageSrc = imageMap[category] || "placeholder.svg";
-    exampleImage.src = imageSrc;
-    exampleImage.alt = `${category} illustration`;
-}
-
+            // Set default light theme
+            document.documentElement.setAttribute('data-theme', 'light');
             
-            generateBtn.addEventListener('click', function () {
+            // Initially hide the error message
+            errorMessage.style.display = 'none';
+            
+            exampleBtn.disabled = true;
+            exampleBtn.style.cursor = "not-allowed";
+
+            const realLifeSection = document.getElementById('real-life-example');
+            const showAnotherBtn = document.getElementById('show-another-btn');
+            const exampleImage = document.getElementById('example-image');
+            const exampleDescriptionTitle = document.getElementById('title-example-description');
+            const exampleDescription = document.getElementById('example-desc');
+
+            let exampleData = []; // Will hold [category, story] pairs
+            let currentIndex = 0;
+
+            exampleBtn.addEventListener('click', () => {
+                fetch('/real_life_examples')
+                    .then(response => response.json())
+                    .then(data => {
+                        if (data.real_life_examples) {
+                            exampleData = Object.entries(data.real_life_examples);
+                            currentIndex = 0;
+                            showExample(currentIndex);
+                            realLifeSection.style.display = 'block';
+                            realLifeSection.scrollIntoView({ behavior: 'smooth' });
+                        }
+                    })
+                    .catch(error => {
+                        console.error('Error fetching real-life examples:', error);
+                        exampleDescriptionTitle.textContent = 'Error';
+                        exampleDescription.textContent = 'Failed to load real-life examples.';
+                        
+                        // Fallback to show example even if fetch fails
+                        realLifeSection.style.display = 'block';
+                        realLifeSection.scrollIntoView({ behavior: 'smooth' });
+                    });
+            });
+
+            showAnotherBtn.addEventListener('click', () => {
+                if (!exampleData.length) {
+                    // Fallback examples if no data was fetched
+                    const fallbackExamples = [
+                        ["Mail Delivery Route", "A mail carrier needs to traverse every street in a neighborhood exactly once to deliver mail efficiently, returning to the post office."],
+                        ["Street Sweeping Route", "A street sweeper needs to clean every street in a city district exactly once, minimizing wasted travel and returning to the depot."],
+                        ["Circuit Board Design", "Engineers use Euler circuits to design circuit boards where each connection needs to be traced exactly once to minimize manufacturing complexity."]
+                    ];
+                    
+                    currentIndex = (currentIndex + 1) % fallbackExamples.length;
+                    const [category, story] = fallbackExamples[currentIndex];
+                    exampleDescriptionTitle.textContent = category;
+                    exampleDescription.textContent = story;
+                    
+                    // Add animation to the button icon
+                    const icon = showAnotherBtn.querySelector('.icon');
+                    icon.style.transition = 'transform 0.5s ease';
+                    icon.style.transform = 'rotate(180deg)';
+                    setTimeout(() => {
+                        icon.style.transform = 'rotate(0deg)';
+                    }, 500);
+                    
+                    return;
+                }
+                
+                currentIndex = (currentIndex + 1) % exampleData.length;
+                showExample(currentIndex);
+                
+                // Add animation to the button icon
+                const icon = showAnotherBtn.querySelector('.icon');
+                icon.style.transition = 'transform 0.5s ease';
+                icon.style.transform = 'rotate(180deg)';
+                setTimeout(() => {
+                    icon.style.transform = 'rotate(0deg)';
+                }, 500);
+            });
+
+            function showExample(index) {
+                const [category, story] = exampleData[index];
+                exampleDescriptionTitle.textContent = category;
+                exampleDescription.textContent = story;
+
+                // Optional: update image
+                const imageMap = {
+                    "Transportation": "transport.svg",
+                    "Package Delivery": "delivery.svg",
+                    "Tourism": "tourism.svg",
+                    "Household Chores": "chores.svg",
+                    "Work Tasks": "work.svg",
+                    "School Schedule": "school.svg",
+                    "Shopping": "shopping.svg",
+                    "Social Visits": "social.svg",
+                    "Sports": "sports.svg",
+                    "Nature": "nature.svg"
+                };
+
+                const imageSrc = imageMap[category] || "placeholder.svg";
+                exampleImage.src = imageSrc;
+                exampleImage.alt = `${category} illustration`;
+            }
+            
+            generateBtn.addEventListener('click', function() {
                 const value = parseInt(verticesInput.value);
 
                 if (isNaN(value) || value < 3 || value > 8) {
@@ -621,7 +1124,9 @@ function showExample(index) {
 
                         console.log('Euler Circuit:', stringEulerFormat);  // Do something with the string
                         circuitInfo.style.display = 'block';
-                        circuitPath.textContent = stringEulerFormat;
+                        
+                        // Instead of just setting text content, animate the path
+                        animateCircuitPath(stringEulerFormat);
 
                         return waitForVideo(window.currentAbortController.signal);
                     })
@@ -633,10 +1138,9 @@ function showExample(index) {
                         video.setAttribute("playsinline", "true");
                         video.setAttribute("width", "400");
                         video.setAttribute("height", "300");
-                        video.setAttribute("style", "background: #000; border: 2px solid rgb(188, 194, 188); border-radius: 10px; padding: 4px;");
+                        video.setAttribute("style", "background: #000; border: 2px solid var(--primary); border-radius: 10px; padding: 4px;");
 
                         const source = document.createElement("source");
-                        // source.setAttribute("src", `/euler_animation?ts=${Date.now()}`);
                         source.setAttribute("src", `/static/videos/euler_circuits/videos/generate_animation/1080p60/EulerCircuitAnimator.mp4?ts=${Date.now()}`);
                         source.setAttribute("type", "video/mp4");
                         video.appendChild(source);
@@ -655,88 +1159,76 @@ function showExample(index) {
                         graphPlaceholder.appendChild(img);
 
                         circuitInfo.style.display = 'block';
-
                     })
                     .catch((error) => {
                         if (error.name !== "AbortError") {
                             console.error("Error during video generation:", error);
                             animationContainer.querySelector('.video-placeholder').innerHTML =
-                                "<p style='color:red;'>Error generating animation.</p>";
+                                "<p style='color:var(--error);'>Error generating animation.</p>";
+                        
+                            // Add a simple error message with animation
+                            circuitInfo.style.display = 'block';
+                            circuitPath.innerHTML = '<span class="path-node" style="animation: fadeInNode 0.5s forwards; background-color: rgba(231, 76, 60, 0.2); color: var(--error);">Error generating circuit</span>';
                         }
                     })
                     .finally(() => {
                         generateBtn.disabled = false;
                         generateBtn.style.color = "#ffffff";
-                        generateBtn.style.backgroundColor = "#4a8a4a";
+                        generateBtn.style.backgroundColor = "var(--primary)";
                         generateBtn.innerHTML = 'Generate';
                         generateBtn.style.cursor = "pointer";
                     });
 
                 exampleBtn.disabled = false;
                 exampleBtn.style.cursor = "pointer";
-                // fetch(`/render/eulerian_graph?vertices=${value}`, {
-                //     signal: window.currentAbortController.signal,
-                // })
-                //     .then((response) => {
-                //         if (!response.ok) {
-                //             throw new Error("Failed to start rendering.");
-                //         }
-                //         return waitForVideo(window.currentAbortController.signal);
-                //     })
-                //     .then(() => {
-                //         const video = document.createElement("video");
-                //         video.setAttribute("controls", "true");
-                //         video.setAttribute("autoplay", "true");
-                //         video.setAttribute("muted", "true");
-                //         video.setAttribute("playsinline", "true");
-                //         video.setAttribute("width", "400");
-                //         video.setAttribute("height", "300");
-                //         video.setAttribute(
-                //             "style",
-                //             "background: #000; border: 2px solid rgb(188, 194, 188); border-radius: 10px; padding: 4px;"
-                //         );
-
-                //         const source = document.createElement("source");
-                //         // source.setAttribute("src", `/euler_animation?ts=${Date.now()}`);
-                //         source.setAttribute("src", `/static/videos/euler_circuits/videos/generate_animation/1080p60/EulerCircuitAnimator.mp4?ts=${Date.now()}`);
-                //         source.setAttribute("type", "video/mp4");
-                //         video.appendChild(source);
-
-                //         const placeholder = animationContainer.querySelector('.video-placeholder');
-                //         placeholder.innerHTML = '';
-                //         placeholder.appendChild(video);
-                        
-                //         const img = document.createElement("img");
-                //         img.setAttribute("src", `/euler_image?ts=${Date.now()}`);
-                //         img.setAttribute("alt", "Euler Circuit Image");
-                //         img.style.width = "100%";
-                //         img.style.height = "auto";
-
-                //         graphPlaceholder.innerHTML = "";
-                //         graphPlaceholder.appendChild(img);
-
-                //         circuitInfo.style.display = 'block';
-
-                //         // graphPlaceholder.innerHTML = '<div class="loading"><div class="spinner"></div><p>Loading example...</p></div>';
-                //         // animationContainer.querySelector('.video-placeholder').innerHTML = '<div class="loading"><div class="spinner"></div><p>Loading animation...</p></div>';
-    
-                //     })
-                //     .catch((error) => {
-                //         if (error.name !== "AbortError") {
-                //             console.error("Error during video generation:", error);
-                //             animationContainer.querySelector('.video-placeholder').innerHTML =
-                //                 "<p style='color:red;'>Error generating animation.</p>";
-                //         }
-                //     })
-                //     .finally(() => {
-                //         generateBtn.disabled = false;
-                //         generateBtn.style.color = "#ffffff";
-                //         generateBtn.style.backgroundColor = "#4a8a4a";
-                //         generateBtn.innerHTML = 'Generate';
-                //         generateBtn.style.cursor = "pointer";
-                        
-                //     });
             });
+
+            // Add this function before the waitForVideo function
+            function animateCircuitPath(pathString) {
+                // Clear previous content
+                circuitPath.innerHTML = '';
+                
+                // Split the path string into nodes and arrows
+                const nodes = pathString.split(' → ');
+                
+                // Create and append elements with staggered animation
+                nodes.forEach((node, index) => {
+                    // Create node element
+                    const nodeElement = document.createElement('span');
+                    nodeElement.className = 'path-node';
+                    nodeElement.textContent = node;
+                    nodeElement.style.animationName = 'fadeInNode';
+                    nodeElement.style.animationDuration = '0.5s';
+                    nodeElement.style.animationFillMode = 'forwards';
+                    nodeElement.style.animationDelay = `${index * 0.15}s`;
+                    
+                    circuitPath.appendChild(nodeElement);
+                    
+                    // Add arrow except after the last node
+                    if (index < nodes.length - 1) {
+                        const arrowElement = document.createElement('span');
+                        arrowElement.className = 'path-arrow';
+                        arrowElement.textContent = '→';
+                        arrowElement.style.animationName = 'fadeInArrow';
+                        arrowElement.style.animationDuration = '0.5s';
+                        arrowElement.style.animationFillMode = 'forwards';
+                        arrowElement.style.animationDelay = `${index * 0.15 + 0.1}s`;
+                        
+                        circuitPath.appendChild(arrowElement);
+                    }
+                });
+                
+                // Add a highlight effect to the first and last nodes after all animations
+                setTimeout(() => {
+                    const firstNode = circuitPath.querySelector('.path-node');
+                    const lastNode = circuitPath.querySelectorAll('.path-node')[nodes.length - 1];
+                    
+                    if (firstNode && lastNode) {
+                        firstNode.classList.add('highlight-pulse');
+                        lastNode.classList.add('highlight-pulse');
+                    }
+                }, nodes.length * 150 + 500);
+            }
 
             // Polls the server until the video is available or retries are exhausted
             function waitForVideo(signal, retries = 20, interval = 1000) {
@@ -780,94 +1272,56 @@ function showExample(index) {
                 });
             }
 
-            
-
-
-            // exampleBtn.addEventListener('click', function () {
-            //     // graphPlaceholder.innerHTML = '<div class="loading"><div class="spinner"></div><p>Loading example...</p></div>';
-            //     // animationContainer.querySelector('.video-placeholder').innerHTML = '<div class="loading"><div class="spinner"></div><p>Loading animation...</p></div>';
-    
-            //     setTimeout(() => {
-            //         showRealLifeExample();
-            //         const video = document.createElement("video");
-            //         video.setAttribute("controls", "true");
-            //         video.setAttribute("width", "400");
-            //         video.setAttribute("height", "300");
-            //         video.setAttribute(
-            //             "style",
-            //             "background: #000; border: 2px solid rgb(188, 194, 188); border-radius: 10px; padding: 4px;"
-            //         );
-            //         video.innerHTML = "Video placeholder (no source yet)";
-            //         const placeholder = animationContainer.querySelector('.video-placeholder');
-            //         placeholder.innerHTML = '';
-            //         placeholder.appendChild(video);
-    
-            //         realLifeExample.style.display = 'block';
-            //         circuitInfo.style.display = 'block';
-            //         circuitPath.textContent = '1 → 2 → 3 → 4 → 5 → 6 → 1';
-            //     }, 1500);
-            // });
-    
-            if (showAnotherBtn) {
-                showAnotherBtn.addEventListener('click', function () {
-                    const currentExample = document.querySelector('.example-description h3').textContent;
-    
-                    if (currentExample === 'Mail Delivery Route') {
-                        document.querySelector('.example-description h3').textContent = 'Street Sweeping Route';
-                        document.querySelector('.example-description p').textContent =
-                            'A street sweeper needs to clean every street in a city district exactly once, minimizing wasted travel and returning to the depot.';
-                    } else if (currentExample === 'Street Sweeping Route') {
-                        document.querySelector('.example-description h3').textContent = 'Circuit Board Design';
-                        document.querySelector('.example-description p').textContent =
-                            'Engineers use Euler circuits to design circuit boards where each connection needs to be traced exactly once to minimize manufacturing complexity.';
-                    } else {
-                        document.querySelector('.example-description h3').textContent = 'Mail Delivery Route';
-                        document.querySelector('.example-description p').textContent =
-                            'A mail carrier needs to traverse every street in a neighborhood exactly once to deliver mail efficiently, returning to the post office.';
-                    }
-                });
-            }
-    
-            downloadBtn.addEventListener('click', function () {
+            downloadBtn.addEventListener('click', function() {
+                // Add a button press animation
+                this.style.transform = 'scale(0.95)';
+                setTimeout(() => {
+                    this.style.transform = 'translateY(-2px)';
+                }, 150);
+                
                 alert('In a real implementation, this would download the animation as an MP4 file.');
             });
-    
-            const style = document.createElement('style');
-            style.textContent = `
-                .loading {
-                    display: flex;
-                    flex-direction: column;
-                    align-items: center;
-                    justify-content: center;
-                    height: 100%;
-                }
-    
-                .spinner {
-                    width: 30px;
-                    height: 30px;
-                    border: 3px solid rgba(74, 138, 74, 0.3);
-                    border-radius: 50%;
-                    border-top-color: #4a8a4a;
-                    animation: spin 1s ease-in-out infinite;
-                    margin-bottom: 1rem;
-                }
-    
-                @keyframes spin {
-                    to { transform: rotate(360deg); }
-                }
-            `;
-            document.head.appendChild(style);
+
+            const themeToggle = document.getElementById('theme-toggle');
+            const body = document.body;
+        
+            // Function to toggle between light and dark theme
+            function toggleTheme() {
+                const currentTheme = document.documentElement.getAttribute('data-theme');
+                const newTheme = currentTheme === 'dark' ? 'light' : 'dark';
+                document.documentElement.setAttribute('data-theme', newTheme);
+        
+                // Update the button text
+                themeToggle.textContent = newTheme === 'dark' ? '🌙' : '☀️';
+        
+                // Store the theme preference in local storage
+                localStorage.setItem('theme', newTheme);
+            }
+        
+            // Event listener for the theme toggle button
+            themeToggle.addEventListener('click', toggleTheme);
+        
+            // Check for saved theme preference in local storage
+            const savedTheme = localStorage.getItem('theme');
+            if (savedTheme) {
+                document.documentElement.setAttribute('data-theme', savedTheme);
+                themeToggle.textContent = savedTheme === 'dark' ? '🌙' : '☀️';
+            } else if (window.matchMedia && window.matchMedia('(prefers-color-scheme: dark)').matches) {
+                // If no theme is saved, check the user's system preference
+                document.documentElement.setAttribute('data-theme', 'dark');
+                themeToggle.textContent = '🌙';
+            }
         });
 
-        window.addEventListener('scroll', function () {
-        const header = document.querySelector('header');
-        if (window.scrollY > 10) {
-            header.classList.add('scrolled');
-        } else {
-            header.classList.remove('scrolled');
-        }
-    });
+        // Add scroll effect for header
+        window.addEventListener('scroll', function() {
+            const header = document.querySelector('header');
+            if (window.scrollY > 10) {
+                header.classList.add('scrolled');
+            } else {
+                header.classList.remove('scrolled');
+            }
+        });
     </script>
-    
 </body>
 </html>

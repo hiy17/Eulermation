@@ -128,7 +128,7 @@ import os
 import json
 import networkx as nx
 from networkx.readwrite import json_graph
-
+import time 
 from manim import *
 import networkx as nx
 import random
@@ -279,6 +279,7 @@ class EulerCircuitAnimator(Scene):
         config.frame_width = 10
         config.frame_height = 10
 
+        start_time = time.time()
         # Load graph
         graph_json = os.getenv("EULERIAN_GRAPH")
         circuit_json = os.getenv("EULERIAN_CIRCUIT")
@@ -357,6 +358,12 @@ class EulerCircuitAnimator(Scene):
 
             self.wait(self.speed * 0.2)
 
+        # Record end time and calculate the total time taken
+        end_time = time.time()
+        time_taken = end_time - start_time
+        print(f'Animation Time: {time_taken:.2f} seconds')
+
+        
         self.wait(.5)
         return self.euler_circuits
 

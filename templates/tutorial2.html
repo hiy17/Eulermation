@@ -1,8 +1,9 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="en" data-theme="light">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link href="https://fonts.googleapis.com/css2?family=Poppins&display=swap" rel="stylesheet">
     <title>Euler Circuits Tutorial - Eulermation</title>
     <style>
         /* Base styles */
@@ -18,13 +19,36 @@
             --gray: #6c757d;
             --light-green: #e8f5e8;
             --light-yellow: #fff8e0;
+            --background-color: #ffffff;
+            --text-color: #000000;
         }
+
+        /* Dark theme */
+        html[data-theme='dark'] {
+            --primary: #5a9a5a;
+            --primary-dark: #4a8a4a;
+            --primary-light: #2a3a2a;
+            --accent: #f0c000;
+            --accent-hover: #ffcf20;
+            --background: #1a1a1a;
+            --card-bg: #2a2a2a;
+            --text: #e0e0e0;
+            --text-secondary: #aaaaaa;
+            --border: #444444;
+            --shadow: rgba(0, 0, 0, 0.3);
+            --shadow-hover: rgba(0, 0, 0, 0.4);
+            --header-bg: rgba(26, 26, 26, 0.8);
+            --header-scrolled: rgba(26, 26, 26, 0.95);
+            --error: #e74c3c;
+            --button-glow: 0 0 15px rgba(90, 154, 90, 0.5);
+        }
+        
 
         * {
             margin: 0;
             padding: 0;
             box-sizing: border-box;
-            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            font-family: 'Poppins', sans-serif;
         }
 
         body {
@@ -60,7 +84,7 @@
         }
 
         .logo {
-            font-size: 1.4rem;
+            font-size: 1.8rem;
             font-weight: bold;
             margin-right: 50px;
         }
@@ -313,7 +337,8 @@
   display: flex;
   justify-content: center;
   align-items: center;
-  background-color: #f5f5f5; /* optional background */
+  background-color: #ffffff; /* optional background */
+  margin-top: 20px;
 }
 
 .video-button {
@@ -324,8 +349,8 @@
   color: white;
   padding: 12px 20px;
   border: none;
-  border-radius: 50px;
-  font-size: 16px;
+  border-radius: 5px;
+  font-size: 15px;
   font-weight: bold;
   cursor: pointer;
   text-decoration: none;
@@ -357,6 +382,29 @@
     .video-popup.active {
       display: flex;
     }
+
+     /* Theme toggle removed */
+     .theme-toggle {
+            background-color: transparent;
+            border: none;
+            font-size: 1.5rem;
+            cursor: pointer;
+            color: var(--text);
+            transition: color 0.3s ease;
+        }
+
+        .theme-toggle:hover {
+            color: var(--accent);
+        }
+
+        /* Glassmorphism for cards in dark mode */
+        html[data-theme='dark'] .generator-card,
+        html[data-theme='dark'] .real-life-example {
+            background-color: rgba(42, 42, 42, 0.8);
+            backdrop-filter: blur(10px);
+            -webkit-backdrop-filter: blur(10px);
+            border: 1px solid rgba(255, 255, 255, 0.1);
+        }
     </style>
 </head>
 <body>
@@ -368,9 +416,9 @@
             <div class="nav-links">
                 <a href="index2.html">Demo</a>
                 <a href="tutorial2.html">Tutorial</a>
-                <a href="about2.html">About Us</a>
+                <a href="about2.html">About</a>
             </div>
-            <button class="get-started-btn">Get Started</button>
+            <button id="theme-toggle" class="theme-toggle" aria-label="Toggle dark mode">☀️</button>
         </nav>
     </header>
 
@@ -434,9 +482,7 @@
                         </svg>
                     </div>
                 </div>
-            </div>
-        </section>
-         <!-- Button -->
+                  <!-- Button -->
          <div class="center-container">
             <button class="video-button" onclick="openVideo()">
               <svg width="20" height="20" viewBox="0 0 24 24">
@@ -447,6 +493,8 @@
           </div>          
         
         <!-- Popup Video -->
+            </div>
+        </section>
         <div class="video-popup" id="videoPopup" onclick="closeVideo()">
             <iframe id="tutorialVideo" src="" allow="autoplay; encrypted-media" allowfullscreen></iframe>
         </div>
@@ -550,45 +598,86 @@
     </main>
 
     <script>
-        document.addEventListener('DOMContentLoaded', function() {
+        document.addEventListener('DOMContentLoaded', function () {
+            // Tabs
             const tabButtons = document.querySelectorAll('.tab-btn');
             const tabContents = document.querySelectorAll('.tab-content');
-            
+        
             tabButtons.forEach(button => {
                 button.addEventListener('click', () => {
-                    // Remove active class from all buttons and contents
                     tabButtons.forEach(btn => btn.classList.remove('active'));
                     tabContents.forEach(content => content.classList.remove('active'));
-                    
-                    // Add active class to clicked button and corresponding content
+        
                     button.classList.add('active');
                     const tabId = button.getAttribute('data-tab');
-                    document.getElementById(tabId).classList.add('active');
+                    const target = document.getElementById(tabId);
+                    if (target) {
+                        target.classList.add('active');
+                    }
                 });
             });
+        
+            // Set default theme (or load saved one)
+            const themeToggle = document.getElementById('theme-toggle');
+            if (themeToggle) {
+                const savedTheme = localStorage.getItem('theme');
+                const prefersDark = window.matchMedia && window.matchMedia('(prefers-color-scheme: dark)').matches;
+        
+                let themeToApply = 'light';
+                if (savedTheme) {
+                    themeToApply = savedTheme;
+                } else if (prefersDark) {
+                    themeToApply = 'dark';
+                }
+        
+                document.documentElement.setAttribute('data-theme', themeToApply);
+                themeToggle.textContent = themeToApply === 'dark' ? '🌙' : '☀️';
+        
+                themeToggle.addEventListener('click', () => {
+                    const currentTheme = document.documentElement.getAttribute('data-theme');
+                    const newTheme = currentTheme === 'dark' ? 'light' : 'dark';
+                    document.documentElement.setAttribute('data-theme', newTheme);
+                    themeToggle.textContent = newTheme === 'dark' ? '🌙' : '☀️';
+                    localStorage.setItem('theme', newTheme);
+                });
+            }
         });
-
+        
+        // Scroll header effect
         window.addEventListener('scroll', function () {
-        const header = document.querySelector('header');
-        if (window.scrollY > 10) {
-            header.classList.add('scrolled');
-        } else {
-            header.classList.remove('scrolled');
+            const header = document.querySelector('header');
+            if (header) {
+                if (window.scrollY > 10) {
+                    header.classList.add('scrolled');
+                } else {
+                    header.classList.remove('scrolled');
+                }
+            }
+        });
+        
+        // Video functions
+        function openVideo() {
+            const videoPopup = document.getElementById('videoPopup');
+            const videoFrame = document.getElementById('tutorialVideo');
+            if (videoPopup && videoFrame) {
+                videoFrame.src = "https://www.youtube.com/embed/o0cDpp6a7EY?autoplay=1";
+                videoPopup.classList.add('active');
+            }
         }
-    });
-    function openVideo() {
-    const videoPopup = document.getElementById('videoPopup');
-    const videoFrame = document.getElementById('tutorialVideo');
-    videoFrame.src = "https://www.youtube.com/embed/o0cDpp6a7EY?autoplay=1"; // Replace with your video
-    videoPopup.classList.add('active');
-  }
-
-  function closeVideo() {
-    const videoPopup = document.getElementById('videoPopup');
-    const videoFrame = document.getElementById('tutorialVideo');
-    videoFrame.src = ""; // Stop the video
-    videoPopup.classList.remove('active');
-  }
-    </script>
+        
+        function closeVideo() {
+            const videoPopup = document.getElementById('videoPopup');
+            const videoFrame = document.getElementById('tutorialVideo');
+            if (videoPopup && videoFrame) {
+                videoFrame.src = "";
+                videoPopup.classList.remove('active');
+            }
+        }
+        
+        // Expose to global if needed
+        window.openVideo = openVideo;
+        window.closeVideo = closeVideo;
+        </script>
+        
 </body>
 </html>

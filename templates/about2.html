@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="en" data-theme="light">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
@@ -7,6 +7,7 @@
     rel="stylesheet"
     href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css"
   />
+  <link href="https://fonts.googleapis.com/css2?family=Poppins&display=swap" rel="stylesheet">
     <title>About Us - Eulermation</title>
     <style>
         /* Base styles */
@@ -23,11 +24,31 @@
             --light-green: #e8f5e8;
         }
 
+        /* Dark theme */
+        html[data-theme='dark'] {
+            --primary: #5a9a5a;
+            --primary-dark: #4a8a4a;
+            --primary-light: #2a3a2a;
+            --accent: #f0c000;
+            --accent-hover: #ffcf20;
+            --background: #1a1a1a;
+            --card-bg: #2a2a2a;
+            --text: #e0e0e0;
+            --text-secondary: #aaaaaa;
+            --border: #444444;
+            --shadow: rgba(0, 0, 0, 0.3);
+            --shadow-hover: rgba(0, 0, 0, 0.4);
+            --header-bg: rgba(26, 26, 26, 0.8);
+            --header-scrolled: rgba(26, 26, 26, 0.95);
+            --error: #e74c3c;
+            --button-glow: 0 0 15px rgba(90, 154, 90, 0.5);
+        }
+
         * {
             margin: 0;
             padding: 0;
             box-sizing: border-box;
-            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            font-family: 'Poppins', sans-serif;
         }
 
         body {
@@ -63,7 +84,7 @@
         }
 
         .logo {
-            font-size: 1.4rem;
+            font-size: 1.8rem;
             font-weight: bold;
             margin-right: 50px;
         }
@@ -371,6 +392,28 @@
   filter: brightness(0.8); /* Darkens the icon */
 }
 
+/* Theme toggle removed */
+.theme-toggle {
+            background-color: transparent;
+            border: none;
+            font-size: 1.5rem;
+            cursor: pointer;
+            color: var(--text);
+            transition: color 0.3s ease;
+        }
+
+        .theme-toggle:hover {
+            color: var(--accent);
+        }
+
+        /* Glassmorphism for cards in dark mode */
+        html[data-theme='dark'] .generator-card,
+        html[data-theme='dark'] .real-life-example {
+            background-color: rgba(42, 42, 42, 0.8);
+            backdrop-filter: blur(10px);
+            -webkit-backdrop-filter: blur(10px);
+            border: 1px solid rgba(255, 255, 255, 0.1);
+        }
     </style>
 </head>
 <body>
@@ -382,9 +425,9 @@
             <div class="nav-links">
                 <a href="index2.html">Demo</a>
                 <a href="tutorial2.html">Tutorial</a>
-                <a href="about2.html">About Us</a>
+                <a href="about2.html">About</a>
             </div>
-            <button class="get-started-btn">Get Started</button>
+            <button id="theme-toggle" class="theme-toggle" aria-label="Toggle dark mode">☀️</button>
         </nav>
     </header>
 
@@ -518,6 +561,8 @@
     <script>
         document.addEventListener('DOMContentLoaded', function() {
             // Any JavaScript functionality can be added here
+             // Set default light theme
+             document.documentElement.setAttribute('data-theme', 'light');
         });
 
         window.addEventListener('scroll', function () {
@@ -527,6 +572,36 @@
         } else {
             header.classList.remove('scrolled');
         }
+
+        const themeToggle = document.getElementById('theme-toggle');
+            const body = document.body;
+        
+            // Function to toggle between light and dark theme
+            function toggleTheme() {
+                const currentTheme = document.documentElement.getAttribute('data-theme');
+                const newTheme = currentTheme === 'dark' ? 'light' : 'dark';
+                document.documentElement.setAttribute('data-theme', newTheme);
+        
+                // Update the button text
+                themeToggle.textContent = newTheme === 'dark' ? '🌙' : '☀️';
+        
+                // Store the theme preference in local storage
+                localStorage.setItem('theme', newTheme);
+            }
+        
+            // Event listener for the theme toggle button
+            themeToggle.addEventListener('click', toggleTheme);
+        
+            // Check for saved theme preference in local storage
+            const savedTheme = localStorage.getItem('theme');
+            if (savedTheme) {
+                document.documentElement.setAttribute('data-theme', savedTheme);
+                themeToggle.textContent = savedTheme === 'dark' ? '🌙' : '☀️';
+            } else if (window.matchMedia && window.matchMedia('(prefers-color-scheme: dark)').matches) {
+                // If no theme is saved, check the user's system preference
+                document.documentElement.setAttribute('data-theme', 'dark');
+                themeToggle.textContent = '🌙';
+            }
     });
     </script>
 </body>

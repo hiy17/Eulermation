@@ -60,9 +60,9 @@ def setup_euler_artifacts(num_vertices):
         return
     
     parse_euler_circuits = format_circuit(euler_circuit)
-    real_life_examples = generate_real_life_examples(parse_euler_circuits)
-    print(real_life_examples)
-    session['real_life_examples'] = real_life_examples
+    # real_life_examples = generate_real_life_examples(parse_euler_circuits)
+    # print(real_life_examples)
+    # session['real_life_examples'] = real_life_examples
 
     return euler_graph, euler_circuit
 

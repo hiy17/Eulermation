@@ -1,25 +1,44 @@
-// Fade-in on scroll with enhanced animation effects
-const faders = document.querySelectorAll('.about-paragraph, .mission-section, .team-section, .tech-section, .testimonials-section, .roadmap-section');
+document.addEventListener('DOMContentLoaded', function() {
+    // Any JavaScript functionality can be added here
+     // Set default light theme
+     document.documentElement.setAttribute('data-theme', 'light');
 
-const appearOptions = {
-  threshold: 0.1, // Percentage of the element that needs to be visible before the fade-in happens
-  rootMargin: "0px 0px -50px 0px" // Offset for the scroll trigger
-};
+     const themeToggle = document.getElementById('theme-toggle');
+    const body = document.body;
 
-// Create an IntersectionObserver to handle the fade-in animations
-const appearOnScroll = new IntersectionObserver(function (entries, observer) {
-  entries.forEach(entry => {
-    if (!entry.isIntersecting) return; // Only trigger animation if the element is in view
+    // Function to toggle between light and dark theme
+    function toggleTheme() {
+        const currentTheme = document.documentElement.getAttribute('data-theme');
+        const newTheme = currentTheme === 'dark' ? 'light' : 'dark';
+        document.documentElement.setAttribute('data-theme', newTheme);
 
-    // Add multiple classes to trigger various animations
-    entry.target.classList.add('fade-in', 'scale-in', 'slide-up');
-    
-    // Unobserve the element once the animation has triggered to avoid triggering multiple times
-    observer.unobserve(entry.target);
-  });
-}, appearOptions);
+        // Update the button text
+        themeToggle.textContent = newTheme === 'dark' ? '🌙' : '☀️';
 
-// Observe each element for the scroll animation
-faders.forEach(fader => {
-  appearOnScroll.observe(fader);
+        // Store the theme preference in local storage
+        localStorage.setItem('theme', newTheme);
+    }
+
+    // Event listener for the theme toggle button
+    themeToggle.addEventListener('click', toggleTheme);
+
+    // Check for saved theme preference in local storage
+    const savedTheme = localStorage.getItem('theme');
+    if (savedTheme) {
+        document.documentElement.setAttribute('data-theme', savedTheme);
+        themeToggle.textContent = savedTheme === 'dark' ? '🌙' : '☀️';
+    } else if (window.matchMedia && window.matchMedia('(prefers-color-scheme: dark)').matches) {
+        // If no theme is saved, check the user's system preference
+        document.documentElement.setAttribute('data-theme', 'dark');
+        themeToggle.textContent = '🌙';
+    }
+});
+
+window.addEventListener('scroll', function () {
+const header = document.querySelector('header');
+if (window.scrollY > 10) {
+    header.classList.add('scrolled');
+} else {
+    header.classList.remove('scrolled');
+}
 });

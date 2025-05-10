@@ -1,79 +1,109 @@
 <!DOCTYPE html>
-<html lang="en">
-  <head>
-    <meta charset="UTF-8" />
-    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>Eulermation</title>
-    <!-- <link rel="stylesheet" href="/app/static/css/index.css" /> -->
+<html lang="en" data-theme="light">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link href="https://fonts.googleapis.com/css2?family=Poppins&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css">
     <link rel="stylesheet" href="{{ url_for('static', filename='css/index.css') }}">
+    <title>Eulermation - Interactive Euler Circuit Learning</title>
 
-    <link
-      href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;600;700&display=swap"
-      rel="stylesheet"
-    />
-  </head>
-  <body>
-    <div id="particles-js"></div>
-
+</head>
+<body>
     <header>
-      <div class="logo">
-        <span class="euler">Σuler</span><span class="mation">mation</span>
-      </div>
-      <nav>
-        <ul>
-          <!-- <li><a href="index.html">Home</a></li>
-          <li><a href="tutorial.html">Tutorial</a></li>
-          <li><a href="about.html">About</a></li> -->
-          <li><a href="{{ url_for('index') }}">Home</a></li>
-          <li><a href="{{ url_for('tutorial') }}">Tutorial</a></li>
-          <li><a href="{{ url_for('about') }}">About</a></li>
+        <nav>
+            <div class="logo">
+                <span class="logo-euler">Σuler</span><span class="logo-mation">mation</span>
+            </div>
+            <div class="nav-links">
+                <!-- <a href="index2.html">Demo</a>
+                <a href="tutorial2.html">Tutorial</a>
+                <a href="about2.html">About</a> -->
 
-        </ul>
-      </nav>
+                <a href="{{ url_for('index') }}">Demo</a>
+                <a href="{{ url_for('tutorial') }}">Tutorial</a>
+                <a href="{{ url_for('about') }}">About</a>
+            </div>
+            <button id="theme-toggle" class="theme-toggle" aria-label="Toggle dark mode">☀️</button>
+        </nav>
     </header>
 
     <main>
-      <h1>Welcome to Eulermation!</h1>
-      <p class="subtitle">
-        Discover, create, and visualize Euler circuits interactively.
-      </p>
+        <section class="hero">
+            <h1>Welcome to Eulermation!</h1>
+            <p>Discover, create, and visualize Euler circuits interactively.</p>
+        </section>
 
-      <div class="main-card">
-        <div class="input-group">
-          <label for="vertices">Number of vertices:</label>
-          <input type="number" id="vertices" min="3" max="8" value="3" />
-        </div>
+        <section class="generator-card">
+            <h2>Euler Circuit Generator</h2>
+            
+            <div class="generator-content">
+                <div>
+                    <div class="input-group">
+                        <label for="vertices">Number of vertices (3-8):</label>
+                        <div class="input-with-button">
+                            <input type="number" id="vertices" min="3" max="8" value="3">
+                            <button id="generate-btn">Generate</button>
+                        </div>
+                        <p id="error-message" class="error-message">Please enter a number between 3 and 8.</p>
+                    </div>
+                    
+                    <div class="graph-placeholder" id="graph-placeholder">
+                        <p>Enter the number of vertices and click Generate</p>
+                    </div>
+                    
+                    <div class="circuit-info" id="circuit-info" style="display: none;">
+                        <p>Generated Euler Circuit:</p>
+                        <p class="circuit-path" id="circuit-path">1 → 2 → 3 → 4 → 5 → 6 → 1</p>
+                    </div>
+                </div>
+                
+                <div class="animation-container" id="animation-container">
+                    <div class="video-placeholder" id="video-placeholder">
+                        <div class="play-button" id="play-button"></div>
+                        <p>Generate a graph to see the animation</p>
+                    </div>
+                    <div class="video-controls" id="video-controls">
+                        <span class="time-display">0:00</span>
+                        <div class="progress-bar">
+                            <div class="progress" id="progress-bar"></div>
+                        </div>
+                        <span class="time-display">0:00</span>
+                    </div>
+                </div>
+            </div>
+            
+            <div class="generator-actions">
+                <button id="example-btn" class="example-btn">
+                    <i class="fas fa-lightbulb icon"></i>
+                    Show Real-Life Example
+                </button>
+                <button id="download-btn" class="download-btn">
+                    <i class="fas fa-download icon"></i>
+                    Download Animation
+                </button>
+            </div>
+            
+        </section>
 
-        <div class="graph-placeholder">
-          <!-- <button class="generate-btn">Generate Graph</button> -->
-        </div>
-
-        <div class="controls">
-          <button class="download-btn">⬇ Download</button>
-          <button class="circuit-btn link-btn" id="openPopup">
-            Euler Circuit combinations
-          </button>
-        </div>
-      </div>
-
-      <p class="tagline">Explore the magic of Euler circuits with ease.</p>
+        <section class="real-life-example" id="real-life-example" style="display: none;">
+            <h2>Real-Life Application Example</h2>
+            <div class="example-content">
+                <div class="example-image">
+                    <img src="placeholder.svg" alt="Mail Delivery Route" id="example-image">
+                </div>
+                <div class="example-description">
+                    <h3 id="title-example-description">Mail Delivery Route</h3>
+                    <p id="example-desc">A mail carrier needs to traverse every street in a neighborhood exactly once to deliver mail efficiently, returning to the post office.</p>
+                    <button id="show-another-btn" class="show-another-btn">
+                        <span class="icon">🔄</span>
+                        Show Another Example
+                    </button>
+                </div>
+            </div>
+        </section>
     </main>
 
-    <!-- Popup Modal -->
-    <div id="popupModal" class="modal">
-      <div class="modal-content">
-        <span class="close-btn">&times;</span>
-<!--         <iframe src="popUp.html" frameborder="0"></iframe> -->
-        <iframe src="{{ url_for('popup') }}" frameborder="0"></iframe>
-      </div>
-    </div>
-    
-    <!-- <script src="/app/static/js/index.js"></script>
-    <script src="https://cdn.jsdelivr.net/npm/particles.js@2.0.0/particles.min.js"></script>
-    <script src="/app/static/js/particles.js"></script> -->
-    
     <script src="{{ url_for('static', filename='js/index.js') }}"></script>
-    <script src="https://cdn.jsdelivr.net/npm/particles.js@2.0.0/particles.min.js"></script>
-    <script src="{{ url_for('static', filename='js/particles.js') }}"></script>
-  </body>
+</body>
 </html>

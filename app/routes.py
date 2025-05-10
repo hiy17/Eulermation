@@ -29,19 +29,19 @@ app.secret_key = 'your-secure-secret-key'
 
 @app.route('/')
 def index():
-    return render_template('index2.html')
+    return render_template('index.html')
 
 @app.route('/index')
 def index2():
-    return render_template('index2.html')
+    return render_template('index.html')
 
 @app.route('/tutorial')
 def tutorial():
-    return render_template('tutorial2.html')
+    return render_template('tutorial.html')
 
 @app.route('/about')
 def about():
-    return render_template('about2.html')
+    return render_template('about.html')
 
 
 def setup_euler_artifacts(num_vertices):

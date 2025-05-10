@@ -11,22 +11,6 @@
 
 **Eulermation** is an interactive web-based platform that helps users learn and explore **Euler circuits** through dynamic graph visualizations, downloadable animations, and real-life application examples. Designed for students, educators, and graph theory enthusiasts, Eulermation transforms abstract mathematical concepts into intuitive and visual experiences.
 
-## 📚 Purpose
-
-The purpose of Eulermation is to enhance the study and teaching of Euler circuits by providing:
-- A hands-on environment for graph creation.
-- Automatic generation of Eulerian circuits.
-- Real-world applications that connect theory to practice.
-- Downloadable MP4 animations to reinforce learning.
-
-## 🔍 Scope
-
-- Allows graph creation with **3 to 8 vertices**.
-- Generates **one valid Euler circuit** if the graph meets Eulerian conditions.
-- Provides **MP4 downloads** of animated circuit traversals.
-- Offers up to **10 contextual real-world scenarios**.
-- Fixed layout and styling; customization options are not supported.
-
 ## ⚙️ Key Features
 
 ### 🖥️ Graph Visualization Panel
@@ -87,12 +71,24 @@ _**To be added**_
 
 ## 👥 Contributors
 
-| Name       | Role                     |
-|------------|--------------------------|
-| **Ace**     | Backend Developer        |
-| **Elizabeth** | Frontend Developer     |
-| **Jude**    | Project Manager / Full Stack Developer |
-| **Rain**    | Frontend Developer       |
+| Name        | Role                                      |
+|-------------|-------------------------------------------|
+| [Ace](https://github.com/AcePenaflorida)          | Backend Developer                      |
+| [Elizabeth](https://github.com/elizalindo) | Frontend Developer                     |
+| [Jude](https://github.com/hiy17)        | Project Manager / Full Stack Developer |
+| [Rain](https://github.com/rnlyra)        | Frontend Developer                     |
+
+## 🙏 Acknowledgments
+
+We would like to express our sincere gratitude to the following resources and communities that made this project possible:
+
+- **[Manim](https://www.manim.community/)** – for powering the smooth and customizable graph animations.
+- **[Flask](https://flask.palletsprojects.com/)** – for providing a lightweight and flexible backend framework.
+- **[Gemini API](https://ai.google.dev/gemini-api)** – for generating insightful real-life applications of Euler circuits.
+- **Graph Theory Enthusiast Community** – for the theoretical foundations and valuable open-source discussions.
+- All educators, learners, and contributors who continue to inspire innovations in educational tools.
+
+Special thanks to [Ma'am Fatima](https://github.com/marieemoiselle) for her invaluable guidance, encouragement, and thoughtful feedback throughout the development of Eulermation. Her support played a key role in shaping this project.
 
 ---
 

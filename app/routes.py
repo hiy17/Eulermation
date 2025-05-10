@@ -31,25 +31,18 @@ app.secret_key = 'your-secure-secret-key'
 def index():
     return render_template('index2.html')
 
-@app.route('/popup')
-def popup():
-    return render_template('popup.html')
-
-@app.route('/max')
-def max_page():
-    return render_template('max.html')
+@app.route('/index')
+def index2():
+    return render_template('index2.html')
 
 @app.route('/tutorial')
 def tutorial():
-    return render_template('tutorial.html')
+    return render_template('tutorial2.html')
 
 @app.route('/about')
 def about():
-    return render_template('about.html')
+    return render_template('about2.html')
 
-@app.route('/index2')
-def index2():
-    return render_template('index2.html')
 
 def setup_euler_artifacts(num_vertices):
     generator = EulerianGraphGenerator(num_vertices)

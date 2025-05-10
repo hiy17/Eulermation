@@ -4,7 +4,8 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <link href="https://fonts.googleapis.com/css2?family=Poppins&display=swap" rel="stylesheet">
-    <link rel="stylesheet" href="/app/static/css/tutorial2.css">
+    <!-- <link rel="stylesheet" href="/app/static/css/tutorial2.css"> -->
+     <link rel="stylesheet" href="{{ url_for('static', filename='css/tutorial2.css') }}">
     <title>Euler Circuits Tutorial - Eulermation</title>
 </head>
 <body>
@@ -14,9 +15,9 @@
                 <span class="logo-euler">Σuler</span><span class="logo-mation">mation</span>
             </div>
             <div class="nav-links">
-                <a href="index2.html">Demo</a>
-                <a href="tutorial2.html">Tutorial</a>
-                <a href="about2.html">About</a>
+                <a href="{{ url_for('index') }}">Demo</a>
+                <a href="{{ url_for('tutorial') }}">Tutorial</a>
+                <a href="{{ url_for('about') }}">About</a>
             </div>
             <button id="theme-toggle" class="theme-toggle" aria-label="Toggle dark mode">☀️</button>
         </nav>
@@ -196,6 +197,7 @@
             </div>
         </section>
     </main>
-    <script src="/app/static/js/tutorial2.js"></script>
+    <!-- <script src="/app/static/js/tutorial2.js"></script> -->
+     <script src="{{ url_for('static', filename='js/tutorial2.js') }}"></script>
 </body>
 </html>

@@ -8,7 +8,8 @@
     href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css"
   />
   <link href="https://fonts.googleapis.com/css2?family=Poppins&display=swap" rel="stylesheet">
-  <link rel="stylesheet" href="/app/static/css/about2.css">
+  <!-- <link rel="stylesheet" href="/app/static/css/about2.css"> -->
+   <link rel="stylesheet" href="{{ url_for('static', filename='css/about2.css') }}">
     <title>About Us - Eulermation</title>
 </head>
 <body>
@@ -18,9 +19,9 @@
                 <span class="logo-euler">Σuler</span><span class="logo-mation">mation</span>
             </div>
             <div class="nav-links">
-                <a href="index2.html">Demo</a>
-                <a href="tutorial2.html">Tutorial</a>
-                <a href="about2.html">About</a>
+                <a href="{{ url_for('index') }}">Demo</a>
+                <a href="{{ url_for('tutorial') }}">Tutorial</a>
+                <a href="{{ url_for('about') }}">About</a>
             </div>
             <button id="theme-toggle" class="theme-toggle" aria-label="Toggle dark mode">☀️</button>
         </nav>
@@ -151,6 +152,7 @@
             </div>
           </section>
     </main>
-    <script src="/app/static/js/about2.js"></script>
+    <!-- <script src="/app/static/js/about2.js"></script> -->
+     <script src="{{ url_for('static', filename='js/about2.js') }}"></script>
 </body>
 </html>

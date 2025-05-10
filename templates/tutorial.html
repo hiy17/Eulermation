@@ -1,333 +1,203 @@
 <!DOCTYPE html>
-<html lang="en">
-  <head>
-    <meta charset="UTF-8" />
-    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>Eulermation</title>
-    <link rel="stylesheet" href="/app/static/css/index.css" />
-    <link rel="stylesheet" href="/app/static/css/tutorial.css" />
-    <!-- <link rel="stylesheet" href="{{ url_for('static', filename='css/index.css') }}">
-    <link rel="stylesheet" href="{{ url_for('static', filename='css/tutorial.css') }}"> -->
-
-    <link
-      href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;600;700&display=swap"
-      rel="stylesheet"
-    />
-  </head>
-  <body>
-    <div id="particles-js"></div>
-
+<html lang="en" data-theme="light">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link href="https://fonts.googleapis.com/css2?family=Poppins&display=swap" rel="stylesheet">
+    <!-- <link rel="stylesheet" href="/app/static/css/tutorial2.css"> -->
+     <link rel="stylesheet" href="{{ url_for('static', filename='css/tutorial.css') }}">
+    <title>Euler Circuits Tutorial - Eulermation</title>
+</head>
+<body>
     <header>
-      <div class="logo">
-        <span class="euler">Σuler</span><span class="mation">mation</span>
-      </div>
-      <nav>
-        <ul>
-          <li><a href="index.html">Home</a></li>
-          <li><a href="tutorial.html">Tutorial</a></li>
-          <li><a href="about.html">About</a></li>
-          <!-- <li><a href="{{ url_for('index') }}">Home</a></li>
-          <li><a href="{{ url_for('tutorial') }}">Tutorial</a></li>
-          <li><a href="{{ url_for('about') }}">About</a></li> -->
-        </ul>
-      </nav>
+        <nav>
+            <div class="logo">
+                <span class="logo-euler">Σuler</span><span class="logo-mation">mation</span>
+            </div>
+            <div class="nav-links">
+                <a href="{{ url_for('index') }}">Demo</a>
+                <a href="{{ url_for('tutorial') }}">Tutorial</a>
+                <a href="{{ url_for('about') }}">About</a>
+            </div>
+            <button id="theme-toggle" class="theme-toggle" aria-label="Toggle dark mode">☀️</button>
+        </nav>
     </header>
 
     <main>
-      <h1>Euler Circuit Tutorial</h1>
-      <p class="subtitle">Follow these steps to create and explore Euler circuits interactively.</p>
+        <section class="tutorial-hero">
+            <h1>Euler Circuits Tutorial</h1>
+            <p>Learn how to understand, identify, and create Euler circuits step by step.</p>
+        </section>
 
-      <div class="tutorial-step">
-        <h2>1. Select the Number of Vertices</h2>
-        <p>Use the input field on the homepage to choose between 3 to 8 vertices. This sets up the structure of your graph.</p>
-      </div>
+        <section class="tutorial-tabs">
+            <button class="tab-btn active" data-tab="basics">Basics</button>
+            <button class="tab-btn" data-tab="identifying">Identifying Euler Circuits</button>
+            <button class="tab-btn" data-tab="creating">Creating Euler Circuits</button>
+        </section>
 
-      <div class="tutorial-step">
-        <h2>2. Generate Your Graph</h2>
-        <p>After selecting vertices, the system will generate a graph. In future updates, this graph will appear dynamically for exploration.</p>
-      </div>
-
-      <div class="tutorial-step">
-        <h2>3. Explore Euler Circuit Combinations</h2>
-        <p>Click the "Euler Circuit combinations" button to open a pop-up modal. You'll see a list of possible circuits with "Show" buttons to view animations.</p>
-      </div>
-
-      <div class="tutorial-step">
-        <h2>4. View Fullscreen Animation</h2>
-        <p>Use the fullscreen (⛶) icon inside the modal to expand the animation. This is helpful for presentations or clearer viewing.</p>
-      </div>
-
-      <div class="tutorial-step">
-        <h2>5. Download the Animation</h2>
-        <p>Click the download (⬇) button to save the current animation for later use or sharing.</p>
-      </div>
-
-      <div class="tip-box">
-        💡 Euler circuits only exist when all vertices in a graph have an even degree. Try different graphs to explore which ones qualify!
-      </div>
-
-      <p class="tagline">Ready to begin? Head back to the home page and start your Euler journey!</p>
-      
-      
-      <div class="dropdown">
-        <div class="dropdown-header" onclick="toggleDropdown(this)">
-          Introduction to Graphs
-          <span class="arrow">▼</span>
-        </div>
-        <div class="dropdown-content">
-          <p>
-            <strong>Graph</strong> is a set of points called vertices and line 
-            segments or curves called edges that connect vertices.
-
-            <div class="image-container">
-              <img src="https://www.masaischool.com/blog/content/images/size/w1000/2022/07/Graphs.png" alt="Vetices and Edges">
-            </div>
-            
-          </p>
-          
-          <ul style="list-style: none; padding-left: 0;">
-            <li>
-              <a href="https://www.youtube.com/watch?v=ZepvInQ4ESE" target="_blank" style="text-decoration: none; color: inherit;">
-                <strong onmouseover="this.style.textDecoration='underline'" onmouseout="this.style.textDecoration='none'">
-                  <span>🔗</span> Multiple Edges:
-                </strong>
-              </a>
-              If two or more edges connect the same vertices.
-            </li>
-          
-            <li>
-              <a href="https://www.youtube.com/watch?v=z9cTXaLG1kk" target="_blank" style="text-decoration: none; color: inherit;">
-                <strong onmouseover="this.style.textDecoration='underline'" onmouseout="this.style.textDecoration='none'">
-                  <span>🔗</span> Connected Graphs:
-                </strong>
-              </a>
-              Any vertex can be reached from any other vertex.
-            </li>
-          
-            <li>
-              <a href="https://www.youtube.com/watch?v=egz_cP6vbIc" target="_blank" style="text-decoration: none; color: inherit;">
-                <strong onmouseover="this.style.textDecoration='underline'" onmouseout="this.style.textDecoration='none'">
-                  <span>🔗</span> Complete Graphs:
-                </strong>
-              </a>
-              Possible edge is drawn between vertices (without any multiple edges).
-            </li>
-          
-            <li>
-              <a href="https://www.youtube.com/watch?v=e8R56zTLe_c" target="_blank" style="text-decoration: none; color: inherit;">
-                <strong onmouseover="this.style.textDecoration='underline'" onmouseout="this.style.textDecoration='none'">
-                  <span>🔗</span> Equivalent Graphs:
-                </strong>
-              </a>
-              Same number of vertices connected in the same way, though they may appear different visually.
-            </li>
-          </ul>
-             
-        </div>
-      </div>
-
-      <div class="dropdown">
-        <div class="dropdown-header" onclick="toggleDropdown(this)">
-          What is an Eulerian Circuit?
-          <span class="arrow">▼</span>
-        </div>
-        <div class="dropdown-content">
-          <p>
-            <div class="image-container">
-              <img src="https://www.codespeedy.com/wp-content/uploads/2020/03/Eulerian-Circuit.png" alt="Eulirian Circuit">
-            </div>
-            An <strong>Eulerian Circuit</strong> is a special case of an
-            Eulerian Path that is a closed loop, starting and ending at the same
-            vertex, covering every edge exactly once.
-          </p>
-          <ul>
-            <li>
-              Exists in a graph if it is connected and all vertices have even
-              degree.
-            </li>
-            <li>
-              A graph with an Eulerian Circuit is called an
-              <em>Eulerian Graph</em>.
-            </li>
-          </ul>
-        </div>
-      </div>
-
-      <div class="dropdown">
-        <div class="dropdown-header" onclick="toggleDropdown(this)">
-          Properties of Eulerian Graphs
-          <span class="arrow">▼</span>
-        </div>
-        <div class="dropdown-content">
-          <p>
-            Understanding the properties of a graph is key to identifying
-            Eulerian Paths and Circuits:
-          </p>
-          <ul>
-            <li>
-              <strong>Connectedness</strong>: The graph must be connected (there
-              exists a path between any pair of vertices).
-              <div class="image-container">
-                <img src="https://www.tutorialspoint.com/graph_theory/images/k_connected_graph.jpg" alt="Connectedness">
-              </div>
-            </li>
-            <li>
-              <strong>Vertex Degree</strong>:
-              <ul>
-                <li>Eulerian Circuit: All vertices must have even degree.</li>
-                <li>Eulerian Path: Exactly 0 or 2 vertices have odd degree.</li>
-                <div class="image-container">
-                  <img src="https://www.tutorialspoint.com/graph_theory/images/vertex_connectivity.jpg" alt="Vertex">
+        <section class="tab-content active" id="basics">
+            <div class="tutorial-card">
+                <h2>Understanding Euler Circuits</h2>
+                
+                <p>An Euler circuit is a path in a graph that visits every edge exactly once and returns to the starting vertex. Named after Leonhard Euler, who solved the famous Seven Bridges of Königsberg problem in 1736.</p>
+                
+                <h3>Key Concepts</h3>
+                
+                <div class="concepts-container">
+                    <div class="concepts-list">
+                        <div class="concept-item">
+                            <div>
+                                <span class="check-icon">✓</span><strong>Graph:</strong> A collection of vertices (nodes) connected by edges.
+                            </div>
+                        </div>
+                        
+                        <div class="concept-item">
+                            <div>
+                                <span class="check-icon">✓</span><strong>Vertex Degree:</strong> The number of edges connected to a vertex.
+                            </div>
+                        </div>
+                        
+                        <div class="concept-item">
+                            <div>
+                                <span class="check-icon">✓</span><strong>Connected Graph:</strong> A graph where there is a path between every pair of vertices.
+                            </div>
+                        </div>
+                        
+                        <div class="concept-item">
+                            <div>
+                                <span class="check-icon">✓</span><strong>Euler Circuit:</strong> A path that traverses every edge exactly once and returns to the starting vertex.
+                            </div>
+                        </div>
+                    </div>
+                    
+                    <div class="graph-example">
+                        <svg width="200" height="200" viewBox="0 0 200 200">
+                            <polygon points="100,20 170,60 170,140 100,180 30,140 30,60" 
+                                     fill="#f0f8f0" stroke="#4a8a4a" stroke-width="2" />
+                            <circle cx="100" cy="20" r="8" fill="#4a8a4a" />
+                            <circle cx="170" cy="60" r="8" fill="#4a8a4a" />
+                            <circle cx="170" cy="140" r="8" fill="#4a8a4a" />
+                            <circle cx="100" cy="180" r="8" fill="#4a8a4a" />
+                            <circle cx="30" cy="140" r="8" fill="#4a8a4a" />
+                            <circle cx="30" cy="60" r="8" fill="#4a8a4a" />
+                        </svg>
+                    </div>
                 </div>
-              </ul>
-            </li>
-            <li>
-              <strong>Directed Graphs</strong>: For directed graphs, each vertex
-              must have equal in-degree and out-degree for a circuit, or at most
-              one vertex with out-degree - in-degree = 1 and another with
-              in-degree - out-degree = 1 for a path.
-            </li>
-            <div class="image-container">
-              <img src="https://www.tutorialspoint.com/graph_theory/images/directed_graph.jpg" alt="Directed Graphs">
+                  <!-- Button -->
+         <div class="center-container">
+            <button class="video-button" onclick="openVideo()">
+              <svg width="20" height="20" viewBox="0 0 24 24">
+                <path d="M8 5v14l11-7z"/>
+              </svg>
+              Watch Euler Tutorial
+            </button>
+          </div>          
+        
+        <!-- Popup Video -->
             </div>
-          </ul>
+        </section>
+        <div class="video-popup" id="videoPopup" onclick="closeVideo()">
+            <iframe id="tutorialVideo" src="" allow="autoplay; encrypted-media" allowfullscreen></iframe>
         </div>
-      </div>
 
-      <div class="dropdown">
-        <div class="dropdown-header" onclick="toggleDropdown(this)">
-          How to Find an Eulerian Circuit
-          <span class="arrow">▼</span>
-        </div>
-        <div class="dropdown-content">
-          <p>
-            To find an <strong>Eulerian Circuit</strong> in a graph, follow these steps:
-          </p>
-          <li>
-            <strong>Check Connectedness</strong>: Make sure the graph is connected. You can do this using Depth-First Search (DFS) or Breadth-First Search (BFS).
-          </li>
-          <li>
-            <strong>Verify Vertex Degrees</strong>: Confirm that <strong>every vertex has an even degree</strong>. If any vertex has an odd degree, an Eulerian Circuit is not possible.
-          </li>
-          <li>
-            <strong>Apply Fleury’s Algorithm</strong> or use Hierholzer’s Algorithm:
-            <ul>
-              <li>Start at any vertex.</li>
-              <li>Follow edges one at a time, avoiding bridges unless no other options are available.</li>
-              <li>Keep track of visited edges and continue until you return to the starting vertex having covered every edge exactly once.</li>
-            </ul>
-          </li>
-        </div>
-      </div>
-      
+        <section class="tab-content" id="identifying">
+            <div class="tutorial-card">
+                <h2>How to Identify Euler Circuits</h2>
+                
+                <p>A graph contains an Euler circuit if and only if it meets these two conditions:</p>
+                
+                <div class="conditions">
+                    <div class="condition">
+                        <h3>Condition 1: Connected Graph</h3>
+                        <p>The graph must be connected, meaning there is a path between every pair of vertices.</p>
+                        <div class="graph-example">
+                            <svg width="120" height="120" viewBox="0 0 120 120">
+                                <rect x="20" y="20" width="80" height="80" fill="none" stroke="#4a8a4a" stroke-width="0" />
+                                <line x1="30" y1="30" x2="90" y2="30" stroke="#4a8a4a" stroke-width="2" />
+                                <line x1="30" y1="30" x2="30" y2="90" stroke="#4a8a4a" stroke-width="2" />
+                                <line x1="30" y1="90" x2="90" y2="90" stroke="#4a8a4a" stroke-width="2" />
+                                <line x1="90" y1="30" x2="90" y2="90" stroke="#4a8a4a" stroke-width="2" />
+                                <line x1="30" y1="30" x2="90" y2="90" stroke="#4a8a4a" stroke-width="2" />
+                                <line x1="30" y1="90" x2="90" y2="30" stroke="#4a8a4a" stroke-width="2" />
+                                <circle cx="30" cy="30" r="6" fill="#4a8a4a" />
+                                <circle cx="90" cy="30" r="6" fill="#4a8a4a" />
+                                <circle cx="30" cy="90" r="6" fill="#4a8a4a" />
+                                <circle cx="90" cy="90" r="6" fill="#4a8a4a" />
+                            </svg>
+                        </div>
+                    </div>
+                    
+                    <div class="condition">
+                        <h3>Condition 2: Even Degrees</h3>
+                        <p>Every vertex in the graph must have an even degree (an even number of edges connected to it).</p>
+                        <div class="graph-example">
+                            <svg width="120" height="120" viewBox="0 0 120 120">
+                                <circle cx="60" cy="60" r="30" fill="none" stroke="#4a8a4a" stroke-width="0" />
+                                <line x1="60" y1="20" x2="60" y2="100" stroke="#4a8a4a" stroke-width="2" />
+                                <line x1="20" y1="60" x2="100" y2="60" stroke="#4a8a4a" stroke-width="2" />
+                                <circle cx="60" cy="20" r="6" fill="#4a8a4a" />
+                                <circle cx="100" cy="60" r="6" fill="#4a8a4a" />
+                                <circle cx="60" cy="100" r="6" fill="#4a8a4a" />
+                                <circle cx="20" cy="60" r="6" fill="#4a8a4a" />
+                                <circle cx="60" cy="60" r="6" fill="#4a8a4a" />
+                                <text x="60" y="20" text-anchor="middle" dy="-10" fill="#4a8a4a" font-size="12">2</text>
+                                <text x="100" y="60" text-anchor="middle" dx="10" fill="#4a8a4a" font-size="12">2</text>
+                                <text x="60" y="100" text-anchor="middle" dy="20" fill="#4a8a4a" font-size="12">2</text>
+                                <text x="20" y="60" text-anchor="middle" dx="-10" fill="#4a8a4a" font-size="12">2</text>
+                                <text x="60" y="60" text-anchor="middle" dy="-15" fill="#4a8a4a" font-size="12">4</text>
+                            </svg>
+                        </div>
+                    </div>
+                </div>
+                
+                <div class="important-note">
+                    <h3>Important Note</h3>
+                    <p>If a graph has exactly two vertices with odd degrees, it contains an Euler path (which visits every edge exactly once) but not an Euler circuit. An Euler path starts at one of the odd-degree vertices and ends at the other.</p>
+                </div>
+            </div>
+        </section>
 
-      <div class="dropdown">
-        <div class="dropdown-header" onclick="toggleDropdown(this)">
-          Checking if a Graph is Eulerian
-          <span class="arrow">▼</span>
-        </div>
-        <div class="dropdown-content">
-          <p>
-            To determine if a graph is Eulerian (has an Eulerian Path or
-            Circuit), you need to verify specific conditions efficiently.
-          </p>
-          <li>
-            <strong>Verify Connectedness</strong>: Use Depth-First Search (DFS)
-            to ensure all vertices with non-zero degree are connected.
-          </li>
-          <li>
-            <strong>Analyze Vertex Degrees</strong>:
-            <ul>
-              <li>
-                Count vertices with odd degree. If more than 2, no Eulerian Path
-                exists.
-              </li>
-              <li>
-                If exactly 0 odd-degree vertices, an Eulerian Circuit exists (if
-                connected).
-              </li>
-              <li>
-                If exactly 2 odd-degree vertices, an Eulerian Path exists.
-              </li>
-            </ul>
-          </li>
-          <p>
-            This algorithm runs in O(V + E) time, where V is the number of
-            vertices and E is the number of
-            edges.
-          </p>
-        </div>
-      </div>
-
-      <div class="dropdown">
-        <div class="dropdown-header" onclick="toggleDropdown(this)">
-          Hierholzer’s Algorithm for Eulerian Circuits
-          <span class="arrow">▼</span>
-        </div>
-        <div class="dropdown-content">
-          <p>
-            <strong>Hierholzer’s Algorithm</strong> is an efficient method to find an Eulerian
-            Circuit in a graph with all vertices of even degree. It is faster
-            than Fleury’s as it avoids checking for bridges.
-          </p>
-          <li>
-            <strong>Choose a Starting Vertex</strong>: Start at any vertex.
-          </li>
-          <li>
-            <strong>Follow Edges</strong>: Traverse unused edges, pushing
-            vertices onto a stack, until no edges remain from the current
-            vertex.
-          </li>
-          <li>
-            <strong>Backtrack</strong>: Pop vertices from the stack, adding them
-            to the circuit, and explore remaining edges from each popped vertex.
-          </li>
-          <li>
-            <strong>Reverse the Circuit</strong>: The final circuit is obtained
-            by reversing the collected vertices.
-          </li>
-          <p>
-            This algorithm is highly efficient with O(E) time
-            complexity.
-          </p>
-        </div>
-      </div>
-
-      <div class="dropdown">
-        <div class="dropdown-header" onclick="toggleDropdown(this)">
-          Euler’s Theorem
-          <span class="arrow">▼</span>
-        </div>
-        <div class="dropdown-content">
-          <p>
-            <strong>Euler’s Theorem</strong> gives a necessary and sufficient condition for the
-            existence of an Eulerian Path or Circuit:
-          </p>
-          <ul>
-            <li>
-              <strong>Eulerian Circuit</strong>: A graph has an Eulerian Circuit
-              if and only if every vertex has an even degree, and the graph is
-              connected.
-            </li>
-            <li>
-              <strong>Eulerian Path</strong>: A graph has an Eulerian Path if
-              and only if exactly two vertices have odd degree, and the graph is
-              connected.
-            </li>
-          </ul>
-        </div>
-      </div>
-
-      <footer>
-        <p>&copy; 2025 Eulermation. All rights reserved.</p>
-      </footer>
+        <section class="tab-content" id="creating">
+            <div class="tutorial-card">
+                <h2>Creating Euler Circuits</h2>
+                
+                <p>Follow these steps to create and find Euler circuits in graphs:</p>
+                
+                <div class="steps">
+                    <div class="step">
+                        <div class="step-number">1</div>
+                        <div class="step-content">
+                            <h3>Start with a connected graph</h3>
+                            <p>Ensure your graph is connected (there is a path between every pair of vertices).</p>
+                        </div>
+                    </div>
+                    
+                    <div class="step">
+                        <div class="step-number">2</div>
+                        <div class="step-content">
+                            <h3>Ensure all vertices have even degrees</h3>
+                            <p>Each vertex must have an even number of edges connected to it. If not, you won't have an Euler circuit.</p>
+                        </div>
+                    </div>
+                    
+                    <div class="step">
+                        <div class="step-number">3</div>
+                        <div class="step-content">
+                            <h3>Use Fleury's Algorithm to find the circuit</h3>
+                            <p>Start at any vertex and follow these rules:</p>
+                            <ul>
+                                <li>Choose any edge connected to your current vertex.</li>
+                                <li>Only choose a bridge (an edge that would disconnect the graph if removed) if there is no alternative.</li>
+                                <li>Remove the edge after traversing it.</li>
+                                <li>Continue until all edges are traversed.</li>
+                            </ul>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
     </main>
-    <script src="https://cdn.jsdelivr.net/npm/particles.js@2.0.0/particles.min.js"></script>
-    <script src="/app/static/js/particles.js"></script>
-    <script src="/app/static/js/tutorial.js"></script>
-    <!-- <script src="https://cdn.jsdelivr.net/npm/particles.js@2.0.0/particles.min.js"></script>
-    <script src="{{ url_for('static', filename='js/particles.js') }}"></script>
-    <script src="{{ url_for('static', filename='js/tutorial.js') }}"></script> -->
-
-  </body>
+    <!-- <script src="/app/static/js/tutorial2.js"></script> -->
+     <script src="{{ url_for('static', filename='js/tutorial.js') }}"></script>
+</body>
 </html>

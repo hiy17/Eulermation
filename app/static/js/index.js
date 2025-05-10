@@ -12,6 +12,7 @@ document.addEventListener('DOMContentLoaded', function() {
     const videPlaceholder = document.getElementById('video-placeholder');
     const videoControls = document.getElementById('video-controls');
 
+    exampleBtnContent = exampleBtn.innerHTML;
     
     const circuitInfo = document.getElementById('circuit-info');
     const circuitPath = document.getElementById('circuit-path');
@@ -24,6 +25,15 @@ document.addEventListener('DOMContentLoaded', function() {
     downloadBtn.style.cursor = "not-allowed";
     playButton.disabled = true;
     playButton.style.cursor = "not-allowed";
+
+    realLifeExampleSection.style.display = 'none'
+    exampleBtn.disabled = true;
+    exampleBtn.style.cursor = "not-allowed";
+    downloadBtn.disabled = true;
+    downloadBtn.style.cursor = "not-allowed";
+    playButton.disabled = true;
+    playButton.style.cursor = "not-allowed";
+    circuitInfo.style.display = 'none';
     
     // Set default light theme
     document.documentElement.setAttribute('data-theme', 'light');
@@ -159,9 +169,15 @@ document.addEventListener('DOMContentLoaded', function() {
     
     generateBtn.addEventListener('click', function() {
         const value = parseInt(verticesInput.value);
+
+        hasFetchedExamples = false;
+
+        exampleBtn.innerHTML = exampleBtnContent;
         realLifeExampleSection.style.display = 'none'
         exampleBtn.disabled = true;
         exampleBtn.style.cursor = "not-allowed";
+        
+        
         downloadBtn.disabled = true;
         downloadBtn.style.cursor = "not-allowed";
         playButton.disabled = true;
@@ -349,15 +365,23 @@ document.addEventListener('DOMContentLoaded', function() {
         });
     }
 
-    downloadBtn.addEventListener('click', function() {
+    downloadBtn.addEventListener('click', function () {
         // Add a button press animation
         this.style.transform = 'scale(0.95)';
         setTimeout(() => {
             this.style.transform = 'translateY(-2px)';
         }, 150);
-        
-        alert('In a real implementation, this would download the animation as an MP4 file.');
+
+        // Actual download logic
+        const videoUrl = `/static/videos/euler_circuits/videos/generate_animation/1080p60/EulerCircuitAnimator.mp4?ts=${Date.now()}`;
+        const link = document.createElement('a');
+        link.href = videoUrl;
+        link.download = 'EulerCircuitAnimator.mp4'; // Suggests the filename
+        document.body.appendChild(link);
+        link.click();
+        document.body.removeChild(link);
     });
+
 
     const themeToggle = document.getElementById('theme-toggle');
     const body = document.body;

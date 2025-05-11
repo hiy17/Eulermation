@@ -1,0 +1,1 @@
+eulermation_venv\Scripts\activate

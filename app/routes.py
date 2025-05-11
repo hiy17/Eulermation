@@ -4,11 +4,13 @@ import os
 import shutil
 import glob
 import sys
+import json
+import networkx as nx
+
 sys.path.append(os.path.abspath(os.path.join(os.path.dirname(__file__), "..", "..")))
 from app.manim_engine.graph_utils import EulerianGraphGenerator
 from app.api.gemini_api import generate_euler_examples
-import json
-import networkx as nx
+
 
 BASE_DIR = os.path.dirname(os.path.abspath(__file__))
 TEMPLATE_DIR = os.path.join(BASE_DIR, '..', 'templates')

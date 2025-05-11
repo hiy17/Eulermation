@@ -3,4 +3,55 @@ __pycache__/
 *.mp4
 *.svg
 *.png
-*.txt
+*.exe
+
+# Python
+__pycache__/
+*.py[cod]
+*.log
+*.json
+*.mp4
+
+# Environments
+.env
+.venv/
+env/
+venv/
+
+# VS Code
+.vscode/
+
+# OS files
+.DS_Store
+Thumbs.db
+
+# Python
+__pycache__/
+*.py[cod]
+*.log
+
+# Virtual Environments
+.env/
+.venv/
+env/
+venv/
+
+# VS Code
+.vscode/
+
+# Media and build files
+*.mp4
+*.json
+*.zip
+*.tar
+*.gz
+
+# OS files
+.DS_Store
+Thumbs.db
+
+eulermation_venv/
+__pycache__/
+*.log
+*.mp4
+*.json

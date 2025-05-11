@@ -133,8 +133,30 @@ document.addEventListener('DOMContentLoaded', function() {
         }, 500);
     });
 
+
+    function checkValue(value) {
+        if (isNaN(value) || value < 3 || value > 8) {
+            generateBtn.disabled = true;
+            generateBtn.style.cursor = "not-allowed";
+            errorMessage.style.display = 'block';
+        } else {
+            generateBtn.disabled = false;
+            generateBtn.style.cursor = "pointer";
+            errorMessage.style.display = 'none';
+        }
+    }
+
+    // Listen for changes on vertices input
+    verticesInput.addEventListener('input', function() {
+        const value = parseInt(verticesInput.value, 10);
+        checkValue(value);
+    });
+
     generateBtn.addEventListener('click', function() {
-        const value = parseInt(verticesInput.value);
+        const value = parseInt(verticesInput.value, 10);
+        if (isNaN(value) || value < 3 || value > 8) {
+            return; // Prevent action if the value is invalid
+        }
 
         hasFetchedExamples = false;
 
@@ -151,12 +173,6 @@ document.addEventListener('DOMContentLoaded', function() {
         verticesInput.disabled = true;
         verticesInput.style.cursor = "not-allowed";
         circuitInfo.style.display = 'none';
-
-
-        if (isNaN(value) || value < 3 || value > 8) {
-            errorMessage.style.display = 'block';
-            return;
-        }
 
         errorMessage.style.display = 'none';
         generateBtn.disabled = true;  

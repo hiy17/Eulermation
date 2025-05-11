@@ -4,6 +4,7 @@ __pycache__/
 *.svg
 *.png
 *.exe
+*txt
 
 # Python
 __pycache__/

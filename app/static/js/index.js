@@ -12,6 +12,7 @@ document.addEventListener('DOMContentLoaded', function() {
     const videPlaceholder = document.getElementById('video-placeholder');
     const videoControls = document.getElementById('video-controls');
 
+    exampleBtnContent = exampleBtn.innerHTML;
     
     const circuitInfo = document.getElementById('circuit-info');
     const circuitPath = document.getElementById('circuit-path');
@@ -24,144 +25,252 @@ document.addEventListener('DOMContentLoaded', function() {
     downloadBtn.style.cursor = "not-allowed";
     playButton.disabled = true;
     playButton.style.cursor = "not-allowed";
+
+    realLifeExampleSection.style.display = 'none'
+    exampleBtn.disabled = true;
+    exampleBtn.style.cursor = "not-allowed";
+    downloadBtn.disabled = true;
+    downloadBtn.style.cursor = "not-allowed";
+    playButton.disabled = true;
+    playButton.style.cursor = "not-allowed";
+    circuitInfo.style.display = 'none';
     
     // Set default light theme
     document.documentElement.setAttribute('data-theme', 'light');
     
     // Initially hide the error message
     errorMessage.style.display = 'none';
-    
 
     const realLifeSection = document.getElementById('real-life-example');
-    const showAnotherBtn = document.getElementById('show-another-btn');
-    const exampleImage = document.getElementById('example-image');
-    const exampleDescriptionTitle = document.getElementById('title-example-description');
-    const exampleDescription = document.getElementById('example-desc');
+const showAnotherBtn = document.getElementById('show-another-btn');
+const exampleDescriptionTitle = document.getElementById('title-example-description');
+const exampleDescription = document.getElementById('example-desc');
 
-    let exampleData = [];
-    let currentIndex = 0;
-    let hasFetchedExamples = false;
+let exampleData = [];
+let currentIndex = 0;
+let hasFetchedExamples = false;
 
-    exampleBtn.addEventListener('click', () => {
-    // Toggle visibility if examples already fetched
+exampleBtn.addEventListener('click', () => {
     if (hasFetchedExamples) {
-    const isVisible = realLifeSection.style.display === 'block';
-    realLifeSection.style.display = isVisible ? 'none' : 'block';
-    exampleBtn.innerHTML = isVisible ? 'Show Real Life Examples' : 'Hide';
-    return;
+        const isVisible = realLifeSection.style.display === 'block';
+        realLifeSection.style.display = isVisible ? 'none' : 'block';
+        exampleBtn.innerHTML = isVisible ? 'Show Real Life Examples' : 'Hide';
+        return;
     }
 
-    // Initial loading animation
     exampleBtn.innerHTML = '';
     exampleBtn.disabled = true;
     exampleBtn.style.cursor = "not-allowed";
     exampleBtn.classList.add('loading-button');
 
     fetch('/real_life_examples')
-    .then(response => response.json())
-    .then(data => {
-        exampleBtn.classList.remove('loading-button');
-        exampleBtn.innerHTML = 'Hide';
-        exampleBtn.disabled = false;
-        exampleBtn.style.cursor = "pointer";
-        realLifeSection.style.display = 'block';
-        realLifeSection.scrollIntoView({ behavior: 'smooth' });
+        .then(response => response.json())
+        .then(data => {
+            exampleBtn.classList.remove('loading-button');
+            exampleBtn.innerHTML = 'Hide';
+            exampleBtn.disabled = false;
+            exampleBtn.style.cursor = "pointer";
+            realLifeSection.style.display = 'block';
+            realLifeSection.scrollIntoView({ behavior: 'smooth' });
 
-        if (data.real_life_examples) {
-            exampleData = Object.entries(data.real_life_examples);
+            if (data.real_life_examples) {
+                exampleData = Object.entries(data.real_life_examples);
+                currentIndex = 0;
+                hasFetchedExamples = true;
+                showExample(currentIndex);
+            }
+        })
+        .catch(error => {
+            console.error('Error fetching real-life examples:', error);
+            exampleBtn.classList.remove('loading-button');
+            exampleBtn.innerHTML = 'Hide';
+            exampleBtn.disabled = false;
+            exampleBtn.style.cursor = "pointer";
+            realLifeSection.style.display = 'block';
+            realLifeSection.scrollIntoView({ behavior: 'smooth' });
+
+            const fallbackExamples = [
+                ["Mail Delivery Route", "A mail carrier needs to traverse every street in a neighborhood exactly once to deliver mail efficiently, returning to the post office."],
+                ["Street Sweeping Route", "A street sweeper needs to clean every street in a city district exactly once, minimizing wasted travel and returning to the depot."],
+                ["Circuit Board Design", "Engineers use Euler circuits to design circuit boards where each connection needs to be traced exactly once to minimize manufacturing complexity."]
+            ];
+
+            exampleData = fallbackExamples;
             currentIndex = 0;
             hasFetchedExamples = true;
             showExample(currentIndex);
-        }
-    })
-    .catch(error => {
-        console.error('Error fetching real-life examples:', error);
-        exampleBtn.classList.remove('loading-button');
-        exampleBtn.innerHTML = 'Hide';
-        exampleBtn.disabled = false;
-        exampleBtn.style.cursor = "pointer";
-        realLifeSection.style.display = 'block';
-        realLifeSection.scrollIntoView({ behavior: 'smooth' });
+        });
+});
 
+function showExample(index) {
+    const [category, story] = exampleData[index];
+    exampleDescriptionTitle.textContent = category;
+    exampleDescription.textContent = story;
+}
+
+showAnotherBtn.addEventListener('click', () => {
+    if (!exampleData.length) {
         const fallbackExamples = [
             ["Mail Delivery Route", "A mail carrier needs to traverse every street in a neighborhood exactly once to deliver mail efficiently, returning to the post office."],
             ["Street Sweeping Route", "A street sweeper needs to clean every street in a city district exactly once, minimizing wasted travel and returning to the depot."],
             ["Circuit Board Design", "Engineers use Euler circuits to design circuit boards where each connection needs to be traced exactly once to minimize manufacturing complexity."]
         ];
 
-        exampleData = fallbackExamples;
-        currentIndex = 0;
-        hasFetchedExamples = true;
-        showExample(currentIndex);
-    });
-    });
-
-    // Function to display the example
-    function showExample(index) {
-    const [category, story] = exampleData[index];
-    exampleDescriptionTitle.textContent = category;
-    exampleDescription.textContent = story;
-    }
-
-
-    showAnotherBtn.addEventListener('click', () => {
-    if (!exampleData.length) {
-    // Fallback examples if no data was fetched
-    const fallbackExamples = [
-        ["Mail Delivery Route", "A mail carrier needs to traverse every street in a neighborhood exactly once to deliver mail efficiently, returning to the post office."],
-        ["Street Sweeping Route", "A street sweeper needs to clean every street in a city district exactly once, minimizing wasted travel and returning to the depot."],
-        ["Circuit Board Design", "Engineers use Euler circuits to design circuit boards where each connection needs to be traced exactly once to minimize manufacturing complexity."]
-    ];
-
-    currentIndex = (currentIndex + 1) % fallbackExamples.length;
-    const [category, story] = fallbackExamples[currentIndex];
-    exampleDescriptionTitle.textContent = category;
-    exampleDescription.textContent = story;
+        currentIndex = (currentIndex + 1) % fallbackExamples.length;
+        const [category, story] = fallbackExamples[currentIndex];
+        exampleDescriptionTitle.textContent = category;
+        exampleDescription.textContent = story;
     } else {
-    currentIndex = (currentIndex + 1) % exampleData.length;
-    showExample(currentIndex);
+        currentIndex = (currentIndex + 1) % exampleData.length;
+        showExample(currentIndex);
     }
 
-    // Add animation to the button icon
     const icon = showAnotherBtn.querySelector('.icon');
     icon.style.transition = 'transform 0.5s ease';
     icon.style.transform = 'rotate(180deg)';
     setTimeout(() => {
-    icon.style.transform = 'rotate(0deg)';
+        icon.style.transform = 'rotate(0deg)';
     }, 500);
-    });
+});
 
-    function showExample(index) {
-    const [category, story] = exampleData[index];
-    exampleDescriptionTitle.textContent = category;
-    exampleDescription.textContent = story;
+    
 
-    // Optional: update image
-    const imageMap = {
-    "Transportation": "transport.svg",
-    "Package Delivery": "delivery.svg",
-    "Tourism": "tourism.svg",
-    "Household Chores": "chores.svg",
-    "Work Tasks": "work.svg",
-    "School Schedule": "school.svg",
-    "Shopping": "shopping.svg",
-    "Social Visits": "social.svg",
-    "Sports": "sports.svg",
-    "Nature": "nature.svg"
-    };
+    // const realLifeSection = document.getElementById('real-life-example');
+    // const showAnotherBtn = document.getElementById('show-another-btn');
+    // const exampleImage = document.getElementById('example-image');
+    // const exampleDescriptionTitle = document.getElementById('title-example-description');
+    // const exampleDescription = document.getElementById('example-desc');
 
-    const imageSrc = imageMap[category] || "placeholder.svg";
-    exampleImage.src = imageSrc;
-    exampleImage.alt = `${category} illustration`;
-    }
+    // let exampleData = [];
+    // let currentIndex = 0;
+    // let hasFetchedExamples = false;
+
+    // exampleBtn.addEventListener('click', () => {
+    // // Toggle visibility if examples already fetched
+    // if (hasFetchedExamples) {
+    // const isVisible = realLifeSection.style.display === 'block';
+    // realLifeSection.style.display = isVisible ? 'none' : 'block';
+    // exampleBtn.innerHTML = isVisible ? 'Show Real Life Examples' : 'Hide';
+    // return;
+    // }
+
+    // // Initial loading animation
+    // exampleBtn.innerHTML = '';
+    // exampleBtn.disabled = true;
+    // exampleBtn.style.cursor = "not-allowed";
+    // exampleBtn.classList.add('loading-button');
+
+    // fetch('/real_life_examples')
+    // .then(response => response.json())
+    // .then(data => {
+    //     exampleBtn.classList.remove('loading-button');
+    //     exampleBtn.innerHTML = 'Hide';
+    //     exampleBtn.disabled = false;
+    //     exampleBtn.style.cursor = "pointer";
+    //     realLifeSection.style.display = 'block';
+    //     realLifeSection.scrollIntoView({ behavior: 'smooth' });
+
+    //     if (data.real_life_examples) {
+    //         exampleData = Object.entries(data.real_life_examples);
+    //         currentIndex = 0;
+    //         hasFetchedExamples = true;
+    //         showExample(currentIndex);
+    //     }
+    // })
+    // .catch(error => {
+    //     console.error('Error fetching real-life examples:', error);
+    //     exampleBtn.classList.remove('loading-button');
+    //     exampleBtn.innerHTML = 'Hide';
+    //     exampleBtn.disabled = false;
+    //     exampleBtn.style.cursor = "pointer";
+    //     realLifeSection.style.display = 'block';
+    //     realLifeSection.scrollIntoView({ behavior: 'smooth' });
+
+    //     const fallbackExamples = [
+    //         ["Mail Delivery Route", "A mail carrier needs to traverse every street in a neighborhood exactly once to deliver mail efficiently, returning to the post office."],
+    //         ["Street Sweeping Route", "A street sweeper needs to clean every street in a city district exactly once, minimizing wasted travel and returning to the depot."],
+    //         ["Circuit Board Design", "Engineers use Euler circuits to design circuit boards where each connection needs to be traced exactly once to minimize manufacturing complexity."]
+    //     ];
+
+    //     exampleData = fallbackExamples;
+    //     currentIndex = 0;
+    //     hasFetchedExamples = true;
+    //     showExample(currentIndex);
+    // });
+    // });
+
+    // // Function to display the example
+    // function showExample(index) {
+    // const [category, story] = exampleData[index];
+    // exampleDescriptionTitle.textContent = category;
+    // exampleDescription.textContent = story;
+    // }
+
+
+    // showAnotherBtn.addEventListener('click', () => {
+    // if (!exampleData.length) {
+    // // Fallback examples if no data was fetched
+    // const fallbackExamples = [
+    //     ["Mail Delivery Route", "A mail carrier needs to traverse every street in a neighborhood exactly once to deliver mail efficiently, returning to the post office."],
+    //     ["Street Sweeping Route", "A street sweeper needs to clean every street in a city district exactly once, minimizing wasted travel and returning to the depot."],
+    //     ["Circuit Board Design", "Engineers use Euler circuits to design circuit boards where each connection needs to be traced exactly once to minimize manufacturing complexity."]
+    // ];
+
+    // currentIndex = (currentIndex + 1) % fallbackExamples.length;
+    // const [category, story] = fallbackExamples[currentIndex];
+    // exampleDescriptionTitle.textContent = category;
+    // exampleDescription.textContent = story;
+    // } else {
+    // currentIndex = (currentIndex + 1) % exampleData.length;
+    // showExample(currentIndex);
+    // }
+
+    // // Add animation to the button icon
+    // const icon = showAnotherBtn.querySelector('.icon');
+    // icon.style.transition = 'transform 0.5s ease';
+    // icon.style.transform = 'rotate(180deg)';
+    // setTimeout(() => {
+    // icon.style.transform = 'rotate(0deg)';
+    // }, 500);
+    // });
+
+    // function showExample(index) {
+    // const [category, story] = exampleData[index];
+    // exampleDescriptionTitle.textContent = category;
+    // exampleDescription.textContent = story;
+
+    // // Optional: update image
+    // const imageMap = {
+    // "Transportation": "transport.svg",
+    // "Package Delivery": "delivery.svg",
+    // "Tourism": "tourism.svg",
+    // "Household Chores": "chores.svg",
+    // "Work Tasks": "work.svg",
+    // "School Schedule": "school.svg",
+    // "Shopping": "shopping.svg",
+    // "Social Visits": "social.svg",
+    // "Sports": "sports.svg",
+    // "Nature": "nature.svg"
+    // };
+
+    // const imageSrc = imageMap[category] || "placeholder.svg";
+    // exampleImage.src = imageSrc;
+    // exampleImage.alt = `${category} illustration`;
+    // }
 
 
     
     generateBtn.addEventListener('click', function() {
         const value = parseInt(verticesInput.value);
+
+        hasFetchedExamples = false;
+
+        exampleBtn.innerHTML = exampleBtnContent;
         realLifeExampleSection.style.display = 'none'
         exampleBtn.disabled = true;
         exampleBtn.style.cursor = "not-allowed";
+        
+        
         downloadBtn.disabled = true;
         downloadBtn.style.cursor = "not-allowed";
         playButton.disabled = true;
@@ -307,6 +416,7 @@ document.addEventListener('DOMContentLoaded', function() {
         }, nodes.length * 150 + 500);
     }
 
+
     // Polls the server until the video is available or retries are exhausted
     function waitForVideo(signal, retries = 20, interval = 1000) {
         return new Promise((resolve, reject) => {
@@ -349,15 +459,23 @@ document.addEventListener('DOMContentLoaded', function() {
         });
     }
 
-    downloadBtn.addEventListener('click', function() {
+    downloadBtn.addEventListener('click', function () {
         // Add a button press animation
         this.style.transform = 'scale(0.95)';
         setTimeout(() => {
             this.style.transform = 'translateY(-2px)';
         }, 150);
-        
-        alert('In a real implementation, this would download the animation as an MP4 file.');
+
+        // Actual download logic
+        const videoUrl = `/static/videos/euler_circuits/videos/generate_animation/1080p60/EulerCircuitAnimator.mp4?ts=${Date.now()}`;
+        const link = document.createElement('a');
+        link.href = videoUrl;
+        link.download = 'EulerCircuitAnimator.mp4'; // Suggests the filename
+        document.body.appendChild(link);
+        link.click();
+        document.body.removeChild(link);
     });
+
 
     const themeToggle = document.getElementById('theme-toggle');
     const body = document.body;

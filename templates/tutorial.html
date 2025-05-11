@@ -6,6 +6,13 @@
     <link href="https://fonts.googleapis.com/css2?family=Poppins&display=swap" rel="stylesheet">
     <!-- <link rel="stylesheet" href="/app/static/css/tutorial2.css"> -->
      <link rel="stylesheet" href="{{ url_for('static', filename='css/tutorial.css') }}">
+     <script>
+        // Apply saved theme before CSS loads
+        const theme = localStorage.getItem("theme");
+        if (theme === "dark") {
+        document.documentElement.setAttribute("data-theme", "dark");
+        }
+  </script>
     <title>Euler Circuits Tutorial - Eulermation</title>
 </head>
 <body>
@@ -18,8 +25,9 @@
                 <a href="{{ url_for('index') }}">Demo</a>
                 <a href="{{ url_for('tutorial') }}">Tutorial</a>
                 <a href="{{ url_for('about') }}">About</a>
+                <button id="theme-toggle" class="theme-toggle" aria-label="Toggle dark mode">☀️</button>
             </div>
-            <button id="theme-toggle" class="theme-toggle" aria-label="Toggle dark mode">☀️</button>
+            
         </nav>
     </header>
 

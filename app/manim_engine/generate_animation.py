@@ -1,28 +1,17 @@
-
-
+from logging import config
 import os
 import json
+import string
+import time
 import networkx as nx
 from networkx.readwrite import json_graph
-import time 
+from manim import Scene, WHITE, GREEN, GRAY, YELLOW, Dot, Circle, Text, VGroup, Line, Create, GrowFromPoint
 from manim import *
-import networkx as nx
-import random
-import sys
-import os
-import string
-
-from manim import *
-import networkx as nx
-import json
-import string
-import os
-import time
 
 class EulerCircuitAnimator(Scene):
     def __init__(
         self,
-        speed=.5,
+        speed=0.5,
         background_color=WHITE,
         vertex_color=GREEN,
         edge_color=GRAY,
@@ -44,18 +33,13 @@ class EulerCircuitAnimator(Scene):
         self.euler_circuits = None
 
     def construct(self):
-        # config.pixel_width = 1200
-        # config.pixel_height = 1200
-        # config.frame_width = 10
-        # config.frame_height = 10
-        config.pixel_width = 934   # 467 * 2
-        config.pixel_height = 600  # 300 * 2
+        config.pixel_width = 934
+        config.pixel_height = 600
         config.frame_width = 10
         config.frame_height = 10 / 1.5567  # ~6.42
 
-
         start_time = time.time()
-        # Load graph
+
         graph_json = os.getenv("EULERIAN_GRAPH")
         circuit_json = os.getenv("EULERIAN_CIRCUIT")
 
@@ -66,7 +50,6 @@ class EulerCircuitAnimator(Scene):
         G_nx = json_graph.node_link_graph(json.loads(graph_json))
         circuit_data = json.loads(circuit_json)
 
-        # For now just use the first circuit
         if not circuit_data:
             print("No circuits available!")
             return
@@ -85,21 +68,17 @@ class EulerCircuitAnimator(Scene):
         manim_positions = {v: [pos[0], pos[1], 0] for v, pos in positions.items()}
         name_map = {v: string.ascii_uppercase[i] for i, v in enumerate(vertices)}
 
-        # Vertices
         vertex_mobjects = {
             v: Dot(point=manim_positions[v], radius=0.5, color=self.vertex_color).set_z_index(2)
             for v in vertices
         }
 
-        # Labels with inner circle background to match vertex color
         label_mobjects = {}
         for v in vertices:
-            # Create an inner circle for label background
             inner_circle = Circle(radius=0.5, color=self.vertex_color, fill_opacity=1).move_to(manim_positions[v])
-            label_mobjects[v] = VGroup(inner_circle, 
-                                        Text(name_map[v], color=self.label_color).scale(0.65).move_to(manim_positions[v])).set_z_index(3)
+            label = Text(name_map[v], color=self.label_color).scale(0.65).move_to(manim_positions[v])
+            label_mobjects[v] = VGroup(inner_circle, label).set_z_index(3)
 
-        # Edges (initially green)
         edge_objects = {}
         for u, v in G_nx.edges:
             line = Line(manim_positions[u], manim_positions[v], color=self.edge_color).set_z_index(1)
@@ -108,32 +87,160 @@ class EulerCircuitAnimator(Scene):
 
         self.camera.background_color = self.background_color
 
-        # Display graph
         self.play(*[Create(dot) for dot in vertex_mobjects.values()], run_time=self.speed)
         self.play(*[Create(label) for label in label_mobjects.values()], run_time=self.speed)
         self.play(*[Create(line) for line in set(edge_objects.values())], run_time=self.speed)
 
         self.wait(self.speed)
 
-        # Animate the Euler circuit step by step
         for u, v in circuit:
             start = manim_positions[u]
             end = manim_positions[v]
-
-            # Animation: yellow edge grows from u to v
             trail = Line(start, end, color=self.trail_color, stroke_width=6).set_z_index(2)
             self.play(GrowFromPoint(trail, point=start), run_time=self.speed)
             self.add(trail)
-
             self.wait(self.speed * 0.2)
 
-        # Record end time and calculate the total time taken
         end_time = time.time()
-        time_taken = end_time - start_time
-        print(f'Animation Time: {time_taken:.2f} seconds')
-
-        self.wait(.5)
+        print(f'Animation Time: {end_time - start_time:.2f} seconds')
+        self.wait(0.5)
         return self.euler_circuits
+
+
+# import os
+# import json
+# import networkx as nx
+# from networkx.readwrite import json_graph
+# import time 
+# from manim import *
+# import networkx as nx
+# import random
+# import sys
+# import os
+# import string
+
+# from manim import *
+# import networkx as nx
+# import json
+# import string
+# import os
+# import time
+
+# class EulerCircuitAnimator(Scene):
+#     def __init__(
+#         self,
+#         speed=.5,
+#         background_color=WHITE,
+#         vertex_color=GREEN,
+#         edge_color=GRAY,
+#         trail_color=YELLOW,
+#         label_color=WHITE,
+#         layout_scale=3,
+#         **kwargs
+#     ):
+#         super().__init__(**kwargs)
+#         self.speed = speed
+#         self.background_color = background_color
+#         self.vertex_color = vertex_color
+#         self.edge_color = edge_color
+#         self.trail_color = trail_color
+#         self.label_color = label_color
+#         self.layout_scale = layout_scale
+#         self.num_vertices = int(os.getenv("NUM_VERTICES", "4"))
+#         self.eulerian_graph = None
+#         self.euler_circuits = None
+
+#     def construct(self):
+#         # config.pixel_width = 1200
+#         # config.pixel_height = 1200
+#         # config.frame_width = 10
+#         # config.frame_height = 10
+#         config.pixel_width = 934   # 467 * 2
+#         config.pixel_height = 600  # 300 * 2
+#         config.frame_width = 10
+#         config.frame_height = 10 / 1.5567  # ~6.42
+
+
+#         start_time = time.time()
+#         # Load graph
+#         graph_json = os.getenv("EULERIAN_GRAPH")
+#         circuit_json = os.getenv("EULERIAN_CIRCUIT")
+
+#         if not graph_json or not circuit_json:
+#             print("Missing graph or circuit data!")
+#             return
+
+#         G_nx = json_graph.node_link_graph(json.loads(graph_json))
+#         circuit_data = json.loads(circuit_json)
+
+#         # For now just use the first circuit
+#         if not circuit_data:
+#             print("No circuits available!")
+#             return
+
+#         circuit = list(circuit_data.values())[0]
+
+#         self.eulerian_graph = G_nx
+#         self.euler_circuits = circuit
+
+#         print(f"Circuit: {self.euler_circuits}")
+#         print("Generating graph...")
+
+#         vertices = list(G_nx.nodes)
+#         layout = nx.circular_layout(G_nx)
+#         positions = {v: layout[v] * self.layout_scale for v in vertices}
+#         manim_positions = {v: [pos[0], pos[1], 0] for v, pos in positions.items()}
+#         name_map = {v: string.ascii_uppercase[i] for i, v in enumerate(vertices)}
+
+#         # Vertices
+#         vertex_mobjects = {
+#             v: Dot(point=manim_positions[v], radius=0.5, color=self.vertex_color).set_z_index(2)
+#             for v in vertices
+#         }
+
+#         # Labels with inner circle background to match vertex color
+#         label_mobjects = {}
+#         for v in vertices:
+#             # Create an inner circle for label background
+#             inner_circle = Circle(radius=0.5, color=self.vertex_color, fill_opacity=1).move_to(manim_positions[v])
+#             label_mobjects[v] = VGroup(inner_circle, 
+#                                         Text(name_map[v], color=self.label_color).scale(0.65).move_to(manim_positions[v])).set_z_index(3)
+
+#         # Edges (initially green)
+#         edge_objects = {}
+#         for u, v in G_nx.edges:
+#             line = Line(manim_positions[u], manim_positions[v], color=self.edge_color).set_z_index(1)
+#             edge_objects[(u, v)] = line
+#             edge_objects[(v, u)] = line
+
+#         self.camera.background_color = self.background_color
+
+#         # Display graph
+#         self.play(*[Create(dot) for dot in vertex_mobjects.values()], run_time=self.speed)
+#         self.play(*[Create(label) for label in label_mobjects.values()], run_time=self.speed)
+#         self.play(*[Create(line) for line in set(edge_objects.values())], run_time=self.speed)
+
+#         self.wait(self.speed)
+
+#         # Animate the Euler circuit step by step
+#         for u, v in circuit:
+#             start = manim_positions[u]
+#             end = manim_positions[v]
+
+#             # Animation: yellow edge grows from u to v
+#             trail = Line(start, end, color=self.trail_color, stroke_width=6).set_z_index(2)
+#             self.play(GrowFromPoint(trail, point=start), run_time=self.speed)
+#             self.add(trail)
+
+#             self.wait(self.speed * 0.2)
+
+#         # Record end time and calculate the total time taken
+#         end_time = time.time()
+#         time_taken = end_time - start_time
+#         print(f'Animation Time: {time_taken:.2f} seconds')
+
+#         self.wait(.5)
+#         return self.euler_circuits
 
 
 

@@ -59,7 +59,111 @@
 
 ## 🚀 Installation
 
-_**To be added**_
+# Via Command Prompt(CMD)
+
+## Step 1: Clone the Repository
+
+1. **Clone the GitHub repository** to your local machine using Git. Open a terminal and run:
+
+    ```bash
+    git clone https://github.com/hiy17/Eulermation.git
+    ```
+
+2. **Navigate to the project directory**:
+
+    ```bash
+    cd Eulermation
+    ```
+
+## Step 2: Set Up a Virtual Environment
+
+It's a good practice to use a virtual environment to manage dependencies and avoid conflicts with system-wide packages.
+
+1. **Create a virtual environment**:
+
+    On Windows:
+    ```bash
+    python -m venv venv
+    ```
+
+    On macOS/Linux:
+    ```bash
+    python3 -m venv venv
+    ```
+
+2. **Activate the virtual environment**:
+
+    On Windows:
+    ```bash
+    .\venv\Scripts\activate
+    ```
+
+    On macOS/Linux:
+    ```bash
+    source venv/bin/activate
+    ```
+
+    You should see `(venv)` at the beginning of the terminal prompt, indicating that the virtual environment is active.
+
+## Step 3: Install Required Dependencies
+
+1. **Install the required dependencies** listed in the `requirements.txt` file:
+
+    ```bash
+    pip install -r requirements.txt
+    ```
+
+    This will install all the libraries that your Flask app depends on, including Flask, Manim, and any other required packages.
+
+## Step 4: Run the Flask Application
+
+1. **Run the app** using the `run.py` file.
+
+    On Windows:
+    ```bash
+    python run.py
+    ```
+
+    On macOS/Linux:
+    ```bash
+    python3 run.py
+    ```
+
+    This will start the Flask development server, and you should see output indicating that the server is running. By default, Flask will run on `http://127.0.0.1:5000`.
+
+## Step 5: Access the App in Your Browser
+
+1. Open a web browser and go to:
+
+    ```
+    http://127.0.0.1:5000
+    ```
+
+2. You should now be able to interact with your app and generate Euler circuit animations!
+
+---
+
+## Step 6: Troubleshooting (If Needed)
+
+1. If you encounter errors during the installation or while running the app, double-check that you have the correct version of Python installed (based on your app’s dependencies).
+
+    You can check the Python version with:
+
+    ```bash
+    python --version
+    ```
+
+    or for Python 3:
+
+    ```bash
+    python3 --version
+    ```
+
+2. If there are issues related to missing dependencies, ensure that the `requirements.txt` is up-to-date or try installing them manually using `pip`.
+
+3. If you experience issues with your app not starting correctly, check the error messages in the terminal for guidance.
+
+---
 
 ## 🧪 Usage
 

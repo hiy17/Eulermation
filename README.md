@@ -1,8 +1,6 @@
 <p align="center">
-  <img src="assets/logo.png" alt="Eulermation Logo" width="150"/>
+  <img src="/app/static/assets/eulermation_logo.png" alt="Eulermation Logo" width="150"/>
 </p>
-
-<h1 align="center">Eulermation</h1>
 <p align="center"><em>Euler Circuit Animation Generator</em></p>
 
 ---

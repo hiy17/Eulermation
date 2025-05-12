@@ -1,5 +1,5 @@
 <p align="center">
-  <img src="app/static/assets/eulermation_logo.png" alt="Eulermation Logo" width="150"/>
+  <img src="https://raw.githubusercontent.com/hiy17/Eulermation/main/app/static/assets/eulermation_logo.png" alt="Eulermation Logo" width="150"/>
 </p>
 <p align="center"><em>Euler Circuit Animation Generator</em></p>
 

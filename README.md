@@ -163,13 +163,70 @@ It's a good practice to use a virtual environment to manage dependencies and avo
 
 ---
 
-## 🧪 Usage
+## 🧪 Usage Instructions
+Follow the steps below to generate and explore Euler circuits using Eulermation.
 
-_**To be added**_
+🔹 1. Launch the Application
+Make sure you have all dependencies installed. Then run the system:
+python run.py
+This starts the Flask server. Open your browser and go to [http://127.0.0.1:5000](http://127.0.0.1:5000).
 
-## 📸 Screenshots / Demo
+🔹 2. Navigate to the Main Page
+You’ll see the Graph Visualization Panel with an input field and control buttons.
 
-_**To be added**_
+🔹 3. Input Number of Vertices
+Enter a number between 3 and 8 into the "Number of Vertices" field.
+
+Example Input: 5
+🔹 4. Click “Generate”
+The system will:
+Create a valid Eulerian graph.
+Display labeled nodes (e.g., A, B, C, D, E).
+Draw edges connecting the nodes in a way that satisfies Euler circuit conditions.
+
+Sample Output:
+A dynamic graph showing:
+Nodes A–E
+A valid Euler circuit path
+Highlighted traversal animation
+
+🔹 5. View the Circuit Animation
+Watch the path traced over the edges showing the Euler circuit.
+The animation visually follows the circuit in real time.
+
+🔹 6. Download the Animation (MP4)
+Click "Download" to export the animation rendered using Manim.
+
+Output:
+euler\_circuit.mp4
+Located in the static/animations/ or download folder depending on your configuration.
+
+🔹 7. Explore Real-Life Example
+Click "Real-Life Example" to view a scenario based on the current circuit.
+
+Sample Output:
+A mailman must walk through all streets in a neighborhood exactly once, returning to the post office.
+
+🔹 8. Generate Another Example
+Click “Show Another Example” to get a new interpretation based on the same graph.
+
+🔹 9. Learn from the Tutorial
+Visit the Tutorial page from the navigation bar.
+
+Follow interactive guides on:
+
+Graph theory basics
+
+Euler’s theorems
+
+Circuit validation and construction
+
+🔹 10. Read About the Project
+Click the About page to learn more about:
+
+The system's purpose
+Educational goals
+Contributors
 
 ## 👥 Contributors
 

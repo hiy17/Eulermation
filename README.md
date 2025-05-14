@@ -178,6 +178,7 @@ You’ll see the Graph Visualization Panel with an input field and control butto
 Enter a number between 3 and 8 into the "Number of Vertices" field.
 
 Example Input: 5
+
 🔹 4. Click “Generate”
 The system will:
 Create a valid Eulerian graph.

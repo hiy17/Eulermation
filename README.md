@@ -218,9 +218,9 @@ Follow interactive guides on:
 
 Graph theory basics
 
-Euler’s theorems
+Identifying Euler Circuits
 
-Circuit validation and construction
+Creating Euler Circuits
 
 🔹 10. Read About the Project
 Click the About page to learn more about:

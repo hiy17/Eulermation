@@ -1,3 +1,5 @@
+flask
+vercel-wsgi
 annotated-types==0.7.0
 av==13.1.0
 beautifulsoup4==4.13.4
